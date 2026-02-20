@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+tnf-web/node_modules/
+
+# Next.js
+tnf-web/.next/
+tnf-web/out/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Build
+tnf-web/build/
+*.tsbuildinfo
+
+# Misc
+.DS_Store
+.vercel
