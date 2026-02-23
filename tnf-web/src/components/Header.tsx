@@ -33,7 +33,7 @@ export function Header() {
           />
         </Link>
 
-        <nav className="hidden md:flex md:min-w-0 md:flex-1 md:items-center md:justify-center md:gap-6 md:px-8 lg:gap-8 lg:px-12" aria-label="Main navigation">
+        <nav className="hidden md:flex md:min-w-0 md:flex-1 md:items-center md:justify-center md:gap-4 md:overflow-hidden md:px-6 lg:gap-6 lg:px-8" aria-label="Main navigation">
           {navItems.map((item) =>
             item.children?.length ? (
               <div
@@ -75,11 +75,11 @@ export function Header() {
           )}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-3 pl-4">
           <Search />
           <Link
             href="/contact"
-            className="hidden rounded-full bg-tnf-gold px-4 py-2 text-sm font-semibold text-tnf-navy transition-colors hover:bg-tnf-gold/90 sm:block"
+            className="hidden shrink-0 rounded-full bg-tnf-gold px-4 py-2 text-sm font-semibold text-tnf-navy transition-colors hover:bg-tnf-gold/90 sm:block"
           >
             Contact
           </Link>
