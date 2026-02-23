@@ -21,12 +21,41 @@ export const siteConfig = {
   },
   nav: [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
+    {
+      label: "About",
+      href: "/about",
+      children: [
+        { href: "/about", label: "Overview" },
+        { href: "/about/history", label: "History" },
+        { href: "/about/team", label: "Our Team" },
+        { href: "/about/faqs", label: "FAQs" },
+      ],
+    },
     { href: "/departments", label: "Departments" },
-    { href: "/work-areas", label: "Work Areas" },
+    {
+      label: "Work Areas",
+      href: "/work-areas",
+      children: [
+        { href: "/work-areas", label: "All Work Areas" },
+        { href: "/work-areas/client-service-charter", label: "Client Service Charter" },
+        { href: "/work-areas/social-dialogue-facilitation", label: "Social Dialogue" },
+        { href: "/work-areas/labour-relations", label: "Labour Relations" },
+        { href: "/work-areas/policy-consultation", label: "Policy Consultation" },
+        { href: "/work-areas/business-environment-enhancement", label: "Business Environment" },
+        { href: "/work-areas/public-engagement", label: "Public Engagement" },
+      ],
+    },
     { href: "/resources", label: "Resources" },
     { href: "/news-events", label: "News & Events" },
     { href: "/careers", label: "Careers" },
+    {
+      label: "Engage",
+      href: "/feedback",
+      children: [
+        { href: "/feedback", label: "Feedback" },
+        { href: "/whistleblower", label: "Whistleblower" },
+      ],
+    },
     { href: "/contact", label: "Contact" },
   ],
   workAreas: [

@@ -94,7 +94,7 @@ export default function ContactPage() {
           </div>
 
           <div>
-            <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+            <div className="mx-auto max-w-lg rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
               <h2 className="text-xl font-semibold text-tnf-navy">Send a Message</h2>
               {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
               {submitted ? (

@@ -19,7 +19,7 @@ export function Footer() {
               height={40}
               className="h-10 w-auto object-contain"
             />
-            <p className="mt-2 text-sm text-slate-300">{siteConfig.tagline}</p>
+            <p className="mt-2 text-sm text-slate-200">{siteConfig.tagline}</p>
           </div>
 
           <div>
@@ -27,7 +27,7 @@ export function Footer() {
             <ul className="mt-3 space-y-2">
               {siteConfig.nav.slice(1).map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-sm text-slate-300 hover:text-white">
+                  <Link href={item.href} className="text-sm text-slate-200 hover:text-white">
                     {item.label}
                   </Link>
                 </li>
@@ -39,12 +39,12 @@ export function Footer() {
             <h4 className="font-semibold text-white">Engage</h4>
             <ul className="mt-3 space-y-2">
               <li>
-                <Link href="/feedback" className="text-sm text-slate-300 hover:text-white">
+                <Link href="/feedback" className="text-sm text-slate-200 hover:text-white">
                   Feedback Portal
                 </Link>
               </li>
               <li>
-                <Link href="/whistleblower" className="text-sm text-slate-300 hover:text-white">
+                <Link href="/whistleblower" className="text-sm text-slate-200 hover:text-white">
                   Whistleblower
                 </Link>
               </li>
@@ -53,7 +53,7 @@ export function Footer() {
 
           <div>
             <h4 className="font-semibold text-white">Contact</h4>
-            <ul className="mt-3 space-y-2 text-sm text-slate-300">
+            <ul className="mt-3 space-y-2 text-sm text-slate-200">
               <li>{siteConfig.contact.phone}</li>
               <li>
                 <a href={`mailto:${siteConfig.contact.email}`} className="hover:text-white">
@@ -67,7 +67,7 @@ export function Footer() {
                 href={siteConfig.contact.social.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-400 hover:text-white"
+                className="text-slate-300 hover:text-white"
                 aria-label="Twitter"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -78,7 +78,7 @@ export function Footer() {
                 href={siteConfig.contact.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-400 hover:text-white"
+                className="text-slate-300 hover:text-white"
                 aria-label="Facebook"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -89,11 +89,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="-mx-[10mm] mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 px-[10mm] py-6 sm:flex-row">
-          <p className="text-center text-sm text-slate-300">
+        <div className="-mx-[10mm] mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/15 px-[10mm] py-6 sm:flex-row">
+          <p className="text-center text-sm text-slate-200">
             © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
-          <Link href="/admin" className="text-sm text-slate-400 hover:text-white">
+          <Link href="/admin" className="text-sm text-slate-300 hover:text-white">
             Admin
           </Link>
         </div>

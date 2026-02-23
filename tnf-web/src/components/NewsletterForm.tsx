@@ -16,12 +16,12 @@ export function NewsletterForm() {
   };
 
   return (
-    <div className="rounded-xl border border-white/20 bg-white/5 p-6">
+    <div className="mx-auto max-w-xl rounded-xl border border-white/20 bg-white/5 p-6">
       <h4 className="font-semibold text-white">Stay informed</h4>
       <p className="mt-2 text-sm text-slate-300">
         Get weekly updates, policy briefs, and event invitations in your inbox.
       </p>
-      <ul className="mt-3 space-y-1 text-sm text-slate-400">
+      <ul className="mt-3 space-y-1 text-sm text-slate-300">
         <li>• Latest TNF news and announcements</li>
         <li>• Upcoming events and dialogues</li>
         <li>• New reports and publications</li>

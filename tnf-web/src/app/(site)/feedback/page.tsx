@@ -32,7 +32,7 @@ export default function FeedbackPage() {
         </div>
       </div>
 
-      <div className="container-wide max-w-3xl py-16">
+      <div className="container-wide mx-auto max-w-xl py-16">
         {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
         {submitted ? (
           <div className="rounded-xl border border-green-200 bg-green-50 p-8 text-center">
