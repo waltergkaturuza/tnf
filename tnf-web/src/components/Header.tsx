@@ -33,7 +33,7 @@ export function Header() {
           />
         </Link>
 
-        <nav className="hidden md:flex md:min-w-0 md:flex-1 md:items-center md:justify-between md:px-8 lg:px-12" aria-label="Main navigation">
+        <nav className="hidden md:flex md:min-w-0 md:flex-1 md:items-center md:justify-center md:gap-6 md:px-8 lg:gap-8 lg:px-12" aria-label="Main navigation">
           {navItems.map((item) =>
             item.children?.length ? (
               <div
