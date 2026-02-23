@@ -9,8 +9,8 @@ import { Search } from "./Search";
 type NavItem = { href: string; label: string };
 type NavEntry = NavItem & { children?: NavItem[] };
 
-const linkClass = "rounded-md px-3 py-2 text-base font-bold text-slate-700 transition-colors hover:bg-tnf-navy/5 hover:text-tnf-navy whitespace-nowrap";
-const dropdownClass = "block w-full rounded-md px-3 py-2 text-left text-base text-slate-700 hover:bg-tnf-navy/5 hover:text-tnf-navy whitespace-nowrap";
+const linkClass = "rounded-md px-2 py-1.5 text-sm font-bold text-slate-700 transition-colors hover:bg-tnf-navy/5 hover:text-tnf-navy whitespace-nowrap md:px-2 lg:px-3 lg:py-2 lg:text-base";
+const dropdownClass = "block w-full rounded-md px-3 py-2 text-left text-sm text-slate-700 hover:bg-tnf-navy/5 hover:text-tnf-navy whitespace-nowrap lg:text-base";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -28,12 +28,12 @@ export function Header() {
             alt="TNF Tripartite Negotiating Forum"
             width={180}
             height={60}
-            className="h-12 w-auto object-contain sm:h-14"
+            className="h-10 w-auto object-contain sm:h-12 lg:h-14"
             priority
           />
         </Link>
 
-        <nav className="hidden md:flex md:min-w-0 md:flex-1 md:items-center md:justify-center md:gap-4 md:overflow-hidden md:px-6 lg:gap-6 lg:px-8" aria-label="Main navigation">
+        <nav className="hidden md:flex md:min-w-0 md:flex-1 md:items-center md:justify-center md:gap-1 md:overflow-hidden md:px-2 lg:gap-3 lg:px-4" aria-label="Main navigation">
           {navItems.map((item) =>
             item.children?.length ? (
               <div
@@ -47,7 +47,7 @@ export function Header() {
                   className={`${linkClass} flex items-center gap-0.5`}
                 >
                   {item.label}
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="h-3.5 w-3.5 shrink-0 lg:h-4 lg:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </Link>
@@ -75,11 +75,11 @@ export function Header() {
           )}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-3 pl-4">
+        <div className="flex shrink-0 items-center gap-2 pl-2 lg:gap-3 lg:pl-4">
           <Search />
           <Link
             href="/contact"
-            className="hidden shrink-0 rounded-full bg-tnf-gold px-4 py-2 text-sm font-semibold text-tnf-navy transition-colors hover:bg-tnf-gold/90 sm:block"
+            className="hidden shrink-0 rounded-full bg-tnf-gold px-3 py-1.5 text-sm font-semibold text-tnf-navy transition-colors hover:bg-tnf-gold/90 sm:block lg:px-4 lg:py-2"
           >
             Contact
           </Link>

@@ -45,7 +45,7 @@ export function Search() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex shrink-0 items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-500 hover:border-slate-300 hover:text-slate-700"
+        className="flex shrink-0 items-center gap-1.5 rounded-lg border border-slate-200 px-2 py-1.5 text-sm text-slate-500 hover:border-slate-300 hover:text-slate-700 lg:gap-2 lg:px-3 lg:py-2"
         aria-label="Search site (Ctrl+K)"
       >
         <svg className="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
