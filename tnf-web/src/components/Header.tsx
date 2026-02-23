@@ -9,8 +9,8 @@ import { Search } from "./Search";
 type NavItem = { href: string; label: string };
 type NavEntry = NavItem & { children?: NavItem[] };
 
-const linkClass = "rounded-md px-3 py-2 text-sm font-bold text-slate-700 transition-colors hover:bg-tnf-navy/5 hover:text-tnf-navy";
-const dropdownClass = "block w-full rounded-md px-3 py-2 text-left text-sm text-slate-700 hover:bg-tnf-navy/5 hover:text-tnf-navy whitespace-nowrap";
+const linkClass = "rounded-md px-3 py-2 text-base font-bold text-slate-700 transition-colors hover:bg-tnf-navy/5 hover:text-tnf-navy whitespace-nowrap";
+const dropdownClass = "block w-full rounded-md px-3 py-2 text-left text-base text-slate-700 hover:bg-tnf-navy/5 hover:text-tnf-navy whitespace-nowrap";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -21,8 +21,8 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
-      <div className="container-wide flex h-20 items-center justify-between sm:h-24">
-        <Link href="/" className="flex items-center">
+      <div className="container-wide flex h-20 items-center sm:h-24">
+        <Link href="/" className="flex shrink-0 items-center">
           <Image
             src="/tnf-logo.png"
             alt="TNF Tripartite Negotiating Forum"
@@ -33,7 +33,7 @@ export function Header() {
           />
         </Link>
 
-        <nav className="hidden md:flex md:flex-1 md:items-center md:justify-evenly md:gap-2" aria-label="Main navigation">
+        <nav className="hidden md:flex md:min-w-0 md:flex-1 md:items-center md:justify-between md:px-8 lg:px-12" aria-label="Main navigation">
           {navItems.map((item) =>
             item.children?.length ? (
               <div
@@ -75,7 +75,7 @@ export function Header() {
           )}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <Search />
           <Link
             href="/contact"
