@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
@@ -15,14 +16,14 @@ const resourceCategories = [
 ];
 
 const placeholderResources = [
-  { title: "TNF Annual Report 2024", category: "Annual Reports", year: "2024" },
-  { title: "TNF Annual Report 2023", category: "Annual Reports", year: "2023" },
-  { title: "TNF Strategic Plan 2024-2028", category: "Strategic Plans", year: "2024" },
-  { title: "TNF Two-Year Strategic Plan 2024-2026", category: "Strategic Plans", year: "2024" },
-  { title: "Annual Performance Plan 2024", category: "Annual Performance Plans", year: "2024" },
-  { title: "TNF Reports and Plans", category: "TNF Reports and Plans", year: "2024" },
-  { title: "Labour Market Policy Brief", category: "Policy Papers", year: "2024" },
-  { title: "Social Contract Negotiation Update", category: "Press Releases", year: "2024" },
+  { title: "TNF Annual Report 2024", category: "Annual Reports", year: "2024", type: "PDF", size: "2.4 MB", thumbnail: "/file.svg" },
+  { title: "TNF Annual Report 2023", category: "Annual Reports", year: "2023", type: "PDF", size: "1.8 MB", thumbnail: "/file.svg" },
+  { title: "TNF Strategic Plan 2024-2028", category: "Strategic Plans", year: "2024", type: "PDF", size: "1.2 MB", thumbnail: "/file.svg" },
+  { title: "TNF Two-Year Strategic Plan 2024-2026", category: "Strategic Plans", year: "2024", type: "PDF", size: "890 KB", thumbnail: "/file.svg" },
+  { title: "Annual Performance Plan 2024", category: "Annual Performance Plans", year: "2024", type: "PDF", size: "650 KB", thumbnail: "/file.svg" },
+  { title: "TNF Reports and Plans", category: "TNF Reports and Plans", year: "2024", type: "PDF", size: "1.1 MB", thumbnail: "/file.svg" },
+  { title: "Labour Market Policy Brief", category: "Policy Papers", year: "2024", type: "PDF", size: "420 KB", thumbnail: "/file.svg" },
+  { title: "Social Contract Negotiation Update", category: "Press Releases", year: "2024", type: "PDF", size: "180 KB", thumbnail: "/file.svg" },
 ];
 
 export default function ResourcesPage() {
@@ -85,26 +86,46 @@ export default function ResourcesPage() {
               />
             </div>
 
-            <div className="space-y-4">
+            <div className="grid gap-4 sm:grid-cols-2">
               {placeholderResources
                 .filter((r) => filter === "All" || r.category === filter)
                 .map((resource) => (
                   <div
                     key={resource.title}
-                    className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+                    className="flex overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md"
                   >
-                    <div>
-                      <h3 className="font-semibold text-tnf-navy">{resource.title}</h3>
-                      <p className="mt-1 text-sm text-slate-500">
-                        {resource.category} · {resource.year}
-                      </p>
+                    <div className="flex h-28 w-24 shrink-0 items-center justify-center bg-slate-100">
+                      <Image
+                        src={resource.thumbnail}
+                        alt=""
+                        width={48}
+                        height={48}
+                        className="opacity-60"
+                      />
                     </div>
-                    <Link
-                      href="#"
-                      className="inline-flex items-center rounded-full bg-tnf-navy px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-tnf-navy-light"
-                    >
-                      Download
-                    </Link>
+                    <div className="flex flex-1 flex-col justify-between p-4">
+                      <div>
+                        <h3 className="font-semibold text-tnf-navy line-clamp-2">{resource.title}</h3>
+                        <p className="mt-1.5 flex flex-wrap gap-x-2 gap-y-0.5 text-xs text-slate-500">
+                          <span>{resource.category}</span>
+                          <span>·</span>
+                          <span>{resource.year}</span>
+                          <span>·</span>
+                          <span>{resource.type}</span>
+                          <span>·</span>
+                          <span>{resource.size}</span>
+                        </p>
+                      </div>
+                      <Link
+                        href="#"
+                        className="mt-3 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-tnf-gold hover:text-tnf-navy"
+                      >
+                        Download
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                      </Link>
+                    </div>
                   </div>
                 ))}
             </div>

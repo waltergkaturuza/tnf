@@ -130,4 +130,21 @@ export const siteConfig = {
     "National Social Security Authority",
     "Development Partners (e.g. ILO)",
   ],
+  partners: [
+    { name: "Government of Zimbabwe", logo: "/partners/gov.svg", href: "#" },
+    { name: "Organised Labour", logo: "/partners/labour.svg", href: "#" },
+    { name: "Organised Business", logo: "/partners/business.svg", href: "#" },
+    { name: "ILO", logo: "/partners/ilo.svg", href: "https://www.ilo.org" },
+    { name: "NSSA", logo: "/partners/nssa.svg", href: "#" },
+  ],
+  galleryImages: [
+    { src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&h=400&fit=crop", alt: "TNF dialogue session", caption: "Social dialogue in action" },
+    { src: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=400&fit=crop", alt: "Stakeholder meeting", caption: "Tripartite consultation" },
+    { src: "https://images.unsplash.com/photo-1573164713988-8665fc963095?w=600&h=400&fit=crop", alt: "Policy workshop", caption: "Policy consultation workshop" },
+    { src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop", alt: "TNF event", caption: "TNF annual retreat" },
+  ],
+  videos: [
+    { id: "chair-message", title: "Message from the Chair", description: "Hon. Edgar Moyo on TNF priorities", embedId: "", placeholder: true },
+    { id: "tnf-2min", title: "TNF in 2 Minutes", description: "Quick overview of the Tripartite Negotiating Forum", embedId: "", placeholder: true },
+  ],
 };
