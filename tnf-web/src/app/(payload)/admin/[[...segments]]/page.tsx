@@ -11,7 +11,10 @@ type Args = {
 export const generateMetadata = ({ params, searchParams }: Args): Promise<Metadata> =>
   generatePageMetadata({ config, params, searchParams });
 
-const Page = ({ params, searchParams }: Args) =>
-  RootPage({ config, params, searchParams, importMap });
+const Page = async ({ params, searchParams }: Args) => {
+  const resolved = await params;
+  const paramsWithSegments = Promise.resolve({ segments: resolved.segments ?? [] });
+  return RootPage({ config, params: paramsWithSegments, searchParams, importMap });
+};
 
 export default Page;

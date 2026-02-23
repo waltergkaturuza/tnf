@@ -1,13 +1,24 @@
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig } from "@/lib/site-config";
+import { NewsletterForm } from "./NewsletterForm";
 
 export function Footer() {
   return (
     <footer className="border-t border-slate-200/30 bg-[#273E5D]">
       <div className="container-wide py-12">
+        <div className="mb-12 lg:mb-16">
+          <NewsletterForm />
+        </div>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <h3 className="font-semibold text-white">{siteConfig.name}</h3>
+            <Image
+              src="/tnf-logo.png"
+              alt="TNF Tripartite Negotiating Forum"
+              width={120}
+              height={40}
+              className="h-10 w-auto object-contain"
+            />
             <p className="mt-2 text-sm text-slate-300">{siteConfig.tagline}</p>
           </div>
 

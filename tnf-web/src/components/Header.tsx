@@ -1,22 +1,26 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { siteConfig } from "@/lib/site-config";
+import { Search } from "./Search";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
-      <div className="container-wide flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-lg font-bold tracking-tight text-tnf-navy">
-            {siteConfig.shortName}
-          </span>
-          <span className="hidden text-sm text-slate-600 sm:inline">
-            Tripartite Negotiating Forum
-          </span>
+      <div className="container-wide flex h-20 items-center justify-between sm:h-24">
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/tnf-logo.png"
+            alt="TNF Tripartite Negotiating Forum"
+            width={180}
+            height={60}
+            className="h-12 w-auto object-contain sm:h-14"
+            priority
+          />
         </Link>
 
         <nav className="hidden md:flex md:items-center md:gap-1">
@@ -32,6 +36,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <Search />
           <Link
             href="/contact"
             className="hidden rounded-full bg-tnf-gold px-4 py-2 text-sm font-semibold text-tnf-navy transition-colors hover:bg-tnf-gold/90 sm:block"

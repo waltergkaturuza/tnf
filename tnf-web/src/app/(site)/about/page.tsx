@@ -1,5 +1,6 @@
 import { siteConfig } from "@/lib/site-config";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata = {
   title: "About TNF",
@@ -19,7 +20,8 @@ export default function AboutPage() {
     <div>
       <div className="bg-tnf-navy py-16">
         <div className="container-wide">
-          <h1 className="text-4xl font-bold text-white sm:text-5xl">About TNF</h1>
+          <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} variant="light" />
+          <h1 className="mt-2 text-4xl font-bold text-white sm:text-5xl">About TNF</h1>
           <p className="mt-4 max-w-2xl text-lg text-slate-200">
             The cornerstone of social dialogue in Zimbabwe since 1998.
           </p>
@@ -90,6 +92,22 @@ export default function AboutPage() {
             <li>International Labour Conventions</li>
           </ul>
 
+          <h2>Structure of the TNF</h2>
+          <div className="not-prose my-8 space-y-6">
+            <div className="rounded-xl border border-slate-200 p-6">
+              <h3 className="font-semibold text-tnf-navy">Main TNF</h3>
+              <p className="mt-2 text-slate-600">The apex body, chaired by the Minister of Public Service, Labour and Social Welfare. It has 21 members and 2 observers (7 from Organised Labour, 7 from Organised Business, 7 Government members). It deliberates on reports from the Technical Committee and makes recommendations to Cabinet.</p>
+            </div>
+            <div className="rounded-xl border border-slate-200 p-6">
+              <h3 className="font-semibold text-tnf-navy">Technical Committee</h3>
+              <p className="mt-2 text-slate-600">Chaired by a Deputy Chief Secretary to the President and Cabinet. Operates in clusters (Labour, Economic, Social). Carries out research and prepares documents for discussion in the Main TNF.</p>
+            </div>
+            <div className="rounded-xl border border-slate-200 p-6">
+              <h3 className="font-semibold text-tnf-navy">Management Committee</h3>
+              <p className="mt-2 text-slate-600">Representatives from Government, Organised Business, and Organised Labour. Oversees Secretariat operations and sets the agenda for Main TNF meetings.</p>
+            </div>
+          </div>
+
           <div className="mt-12 rounded-xl border border-tnf-gold/30 bg-tnf-gold/5 p-6">
             <h3 className="font-semibold text-tnf-navy">TNF Act 2019</h3>
             <p className="mt-2 text-sm text-slate-600">
@@ -107,7 +125,19 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <div className="mt-16">
+        <div className="mt-16 flex flex-wrap gap-4">
+          <Link href="/about/history" className="inline-flex items-center text-sm font-medium text-tnf-gold hover:text-tnf-navy">
+            Our History →
+          </Link>
+          <Link href="/about/team" className="inline-flex items-center text-sm font-medium text-tnf-gold hover:text-tnf-navy">
+            Our Team →
+          </Link>
+          <Link href="/about/faqs" className="inline-flex items-center text-sm font-medium text-tnf-gold hover:text-tnf-navy">
+            FAQs →
+          </Link>
+          <Link href="/departments" className="inline-flex items-center text-sm font-medium text-tnf-gold hover:text-tnf-navy">
+            Departments →
+          </Link>
           <Link
             href="/work-areas"
             className="inline-flex items-center rounded-full bg-tnf-navy px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-tnf-navy-light"

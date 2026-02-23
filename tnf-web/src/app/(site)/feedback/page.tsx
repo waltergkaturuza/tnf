@@ -11,11 +11,13 @@ const labourCategories = ["Price and Incomes", "Social Insurance", "Decent work"
 export default function FeedbackPage() {
   const [type, setType] = useState<"economic" | "social" | "labour">("economic");
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const categories = type === "economic" ? economicCategories : type === "social" ? socialCategories : labourCategories;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
     setSubmitted(true);
   };
 

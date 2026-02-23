@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 const newsItems = [
   {
@@ -40,7 +41,8 @@ export default function NewsEventsPage() {
     <div>
       <div className="bg-tnf-navy py-16">
         <div className="container-wide">
-          <h1 className="text-4xl font-bold text-white sm:text-5xl">News & Events</h1>
+          <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "News & Events" }]} variant="light" />
+          <h1 className="mt-2 text-4xl font-bold text-white sm:text-5xl">News & Events</h1>
           <p className="mt-4 max-w-2xl text-lg text-slate-200">
             Insights, updates, and upcoming TNF activities.
           </p>

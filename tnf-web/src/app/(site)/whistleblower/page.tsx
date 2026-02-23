@@ -8,9 +8,11 @@ const incidentTypes = ["Corruption", "Fraud", "Misuse of Resources", "Policy Vio
 
 export default function WhistleblowerPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
     setSubmitted(true);
   };
 

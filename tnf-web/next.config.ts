@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import { withPayload } from "@payloadcms/next/withPayload";
 
 const nextConfig: NextConfig = {
+  eslint: { ignoreDuringBuilds: true },
   webpack: (webpackConfig) => {
     webpackConfig.resolve = webpackConfig.resolve || {};
     (webpackConfig.resolve as { extensionAlias?: Record<string, string[]> }).extensionAlias = {

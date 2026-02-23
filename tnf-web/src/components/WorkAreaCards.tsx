@@ -18,7 +18,7 @@ export function WorkAreaCards() {
             <div
               key={area.id}
             >
-              <Link href={`/work-areas#${area.slug}`}>
+              <Link href={`/work-areas/${area.slug}`}>
                 <div className="group h-full rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:border-tnf-gold/50 hover:shadow-lg">
                   <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-tnf-navy/10 text-tnf-navy">
                     <span className="text-sm font-bold">{String(i + 1).padStart(2, "0")}</span>

@@ -2,20 +2,27 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 const resourceCategories = [
   "All",
   "Annual Reports",
   "Strategic Plans",
+  "Annual Performance Plans",
+  "TNF Reports and Plans",
   "Policy Papers",
   "Press Releases",
 ];
 
 const placeholderResources = [
-  { title: "TNF Annual Report 2024", category: "Annual Reports", year: "2024", type: "PDF" },
-  { title: "TNF Strategic Plan 2024-2028", category: "Strategic Plans", year: "2024", type: "PDF" },
-  { title: "Labour Market Policy Brief", category: "Policy Papers", year: "2024", type: "PDF" },
-  { title: "Social Contract Negotiation Update", category: "Press Releases", year: "2024", type: "PDF" },
+  { title: "TNF Annual Report 2024", category: "Annual Reports", year: "2024" },
+  { title: "TNF Annual Report 2023", category: "Annual Reports", year: "2023" },
+  { title: "TNF Strategic Plan 2024-2028", category: "Strategic Plans", year: "2024" },
+  { title: "TNF Two-Year Strategic Plan 2024-2026", category: "Strategic Plans", year: "2024" },
+  { title: "Annual Performance Plan 2024", category: "Annual Performance Plans", year: "2024" },
+  { title: "TNF Reports and Plans", category: "TNF Reports and Plans", year: "2024" },
+  { title: "Labour Market Policy Brief", category: "Policy Papers", year: "2024" },
+  { title: "Social Contract Negotiation Update", category: "Press Releases", year: "2024" },
 ];
 
 export default function ResourcesPage() {
@@ -26,9 +33,10 @@ export default function ResourcesPage() {
     <div>
       <div className="bg-tnf-navy py-16">
         <div className="container-wide">
-          <h1 className="text-4xl font-bold text-white sm:text-5xl">Resources</h1>
+          <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Resources" }]} variant="light" />
+          <h1 className="mt-2 text-4xl font-bold text-white sm:text-5xl">Plans & Reports</h1>
           <p className="mt-4 max-w-2xl text-lg text-slate-200">
-            Reports, strategic plans, policy papers, and press releases.
+            Annual reports, strategic plans, performance plans, policy papers, and press releases.
           </p>
         </div>
       </div>

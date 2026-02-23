@@ -1,5 +1,6 @@
 import { siteConfig } from "@/lib/site-config";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata = {
   title: "Work Areas",
@@ -11,7 +12,8 @@ export default function WorkAreasPage() {
     <div>
       <div className="bg-tnf-navy py-16">
         <div className="container-wide">
-          <h1 className="text-4xl font-bold text-white sm:text-5xl">Work Areas</h1>
+          <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Work Areas" }]} variant="light" />
+          <h1 className="mt-2 text-4xl font-bold text-white sm:text-5xl">Work Areas</h1>
           <p className="mt-4 max-w-2xl text-lg text-slate-200">
             Key focus areas where TNF facilitates dialogue and drives policy outcomes.
           </p>
@@ -33,15 +35,20 @@ export default function WorkAreasPage() {
                 <div>
                   <h2 className="text-2xl font-bold text-tnf-navy">{area.title}</h2>
                   <p className="mt-4 text-slate-600">{area.description}</p>
-                  <Link
-                    href="/resources"
-                    className="mt-4 inline-flex items-center text-sm font-medium text-tnf-gold hover:text-tnf-navy"
-                  >
-                    View related documents
-                    <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
+                  <div className="mt-4 flex gap-4">
+                    <Link
+                      href={`/work-areas/${area.slug}`}
+                      className="inline-flex items-center text-sm font-medium text-tnf-gold hover:text-tnf-navy"
+                    >
+                      Learn more
+                      <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                    <Link href="/resources" className="text-sm font-medium text-slate-600 hover:text-tnf-navy">
+                      Related documents
+                    </Link>
+                  </div>
                 </div>
               </div>
             </section>
