@@ -9,6 +9,9 @@ import { LatestNews } from "@/components/LatestNews";
 import { UpcomingEvents } from "@/components/UpcomingEvents";
 import { CTASection } from "@/components/CTASection";
 
+// Avoid 60s Vercel static export timeout (external gallery images, many components)
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <>
