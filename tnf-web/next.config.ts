@@ -4,9 +4,7 @@ import { withPayload } from "@payloadcms/next/withPayload";
 const nextConfig: NextConfig = {
   eslint: { ignoreDuringBuilds: true },
   images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
-    ],
+    remotePatterns: [],
   },
   webpack: (webpackConfig) => {
     webpackConfig.resolve = webpackConfig.resolve || {};
