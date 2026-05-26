@@ -1,3 +1,4 @@
+import "dotenv/config";
 import path from "path";
 import { fileURLToPath } from "url";
 import { buildConfig } from "payload";
@@ -5,12 +6,12 @@ import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import sharp from "sharp";
 
-import { Users } from "./collections/Users";
-import { Media } from "./collections/Media";
-import { Posts } from "./collections/Posts";
-import { Events } from "./collections/Events";
-import { Resources } from "./collections/Resources";
-import { FormSubmissions } from "./collections/FormSubmissions";
+import { Users } from "./collections/Users.js";
+import { Media } from "./collections/Media.js";
+import { Posts } from "./collections/Posts.js";
+import { Events } from "./collections/Events.js";
+import { Resources } from "./collections/Resources.js";
+import { FormSubmissions } from "./collections/FormSubmissions.js";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);

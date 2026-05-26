@@ -2,13 +2,15 @@
   "name": "tnf-web",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "payload:migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
+    "payload:migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate --config src/payload.config.ts",
+    "payload:migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create",
     "db:schema": "echo Run scripts/create-tnf-schema.sql in Supabase SQL Editor first"
   },
   "dependencies": {

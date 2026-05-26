@@ -43,13 +43,23 @@ Remove or stop using **`MONGODB_URI`** after migration.
 
 ## 3. Run migrations
 
-From `tnf-web/`:
+From `tnf-web/`, set **`.env`** to Postgres (not MongoDB):
+
+```env
+DATABASE_URI=<your POSTGRES_URL_NON_POOLING from Supabase, port 5432>
+POSTGRES_SCHEMA=tnf
+PAYLOAD_SECRET=your-secret
+```
+
+Then:
 
 ```bash
-npm run payload migrate
+npm run payload:migrate
 ```
 
 This creates Payload tables under the `tnf` schema (e.g. `tnf.users`, `tnf.posts`).
+
+If you see `ECONNREFUSED 127.0.0.1:27017`, your `.env` still has a `mongodb://` URI — replace it with the Supabase Postgres URL.
 
 ## 4. Create admin user
 
