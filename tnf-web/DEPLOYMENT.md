@@ -1,6 +1,8 @@
 # TNF Website – Vercel Deployment Guide
 
-Deploy the TNF Next.js site to Vercel with Payload CMS and MongoDB.
+Deploy the TNF Next.js site to Vercel with Payload CMS and **Supabase (PostgreSQL)**.
+
+CMS data lives in the **`tnf`** schema in your shared Supabase database. See [docs/SUPABASE.md](docs/SUPABASE.md) for full setup.
 
 ---
 
@@ -8,21 +10,17 @@ Deploy the TNF Next.js site to Vercel with Payload CMS and MongoDB.
 
 - [GitHub](https://github.com) account (repo: `waltergkaturuza/tnf`)
 - [Vercel](https://vercel.com) account
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) cluster (or other MongoDB hosting)
+- [Supabase](https://supabase.com) project with Postgres enabled
 
 ---
 
-## 1. MongoDB Setup (Production)
+## 1. Supabase setup
 
-1. Create a [MongoDB Atlas](https://cloud.mongodb.com) account (free tier works).
-2. Create a cluster and a database (e.g. `tnf`).
-3. **Database Access:** Create a user with read/write permissions.
-4. **Network Access:** Add `0.0.0.0/0` to allow Vercel serverless connections.
-5. **Connection string:** In Atlas → Connect → Drivers → Copy URI:
-   ```
-   mongodb+srv://USER:PASSWORD@cluster.xxxxx.mongodb.net/tnf?retryWrites=true&w=majority
-   ```
-   Replace `USER`, `PASSWORD`, and cluster host with your values.
+1. Run `tnf-web/scripts/create-tnf-schema.sql` in Supabase **SQL Editor** (creates schema `tnf`).
+2. Link the project in Vercel (or copy connection strings from Supabase → Settings → Database).
+3. Set **`DATABASE_URI`** to your Postgres URL (pooler URL for Vercel runtime).
+4. Set **`POSTGRES_SCHEMA`** = `tnf` (optional; defaults to `tnf`).
+5. Run migrations locally or in CI: `npm run payload:migrate` (use **non-pooling** URL, port 5432).
 
 ---
 
@@ -33,14 +31,15 @@ Deploy the TNF Next.js site to Vercel with Payload CMS and MongoDB.
 | Variable | Description | Example |
 |----------|-------------|---------|
 | `PAYLOAD_SECRET` | Secret key for Payload (min 32 chars) | `a-random-32-char-string-for-production` |
-| `DATABASE_URI` | MongoDB connection string | `mongodb+srv://...` |
+| `DATABASE_URI` | Supabase Postgres connection string | `postgres://...` |
 
 ### Optional
 
 | Variable | Description |
 |----------|-------------|
-| `MONGODB_URI` | Alternative to `DATABASE_URI` |
-| `NEXT_PUBLIC_SERVER_URL` | Full site URL (for Payload media, webhooks) – e.g. `https://tnfzim.com` |
+| `POSTGRES_SCHEMA` | Postgres schema name (default: `tnf`) |
+| `POSTGRES_URL` / `POSTGRES_URL_NON_POOLING` | Vercel Supabase integration aliases |
+| `NEXT_PUBLIC_SERVER_URL` | Single site URL – e.g. `https://tnfzim.com` (no commas) |
 
 ### Generate PAYLOAD_SECRET
 
@@ -63,8 +62,9 @@ Or use any random 32+ character string (e.g. from a password generator).
 4. **Framework Preset:** Next.js (auto-detected).
 5. **Environment Variables:**
    - Add `PAYLOAD_SECRET`
-   - Add `DATABASE_URI`
-   - (Optional) Add `NEXT_PUBLIC_SERVER_URL` = `https://your-domain.vercel.app` or `https://tnfzim.com`
+   - Add `DATABASE_URI` (Supabase `POSTGRES_URL` pooler string)
+   - Add `POSTGRES_SCHEMA` = `tnf`
+   - Add `NEXT_PUBLIC_SERVER_URL` = one URL only (e.g. `https://tnfzim.com`)
 6. Click **Deploy**.
 
 ### Option B: Vercel CLI
@@ -120,7 +120,8 @@ vercel env add DATABASE_URI
 | Issue | Fix |
 |-------|-----|
 | Build fails – `DATABASE_URI` | Ensure env var is set for Production (and Preview if desired). |
-| Admin 500 / DB errors | Check MongoDB Atlas Network Access allows `0.0.0.0/0`. |
+| Admin 500 / DB errors | Run `create-tnf-schema.sql`; check `POSTGRES_SCHEMA=tnf`; verify pooler URL. |
+| Migrations fail | Use `POSTGRES_URL_NON_POOLING` (port 5432) as `DATABASE_URI` when running `npm run payload:migrate`. |
 | Images not loading | Add `NEXT_PUBLIC_SERVER_URL` with the correct domain. |
 | CORS / API errors | Payload reads `NEXT_PUBLIC_SERVER_URL`; set it to your live URL. |
 
@@ -137,7 +138,8 @@ Once connected to GitHub, Vercel will:
 
 ## 8. Checklist Before Go-Live
 
-- [ ] MongoDB Atlas cluster created and accessible
+- [ ] Supabase `tnf` schema created (`scripts/create-tnf-schema.sql`)
+- [ ] Payload migrations run (`npm run payload:migrate`)
 - [ ] `PAYLOAD_SECRET` and `DATABASE_URI` set in Vercel
 - [ ] First admin user created at `/admin`
 - [ ] Custom domain configured (if using tnfzim.com)

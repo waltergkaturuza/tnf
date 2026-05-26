@@ -1,7 +1,7 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import { buildConfig } from "payload";
-import { mongooseAdapter } from "@payloadcms/db-mongodb";
+import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import sharp from "sharp";
 
@@ -31,8 +31,16 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },
-  db: mongooseAdapter({
-    url: process.env.DATABASE_URI || process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/tnf",
+  db: postgresAdapter({
+    pool: {
+      connectionString:
+        process.env.DATABASE_URI ||
+        process.env.POSTGRES_URL_NON_POOLING ||
+        process.env.POSTGRES_URL ||
+        process.env.POSTGRES_PRISMA_URL ||
+        "",
+    },
+    schemaName: process.env.POSTGRES_SCHEMA || "tnf",
   }),
   sharp,
   plugins: [],

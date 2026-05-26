@@ -1,0 +1,71 @@
+# TNF on Supabase (PostgreSQL)
+
+TNF uses **Payload CMS** with the Postgres adapter. All CMS tables live in the **`tnf`** schema inside your shared Supabase database, so other projects can keep using `public` or their own schemas.
+
+## Security
+
+- Never commit `.env` or paste database passwords in chat.
+- If credentials were exposed, **rotate the Supabase database password** and regenerate API keys in the Supabase dashboard.
+
+## 1. Create the `tnf` schema
+
+In Supabase → **SQL Editor**, run:
+
+`tnf-web/scripts/create-tnf-schema.sql`
+
+Or:
+
+```sql
+CREATE SCHEMA IF NOT EXISTS tnf;
+```
+
+## 2. Environment variables (Vercel / local)
+
+| Variable | Purpose |
+|----------|---------|
+| `PAYLOAD_SECRET` | Payload auth secret (min 32 chars) |
+| `DATABASE_URI` | Postgres connection string |
+| `POSTGRES_SCHEMA` | `tnf` (default if omitted) |
+| `NEXT_PUBLIC_SERVER_URL` | Single site URL, e.g. `https://tnfzim.com` |
+
+**Recommended `DATABASE_URI` values:**
+
+| Use case | Variable from Supabase |
+|----------|----------------------|
+| Migrations (`payload migrate`) | `POSTGRES_URL_NON_POOLING` (port **5432**) |
+| Vercel runtime | `POSTGRES_URL` or `POSTGRES_PRISMA_URL` (pooler, port **6543**) |
+
+Set **`DATABASE_URI`** to the appropriate URL for each environment. For local dev, use the non-pooling URL when running migrations, then the pooler URL for `npm run dev` if you prefer.
+
+**Fix `NEXT_PUBLIC_SERVER_URL`:** use one URL only (no comma-separated list).
+
+Remove or stop using **`MONGODB_URI`** after migration.
+
+## 3. Run migrations
+
+From `tnf-web/`:
+
+```bash
+npm run payload migrate
+```
+
+This creates Payload tables under the `tnf` schema (e.g. `tnf.users`, `tnf.posts`).
+
+## 4. Create admin user
+
+Visit `/admin` on your site and create the first user, or use Payload’s seed flow if you add one.
+
+## 5. Verify in Supabase
+
+Table Editor → schema dropdown → select **`tnf`**. You should see Payload collections (`users`, `media`, `posts`, etc.).
+
+## Migrating data from MongoDB
+
+There is no automatic migration in this repo. Options:
+
+1. Re-enter content via `/admin` (simplest for a new site).
+2. Export MongoDB JSON and write a one-off import script into Payload’s Local API.
+
+## Optional: Supabase Storage for media
+
+Media files are still stored on the server filesystem by default. For production, consider `@payloadcms/storage-s3` pointed at Supabase Storage (S3-compatible).
