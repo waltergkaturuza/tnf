@@ -122,6 +122,7 @@ vercel env add DATABASE_URI
 | Build fails – `DATABASE_URI` | Ensure env var is set for Production (and Preview if desired). |
 | Admin 500 / DB errors | Run `create-tnf-schema.sql`; check `POSTGRES_SCHEMA=tnf`; verify pooler URL. |
 | Migrations fail | Use `POSTGRES_URL_NON_POOLING` (port 5432) as `DATABASE_URI` when running `npm run payload:migrate`. |
+| `self-signed certificate in certificate chain` on Vercel | Use Supabase **pooler** URL as `DATABASE_URI`; redeploy after latest code (auto SSL for Supabase). Or set `DATABASE_SSL_NO_VERIFY=true`. |
 | Images not loading | Add `NEXT_PUBLIC_SERVER_URL` with the correct domain. |
 | CORS / API errors | Payload reads `NEXT_PUBLIC_SERVER_URL`; set it to your live URL. |
 

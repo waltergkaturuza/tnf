@@ -27,6 +27,8 @@ CREATE SCHEMA IF NOT EXISTS tnf;
 | `DATABASE_URI` | Postgres connection string |
 | `POSTGRES_SCHEMA` | `tnf` (default if omitted) |
 | `NEXT_PUBLIC_SERVER_URL` | Single site URL, e.g. `https://tnfzim.com` |
+| `DATABASE_SSL_NO_VERIFY` | Optional. `true` = force relaxed SSL. Set on Vercel if admin still fails after deploy. |
+| `DATABASE_SSL_STRICT` | Optional. `true` = strict certificate verification (default off on Vercel) |
 
 **Recommended `DATABASE_URI` values:**
 
@@ -60,6 +62,10 @@ npm run payload:migrate
 This creates Payload tables under the `tnf` schema (e.g. `tnf.users`, `tnf.posts`).
 
 If you see `ECONNREFUSED 127.0.0.1:27017`, your `.env` still has a `mongodb://` URI — replace it with the Supabase Postgres URL.
+
+### Vercel: `self-signed certificate in certificate chain`
+
+On Vercel, use the **pooler** URL (port **6543**) as `DATABASE_URI`. SSL is relaxed automatically on Vercel. **Redeploy after pushing code.** If it still fails, add `DATABASE_SSL_NO_VERIFY=true` on Vercel → Production → redeploy again.
 
 ## 4. Create admin user
 

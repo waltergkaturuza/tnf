@@ -8,12 +8,12 @@ A modern, content-driven Next.js site for the Tripartite Negotiating Forum (Zimb
 - **Payload CMS 3** (headless CMS, admin at `/admin`)
 - **TypeScript**
 - **Tailwind CSS v4**
-- **MongoDB** (via Mongoose adapter)
+- **PostgreSQL** (Supabase, `tnf` schema via Postgres adapter)
 
 ## Prerequisites
 
 - Node.js 18+
-- MongoDB (local or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) free tier)
+- [Supabase](https://supabase.com) project with Postgres (see `docs/SUPABASE.md`)
 
 ## Getting Started
 
@@ -29,10 +29,17 @@ Copy `.env.example` to `.env` and set:
 
 ```
 PAYLOAD_SECRET=your-secret-min-32-characters-long
-DATABASE_URI=mongodb://127.0.0.1:27017/tnf
+DATABASE_URI=<Supabase POSTGRES_URL_NON_POOLING, port 5432>
+POSTGRES_SCHEMA=tnf
 ```
 
-For production, use a secure `PAYLOAD_SECRET` and a proper MongoDB URI.
+In Supabase → **SQL Editor**, run `scripts/create-tnf-schema.sql`, then:
+
+```bash
+npm run payload:migrate
+```
+
+For production, use a secure `PAYLOAD_SECRET` and the Supabase pooler URL as `DATABASE_URI` on Vercel.
 
 ### 3. Run development server
 

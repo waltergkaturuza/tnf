@@ -17,4 +17,5 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withPayload(nextConfig, { devBundleServerPackages: false });
+// Bundle Payload server packages in dev to avoid missing admin chunks (404 on /admin)
+export default withPayload(nextConfig, { devBundleServerPackages: true });
