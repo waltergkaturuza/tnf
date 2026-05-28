@@ -18,6 +18,11 @@ export const dynamic = "force-dynamic";
 // When segments is undefined (/admin root), Payload formats the path as null → /admin.
 // When segments is [] it formats as /admin/ which fails the dashboard route match.
 const Page = ({ params, searchParams }: Args) =>
-  RootPage({ config, importMap, params, searchParams });
+  RootPage({
+    config,
+    importMap,
+    params: params as Promise<{ segments: string[] }>,
+    searchParams,
+  });
 
 export default Page;
