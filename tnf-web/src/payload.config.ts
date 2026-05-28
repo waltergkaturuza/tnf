@@ -1,4 +1,17 @@
 import "dotenv/config";
+
+// Supabase uses a self-signed cert chain that Node rejects by default.
+// This must run before any pg connection is opened.
+// On Vercel: set DATABASE_SSL_NO_VERIFY=true in Environment Variables.
+// Never set this on truly untrusted databases.
+if (
+  process.env.DATABASE_SSL_NO_VERIFY === "true" ||
+  process.env.VERCEL === "1" ||
+  process.env.VERCEL_ENV
+) {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+}
+
 import path from "path";
 import { fileURLToPath } from "url";
 import { buildConfig } from "payload";
