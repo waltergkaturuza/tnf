@@ -46,7 +46,7 @@ export const siteConfig = {
       ],
     },
     { href: "/resources", label: "Resources" },
-    { href: "/news-events", label: "News & Events" },
+    { href: "/news-events", label: "Updates & Events" },
     { href: "/careers", label: "Careers" },
     {
       label: "Engage",

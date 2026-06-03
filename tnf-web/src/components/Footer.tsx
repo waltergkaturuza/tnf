@@ -7,9 +7,6 @@ export function Footer() {
   return (
     <footer className="border-t border-slate-200/30 bg-[#273E5D]">
       <div className="container-wide py-12">
-        <div className="mb-12 lg:mb-16">
-          <NewsletterForm />
-        </div>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <Image
@@ -49,6 +46,7 @@ export function Footer() {
                 </Link>
               </li>
             </ul>
+            <NewsletterForm variant="footer" />
           </div>
 
           <div>

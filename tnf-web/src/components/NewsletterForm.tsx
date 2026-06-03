@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 
-export function NewsletterForm() {
+type NewsletterFormProps = {
+  variant?: "banner" | "footer";
+};
+
+export function NewsletterForm({ variant = "banner" }: NewsletterFormProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
@@ -15,21 +19,34 @@ export function NewsletterForm() {
     setEmail("");
   };
 
+  const isFooter = variant === "footer";
+
   return (
-    <div className="mx-auto max-w-xl rounded-xl border border-white/20 bg-white/5 p-6">
+    <div
+      className={
+        isFooter
+          ? "mt-6 rounded-xl border border-white/20 bg-white/5 p-4"
+          : "mx-auto max-w-xl rounded-xl border border-white/20 bg-white/5 p-6"
+      }
+    >
       <h4 className="font-semibold text-white">Stay informed</h4>
       <p className="mt-2 text-sm text-slate-300">
         Get weekly updates, policy briefs, and event invitations in your inbox.
       </p>
-      <ul className="mt-3 space-y-1 text-sm text-slate-300">
-        <li>• Latest TNF news and announcements</li>
-        <li>• Upcoming events and dialogues</li>
-        <li>• New reports and publications</li>
-      </ul>
+      {!isFooter && (
+        <ul className="mt-3 space-y-1 text-sm text-slate-300">
+          <li>• Latest TNF news and announcements</li>
+          <li>• Upcoming events and dialogues</li>
+          <li>• New reports and publications</li>
+        </ul>
+      )}
       {status === "success" ? (
         <p className="mt-4 text-sm font-medium text-green-400">Thank you for subscribing!</p>
       ) : (
-        <form onSubmit={handleSubmit} className="mt-4 flex gap-2">
+        <form
+          onSubmit={handleSubmit}
+          className={isFooter ? "mt-3 flex flex-col gap-2" : "mt-4 flex gap-2"}
+        >
           <input
             type="email"
             value={email}
@@ -37,7 +54,7 @@ export function NewsletterForm() {
             placeholder="Your email"
             required
             disabled={status === "loading"}
-            className="flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white placeholder-slate-400 outline-none focus:border-tnf-gold"
+            className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white placeholder-slate-400 outline-none focus:border-tnf-gold"
           />
           <button
             type="submit"

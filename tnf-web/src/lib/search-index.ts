@@ -25,7 +25,7 @@ export const searchIndex: SearchItem[] = [
   { title: "Business Environment Enhancement", href: "/work-areas/business-environment-enhancement", keywords: ["business", "environment", "investment"] },
   { title: "Public Engagement", href: "/work-areas/public-engagement", keywords: ["public", "engagement", "outreach"] },
   { title: "Plans & Reports", href: "/resources", keywords: ["reports", "plans", "annual", "strategic", "documents", "download"] },
-  { title: "News & Events", href: "/news-events", keywords: ["news", "events", "updates"] },
+  { title: "Updates & Events", href: "/news-events", keywords: ["news", "events", "updates"] },
   { title: "Careers", href: "/careers", keywords: ["careers", "jobs", "vacancies", "internship"] },
   { title: "Contact", href: "/contact", keywords: ["contact", "phone", "email", "address"] },
   { title: "Feedback Portal", href: "/feedback", keywords: ["feedback", "report", "economic", "social", "labour"] },
