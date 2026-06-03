@@ -1,7 +1,7 @@
 export function Infographics() {
   return (
     <section className="bg-slate-50 py-16 sm:py-20">
-      <div className="container-wide">
+      <div className="page-shell-inner">
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight text-tnf-navy sm:text-4xl">
             TNF at a Glance

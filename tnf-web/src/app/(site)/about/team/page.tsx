@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { SubpageLayout } from "@/components/layout/SubpageLayout";
 
 export const metadata = {
   title: "Our Team",
@@ -25,50 +25,36 @@ const teamMembers = [
 
 export default function TeamPage() {
   return (
-    <div>
-      <div className="bg-tnf-navy py-16">
-        <div className="container-wide">
-          <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Our Team" }]} variant="light" />
-          <h1 className="mt-2 text-4xl font-bold text-white sm:text-5xl">Our Team</h1>
-          <p className="mt-4 max-w-2xl text-lg text-slate-200">
-            The TNF Secretariat and leadership driving social dialogue in Zimbabwe.
-          </p>
-        </div>
-      </div>
-
-      <div className="container-wide py-16">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {teamMembers.map((member) => (
-            <div
-              key={member.name}
-              className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm"
-            >
-              <div className="relative aspect-[4/3] w-full bg-slate-100">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="font-semibold text-tnf-navy">{member.name}</h3>
-                <p className="mt-1 text-sm text-slate-600">{member.role}</p>
-              </div>
+    <SubpageLayout
+      title="Our Team"
+      description="The TNF Secretariat and leadership driving social dialogue in Zimbabwe."
+      breadcrumbs={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Our Team" }]}
+    >
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {teamMembers.map((member) => (
+          <div key={member.name} className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+            <div className="relative aspect-[4/3] w-full bg-slate-100">
+              <Image
+                src={member.image}
+                alt={member.name}
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
             </div>
-          ))}
-        </div>
-
-        <div className="mt-12">
-          <Link
-            href="/about"
-            className="inline-flex items-center text-sm font-medium text-tnf-green hover:text-tnf-green"
-          >
-            ← Back to About
-          </Link>
-        </div>
+            <div className="p-6 text-center sm:text-left">
+              <h3 className="font-semibold text-tnf-navy">{member.name}</h3>
+              <p className="mt-1 text-sm text-slate-600">{member.role}</p>
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
+
+      <div className="mt-12 text-center">
+        <Link href="/about" className="inline-flex items-center text-sm font-medium text-tnf-green hover:text-tnf-green">
+          ← Back to About
+        </Link>
+      </div>
+    </SubpageLayout>
   );
 }

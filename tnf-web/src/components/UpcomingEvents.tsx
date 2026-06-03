@@ -28,13 +28,13 @@ export async function UpcomingEvents() {
 
   return (
     <section className="bg-slate-50 py-16 sm:py-20">
-      <div className="container-wide">
-        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-          <div>
+      <div className="page-shell-inner">
+        <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:items-center sm:text-left">
+          <div className="sm:flex-1">
             <h2 className="text-3xl font-bold tracking-tight text-tnf-navy sm:text-4xl">Upcoming Events</h2>
             <p className="mt-4 text-lg text-slate-600">Dialogues, workshops, and meetings across Zimbabwe.</p>
           </div>
-          <Link href="/news-events#events" className="rounded-full border-2 border-tnf-navy px-6 py-3 text-sm font-semibold text-tnf-navy transition-colors hover:bg-tnf-navy hover:text-white">
+          <Link href="/news-events#events" className="shrink-0 rounded-full border-2 border-tnf-navy px-6 py-3 text-sm font-semibold text-tnf-navy transition-colors hover:bg-tnf-navy hover:text-white">
             View Calendar
           </Link>
         </div>

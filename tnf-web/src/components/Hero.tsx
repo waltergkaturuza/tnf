@@ -5,8 +5,8 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-tnf-navy via-tnf-navy-light to-tnf-navy">
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
-      <div className="container-wide relative py-16 sm:py-20 lg:py-24">
-        <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-16">
+      <div className="relative py-16 sm:py-20 lg:py-24">
+        <div className="page-shell-inner flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-16">
           <div className="shrink-0">
             <Image
               src="/tnf-logo.png"

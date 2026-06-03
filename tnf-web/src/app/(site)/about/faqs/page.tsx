@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { SubpageLayout } from "@/components/layout/SubpageLayout";
 
 const faqs = [
   {
@@ -51,70 +51,54 @@ export default function FAQsPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div>
-      <div className="bg-tnf-navy py-16">
-        <div className="container-wide">
-          <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "FAQs" }]} variant="light" />
-          <h1 className="mt-2 text-4xl font-bold text-white sm:text-5xl">FAQs</h1>
-          <p className="mt-4 max-w-2xl text-lg text-slate-200">
-            Frequently asked questions about the TNF.
-          </p>
-        </div>
-      </div>
+    <SubpageLayout
+      title="FAQs"
+      description="Frequently asked questions about the TNF."
+      breadcrumbs={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "FAQs" }]}
+    >
+      <p className="mb-12 text-center text-slate-600">
+        If you cannot find the answer below, please use the{" "}
+        <Link href="/contact" className="text-tnf-green hover:underline">
+          contact form
+        </Link>{" "}
+        or email us at{" "}
+        <a href="mailto:info@tnfzim.com" className="text-tnf-green hover:underline">
+          info@tnfzim.com
+        </a>
+        .
+      </p>
 
-      <div className="container-wide py-16">
-        <p className="mb-12 text-slate-600">
-          If you cannot find the answer below, please use the{" "}
-          <Link href="/contact" className="text-tnf-green hover:underline">
-            contact form
-          </Link>{" "}
-          or email us at{" "}
-          <a href="mailto:info@tnfzim.com" className="text-tnf-green hover:underline">
-            info@tnfzim.com
-          </a>
-          .
-        </p>
-
-        <div className="space-y-3">
-          {faqs.map((faq, i) => (
-            <div
-              key={i}
-              className="rounded-xl border border-slate-200 bg-white shadow-sm"
+      <div className="space-y-3">
+        {faqs.map((faq, i) => (
+          <div key={i} className="rounded-xl border border-slate-200 bg-white shadow-sm">
+            <button
+              onClick={() => setOpenIndex(openIndex === i ? null : i)}
+              className="flex w-full items-center justify-between px-6 py-4 text-left"
             >
-              <button
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="flex w-full items-center justify-between px-6 py-4 text-left"
+              <span className="font-semibold text-tnf-navy">{faq.q}</span>
+              <svg
+                className={`h-5 w-5 shrink-0 text-tnf-green transition-transform ${
+                  openIndex === i ? "rotate-180" : ""
+                }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                <span className="font-semibold text-tnf-navy">{faq.q}</span>
-                <svg
-                  className={`h-5 w-5 shrink-0 text-tnf-green transition-transform ${
-                    openIndex === i ? "rotate-180" : ""
-                  }`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {openIndex === i && (
-                <div className="border-t border-slate-100 px-6 py-4 text-slate-600">
-                  {faq.a}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-12">
-          <Link
-            href="/about"
-            className="inline-flex items-center text-sm font-medium text-tnf-green hover:text-tnf-green"
-          >
-            ← Back to About
-          </Link>
-        </div>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {openIndex === i && (
+              <div className="border-t border-slate-100 px-6 py-4 text-slate-600">{faq.a}</div>
+            )}
+          </div>
+        ))}
       </div>
-    </div>
+
+      <div className="mt-12 text-center">
+        <Link href="/about" className="inline-flex items-center text-sm font-medium text-tnf-green hover:text-tnf-green">
+          ← Back to About
+        </Link>
+      </div>
+    </SubpageLayout>
   );
 }

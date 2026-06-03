@@ -3,7 +3,7 @@ import Link from "next/link";
 export function CTASection() {
   return (
     <section className="bg-tnf-navy py-16 sm:py-20">
-      <div className="container-wide text-center">
+      <div className="page-shell-inner text-center">
         <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
           Get in Touch
         </h2>

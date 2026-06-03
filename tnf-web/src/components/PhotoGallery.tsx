@@ -25,7 +25,7 @@ export function PhotoGallery() {
 
   return (
     <section className="bg-white py-16 sm:py-20">
-      <div className="container-wide">
+      <div className="page-shell-inner">
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight text-tnf-navy sm:text-4xl">
             TNF in Action

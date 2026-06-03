@@ -8,7 +8,7 @@ export function PartnerLogos() {
 
   return (
     <section className="border-y border-slate-200 bg-slate-50 py-12 sm:py-16">
-      <div className="container-wide">
+      <div className="page-shell-inner">
         <div className="text-center">
           <h2 className="text-2xl font-bold tracking-tight text-tnf-navy sm:text-3xl">
             Our Partners

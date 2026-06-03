@@ -4,7 +4,7 @@ import { siteConfig } from "@/lib/site-config";
 export function WorkAreaCards() {
   return (
     <section className="bg-white py-16 sm:py-20">
-      <div className="container-wide">
+      <div className="page-shell-inner">
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight text-tnf-navy sm:text-4xl">
             Work Areas
