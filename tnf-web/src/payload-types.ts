@@ -258,14 +258,34 @@ export interface FormSubmission {
   type: 'contact' | 'feedback-economic' | 'feedback-social' | 'feedback-labour' | 'whistleblower';
   name?: string | null;
   email?: string | null;
+  /**
+   * Optional contact number
+   */
+  phone?: string | null;
+  organisation?: string | null;
   subject?: string | null;
+  /**
+   * Main message / report details
+   */
   message?: string | null;
   /**
-   * Form-specific category (e.g. issue type)
+   * Issue category (feedback forms)
    */
   category?: string | null;
   /**
-   * Additional form data (attachments refs, etc.)
+   * Reporter age range
+   */
+  ageRange?: string | null;
+  gender?: string | null;
+  locationScope?: ('zimbabwe' | 'international') | null;
+  province?: string | null;
+  cityOrArea?: string | null;
+  country?: string | null;
+  dateOfIncident?: string | null;
+  preferredContact?: string | null;
+  anonymous?: boolean | null;
+  /**
+   * Extra data (e.g. attachment filename, user agent)
    */
   metadata?:
     | {
@@ -466,9 +486,20 @@ export interface FormSubmissionsSelect<T extends boolean = true> {
   type?: T;
   name?: T;
   email?: T;
+  phone?: T;
+  organisation?: T;
   subject?: T;
   message?: T;
   category?: T;
+  ageRange?: T;
+  gender?: T;
+  locationScope?: T;
+  province?: T;
+  cityOrArea?: T;
+  country?: T;
+  dateOfIncident?: T;
+  preferredContact?: T;
+  anonymous?: T;
   metadata?: T;
   updatedAt?: T;
   createdAt?: T;

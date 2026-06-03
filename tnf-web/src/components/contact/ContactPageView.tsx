@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Field } from "@/components/forms/Field";
+import { CONTACT_ENQUIRY_TYPES } from "@/components/forms/location-constants";
+import { formInputClass } from "@/components/forms/form-styles";
 import { siteConfig } from "@/lib/site-config";
 import { submitToPayload } from "@/lib/submit-form";
 
@@ -24,22 +27,32 @@ function ContactIcon({ children }: { children: React.ReactNode }) {
 
 export function ContactPageView() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+    setSubmitting(true);
+
     const form = e.currentTarget;
-    const formData = new FormData(form);
+    const fd = new FormData(form);
+
     const result = await submitToPayload({
       type: "contact",
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      subject: formData.get("subject") as string,
-      message: formData.get("message") as string,
+      name: fd.get("name") as string,
+      email: fd.get("email") as string,
+      phone: (fd.get("phone") as string) || undefined,
+      organisation: (fd.get("organisation") as string) || undefined,
+      category: fd.get("enquiryType") as string,
+      subject: (fd.get("subject") as string) || undefined,
+      message: fd.get("message") as string,
+      preferredContact: (fd.get("preferredContact") as string) || undefined,
     });
+
+    setSubmitting(false);
     if (result.ok) setSubmitted(true);
-    else setError(result.error || "Something went wrong");
+    else setError(result.error || "Something went wrong. Please try again.");
   };
 
   return (
@@ -193,70 +206,131 @@ export function ContactPageView() {
             </div>
           </div>
 
-          <div className={CONTACT_CARD}>
-            <h2 className="text-lg font-semibold text-tnf-navy">Send a Message</h2>
-            <p className="mt-2 text-sm text-slate-600">
-              Complete the form below and we will respond as soon as possible.
-            </p>
-            {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
+          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md">
+            <div className="border-b border-emerald-200/60 bg-emerald-50/90 px-6 py-5 sm:px-8">
+              <h2 className="text-lg font-semibold text-tnf-navy">Send a message</h2>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                Complete the form and the Secretariat will respond as soon as possible. For structured policy
+                feedback or confidential reports, use the links below.
+              </p>
+            </div>
+
+            {error && (
+              <div className="mx-6 mt-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 sm:mx-8">
+                {error}
+              </div>
+            )}
+
             {submitted ? (
-              <div className="mt-6 rounded-lg border border-emerald-200 bg-emerald-50 p-5 text-emerald-900">
-                Thank you for your message. We will respond as soon as possible.
+              <div className="p-8 text-center sm:p-10">
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-tnf-green text-2xl text-white">
+                  ✓
+                </div>
+                <h3 className="text-xl font-semibold text-tnf-navy">Message sent</h3>
+                <p className="mx-auto mt-3 max-w-sm text-sm text-slate-600">
+                  Thank you for contacting the TNF Secretariat. We will respond to your enquiry as soon as
+                  possible.
+                </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-slate-700">
-                    Your name
+              <form onSubmit={handleSubmit} className="space-y-8 p-6 sm:p-8">
+                <section>
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-tnf-green">Your details</h3>
+                  <div className="mt-4 grid gap-5 sm:grid-cols-2">
+                    <Field label="Full name" htmlFor="name" required>
+                      <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        required
+                        autoComplete="name"
+                        className={formInputClass}
+                      />
+                    </Field>
+                    <Field label="Email address" htmlFor="email" required>
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        autoComplete="email"
+                        className={formInputClass}
+                      />
+                    </Field>
+                    <Field label="Phone number" htmlFor="phone" hint="Optional">
+                      <input id="phone" name="phone" type="tel" autoComplete="tel" className={formInputClass} />
+                    </Field>
+                    <Field label="Organisation" htmlFor="organisation" hint="Optional — employer, union, or affiliation">
+                      <input id="organisation" name="organisation" type="text" className={formInputClass} />
+                    </Field>
+                    <Field label="Preferred contact method" htmlFor="preferredContact" className="sm:col-span-2">
+                      <select id="preferredContact" name="preferredContact" className={formInputClass} defaultValue="">
+                        <option value="">No preference</option>
+                        <option value="Email">Email</option>
+                        <option value="Phone">Phone</option>
+                      </select>
+                    </Field>
+                  </div>
+                </section>
+
+                <section>
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-tnf-green">Your enquiry</h3>
+                  <div className="mt-4 grid gap-5 sm:grid-cols-2">
+                    <Field label="Enquiry type" htmlFor="enquiryType" required>
+                      <select id="enquiryType" name="enquiryType" required className={formInputClass} defaultValue="">
+                        <option value="" disabled>
+                          Select enquiry type
+                        </option>
+                        {CONTACT_ENQUIRY_TYPES.map((t) => (
+                          <option key={t} value={t}>
+                            {t}
+                          </option>
+                        ))}
+                      </select>
+                    </Field>
+                    <Field label="Subject" htmlFor="subject" hint="Brief summary">
+                      <input id="subject" name="subject" type="text" className={formInputClass} />
+                    </Field>
+                    <Field label="Message" htmlFor="message" required className="sm:col-span-2">
+                      <textarea
+                        id="message"
+                        name="message"
+                        rows={5}
+                        required
+                        placeholder="How can we help? Include any relevant context or reference numbers."
+                        className={formInputClass}
+                      />
+                    </Field>
+                  </div>
+                </section>
+
+                <div className="rounded-lg border border-slate-100 bg-slate-50/80 px-4 py-4">
+                  <label className="flex cursor-pointer items-start gap-3">
+                    <input
+                      type="checkbox"
+                      name="consent"
+                      required
+                      className="mt-1 rounded border-slate-300 text-tnf-green focus:ring-tnf-green"
+                    />
+                    <span className="text-sm text-slate-600">
+                      I consent to the TNF Secretariat processing my details to respond to this enquiry. I
+                      understand this form is not for whistleblowing or emergency matters.
+                    </span>
                   </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-tnf-navy focus:border-tnf-green focus:outline-none focus:ring-1 focus:ring-tnf-green"
-                  />
                 </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-700">
-                    Your email
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-tnf-navy focus:border-tnf-green focus:outline-none focus:ring-1 focus:ring-tnf-green"
-                  />
+
+                <div className="flex flex-col gap-4 border-t border-slate-100 pt-6 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="text-sm text-slate-500">
+                    Fields marked <span className="text-tnf-green">*</span> are required.
+                  </p>
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="btn-tnf-primary shrink-0 rounded-full px-10 py-3 text-sm font-semibold disabled:opacity-60 sm:min-w-[200px]"
+                  >
+                    {submitting ? "Sending…" : "Send message"}
+                  </button>
                 </div>
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-slate-700">
-                    Subject
-                  </label>
-                  <input
-                    id="subject"
-                    name="subject"
-                    type="text"
-                    className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-tnf-navy focus:border-tnf-green focus:outline-none focus:ring-1 focus:ring-tnf-green"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-slate-700">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-tnf-navy focus:border-tnf-green focus:outline-none focus:ring-1 focus:ring-tnf-green"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="btn-tnf-primary w-full rounded-full py-3 font-semibold transition-all hover:-translate-y-0.5 hover:shadow-md"
-                >
-                  Send Message
-                </button>
               </form>
             )}
           </div>

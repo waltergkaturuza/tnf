@@ -68,14 +68,9 @@ export default async function WorkAreaPage({ params }: Props) {
 
         <aside>
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-6">
-            <h3 className="font-semibold text-tnf-navy">Contact</h3>
-            <p className="mt-2 text-sm text-slate-600">Opening hours: 8am – 4pm</p>
-            <a href={`tel:${siteConfig.contact.phone}`} className="mt-2 block text-tnf-green hover:underline">
-              {siteConfig.contact.phone}
-            </a>
-            <a href={`mailto:${siteConfig.contact.email}`} className="mt-1 block text-tnf-green hover:underline">
-              {siteConfig.contact.email}
-            </a>
+            <Link href="/contact" className="font-semibold text-tnf-green hover:underline">
+              Contact
+            </Link>
             <Link href="/work-areas" className="mt-6 block text-sm font-medium text-tnf-green hover:text-tnf-green">
               ← All Work Areas
             </Link>

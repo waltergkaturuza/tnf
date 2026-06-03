@@ -61,6 +61,10 @@ npm run payload:migrate
 
 This creates Payload tables under the `tnf` schema (e.g. `tnf.users`, `tnf.posts`).
 
+**Feedback form columns** (phone, location, age, gender, etc.) are added by migration `20260603_form_submissions_feedback_fields`. After pulling latest code, run `npm run payload:migrate` again. If migrate cannot run locally, execute `tnf-web/scripts/form-submissions-feedback-fields.sql` in the Supabase SQL Editor instead.
+
+Submissions appear in **Admin → Form Submissions** (`/admin/collections/form-submissions`).
+
 If you see `ECONNREFUSED 127.0.0.1:27017`, your `.env` still has a `mongodb://` URI — replace it with the Supabase Postgres URL.
 
 ### Vercel: `self-signed certificate in certificate chain`

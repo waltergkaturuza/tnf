@@ -4,6 +4,8 @@ type Props = {
   children: React.ReactNode;
   /** Narrower content column for forms (max-w-xl) */
   narrow?: boolean;
+  /** Wider form layout (max-w-4xl) */
+  wideForm?: boolean;
   /** Slightly wider prose column (max-w-3xl) */
   prose?: boolean;
 };
@@ -13,9 +15,16 @@ export function SubpageLayout({
   description,
   children,
   narrow = false,
+  wideForm = false,
   prose = false,
 }: Props) {
-  const bodyMax = narrow ? "max-w-xl" : prose ? "max-w-3xl" : "max-w-6xl";
+  const bodyMax = narrow
+    ? "max-w-xl"
+    : wideForm
+      ? "max-w-4xl"
+      : prose
+        ? "max-w-3xl"
+        : "max-w-6xl";
 
   return (
     <div>

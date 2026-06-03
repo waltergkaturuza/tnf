@@ -11,6 +11,7 @@
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "payload:migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate --config src/payload.config.ts",
     "payload:migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create --config src/payload.config.ts",
+    "payload:generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types --config src/payload.config.ts",
     "db:schema": "echo Run scripts/create-tnf-schema.sql in Supabase SQL Editor first"
   },
   "dependencies": {

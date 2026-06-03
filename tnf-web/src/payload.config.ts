@@ -117,6 +117,7 @@ export default buildConfig({
   db: postgresAdapter({
     pool: getPostgresPoolConfig(),
     schemaName: process.env.POSTGRES_SCHEMA || "tnf",
+    migrationDir: path.resolve(dirname, "migrations"),
   }),
   sharp,
   plugins: [],
