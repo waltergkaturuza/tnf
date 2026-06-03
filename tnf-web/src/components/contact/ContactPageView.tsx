@@ -58,9 +58,8 @@ export function ContactPageView() {
   return (
     <div className="page-about">
       <section className="page-shell-hero border-b border-emerald-800/30 py-6 sm:py-8">
-        <div className="mx-auto max-w-6xl px-5 text-center sm:px-8 lg:px-10">
-          <p className="text-sm font-semibold uppercase tracking-widest text-emerald-100">Contact</p>
-          <h1 className="mt-2 text-2xl font-bold tracking-tight text-white sm:mt-3 sm:text-3xl lg:text-4xl">
+        <div className="mx-auto w-full max-w-6xl px-4 text-center sm:px-6 lg:px-10">
+          <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
             Contact Us
           </h1>
           <p className="about-text-justify mx-auto mt-3 max-w-2xl text-sm text-emerald-50 sm:mt-4 sm:text-base">
@@ -70,7 +69,7 @@ export function ContactPageView() {
               href="https://summit.tnfzim.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-tnf-green hover:text-tnf-green"
+              className="font-semibold text-white underline underline-offset-4 decoration-white/80 transition-colors hover:text-emerald-50 hover:decoration-white"
             >
               TNF Global Summit
             </a>{" "}
@@ -80,7 +79,7 @@ export function ContactPageView() {
       </section>
 
       <section className="about-tone-warm py-12 lg:py-16">
-        <div className="mx-auto grid max-w-6xl gap-10 px-5 sm:px-8 lg:grid-cols-2 lg:gap-12 lg:px-10">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-2 lg:gap-12 lg:px-10">
           <div className="space-y-6">
             <div className={CONTACT_CARD}>
               <h2 className="text-lg font-semibold text-tnf-navy">TNF Secretariat</h2>
@@ -338,7 +337,7 @@ export function ContactPageView() {
       </section>
 
       <section className="about-tone-sand border-t border-slate-200/40 py-12 lg:py-14">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-10">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <div className={`${CONTACT_CARD} text-center`}>
               <h3 className="font-semibold text-tnf-navy">Feedback Portal</h3>

@@ -17,15 +17,15 @@ export function Hero() {
               priority
             />
           </div>
-          <div className="max-w-2xl flex-1">
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <div className="min-w-0 max-w-2xl flex-1 text-center lg:text-left">
+            <h1 className="text-2xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl xl:text-6xl">
             Facilitating National Social Dialogue for Inclusive Economic Development
             </h1>
             <p className="mt-6 text-lg text-slate-200 sm:text-xl">
             The Tripartite Negotiating Forum brings together Government, Organised Business, and
             Organised Labour to build consensus and shape Zimbabwe&apos;s socio-economic future.
             </p>
-            <div className="mt-10 flex flex-wrap gap-4">
+            <div className="mt-10 flex flex-wrap justify-center gap-3 sm:gap-4 lg:justify-start">
             <Link
               href="/about"
               className="btn-tnf-primary inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold shadow-lg hover:shadow-xl"

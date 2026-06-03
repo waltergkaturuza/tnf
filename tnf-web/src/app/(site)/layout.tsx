@@ -46,7 +46,7 @@ export default function SiteLayout({
           Skip to main content
         </a>
         <Header />
-        <main id="main-content" className="flex-1 scroll-mt-24" tabIndex={-1}>
+        <main id="main-content" className="min-w-0 flex-1 scroll-mt-20 sm:scroll-mt-24" tabIndex={-1}>
           {children}
         </main>
         <Footer />

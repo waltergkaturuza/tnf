@@ -76,8 +76,8 @@ export function NewsEventsView({ items }: Props) {
     <div className="page-updates">
       {/* Header + filters */}
       <div className="page-shell-hero border-b border-emerald-800/30 py-6 sm:py-8">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">
-          <h1 className="text-center text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-10">
+          <h1 className="text-center text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
             Updates &amp; Events
           </h1>
           <div className="mt-6 flex flex-wrap justify-center gap-2 sm:mt-8">
@@ -86,7 +86,7 @@ export function NewsEventsView({ items }: Props) {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
-                className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${
+                className={`rounded-full px-3 py-2 text-xs font-semibold transition-all sm:px-5 sm:text-sm ${
                   activeTab === tab.id
                     ? "bg-white text-tnf-green shadow-md"
                     : "border border-white/40 bg-white/10 text-white hover:bg-white/20"
@@ -101,10 +101,10 @@ export function NewsEventsView({ items }: Props) {
 
       {/* Main content on pearl */}
       <div className="updates-tone-pearl py-10 lg:py-14">
-        <div className="mx-auto grid max-w-6xl gap-10 px-5 sm:px-8 lg:grid-cols-[1fr_320px] lg:gap-12 lg:px-10 xl:grid-cols-[1fr_360px]">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)] lg:gap-12 lg:px-10 xl:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
           <div className="min-w-0 space-y-8">
             {featured ? (
-              <article className={`${UPDATES_CARD} overflow-hidden p-0`}>
+              <article className={`${UPDATES_CARD} min-w-0 overflow-hidden p-0`}>
                 <div className="relative">
                   <FeaturedImage item={featured} />
                   <div className="absolute left-4 top-4 flex flex-wrap gap-2">
@@ -116,7 +116,7 @@ export function NewsEventsView({ items }: Props) {
                     </span>
                   </div>
                 </div>
-                <div className="p-6 sm:p-8">
+                <div className="min-w-0 p-4 sm:p-8">
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-500">
                     <time dateTime={featured.dateISO}>{featured.dateDisplay}</time>
                     {featured.location && (
@@ -128,7 +128,9 @@ export function NewsEventsView({ items }: Props) {
                     <span>·</span>
                     <span>{featured.category}</span>
                   </div>
-                  <h2 className="mt-4 text-2xl font-bold text-tnf-navy sm:text-3xl">{featured.title}</h2>
+                  <h2 className="mt-4 text-xl font-bold leading-snug text-tnf-navy sm:text-2xl lg:text-3xl">
+                    {featured.title}
+                  </h2>
                   <p className="about-text-justify mt-4 line-clamp-4 leading-relaxed text-slate-600">
                     {featured.excerpt}
                   </p>
@@ -152,7 +154,7 @@ export function NewsEventsView({ items }: Props) {
                   <article
                     key={item.id}
                     id={item.slug}
-                    className={`${UPDATES_CARD} scroll-mt-28`}
+                    className={`${UPDATES_CARD} min-w-0 scroll-mt-28`}
                   >
                     <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-slate-500">
                       <span className="text-tnf-green">{item.category}</span>
@@ -165,7 +167,9 @@ export function NewsEventsView({ items }: Props) {
                         </>
                       )}
                     </div>
-                    <h3 className="mt-2 text-xl font-bold text-tnf-navy">{item.title}</h3>
+                    <h3 className="mt-2 text-lg font-bold leading-snug text-tnf-navy sm:text-xl">
+                      {item.title}
+                    </h3>
                     <p className="about-text-justify mt-2 line-clamp-2 text-sm text-slate-600">
                       {item.excerpt}
                     </p>
@@ -175,7 +179,7 @@ export function NewsEventsView({ items }: Props) {
             )}
           </div>
 
-          <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
+          <aside className="min-w-0 space-y-5 lg:sticky lg:top-24 lg:self-start">
             <div className={UPDATES_CARD}>
               <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-tnf-navy">
                 <svg className="h-4 w-4 text-tnf-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>

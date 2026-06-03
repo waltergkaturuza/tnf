@@ -45,7 +45,7 @@ export function Search() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex shrink-0 items-center gap-1.5 rounded-lg border border-slate-200 px-2 py-1.5 text-sm text-slate-500 hover:border-slate-300 hover:text-slate-700 lg:gap-2 lg:px-3 lg:py-2"
+        className="flex shrink-0 items-center gap-1 rounded-lg border border-slate-200 p-2 text-slate-500 hover:border-slate-300 hover:text-slate-700 sm:gap-1.5 sm:px-2.5 sm:py-1.5 lg:gap-2 lg:px-3 lg:py-2"
         aria-label="Search site (Ctrl+K)"
       >
         <svg className="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -62,7 +62,7 @@ export function Search() {
             onClick={() => setOpen(false)}
             aria-hidden
           />
-          <div className="fixed left-1/2 top-24 z-50 w-full max-w-xl -translate-x-1/2 px-4">
+          <div className="fixed left-1/2 top-[4.5rem] z-50 w-[calc(100%-2rem)] max-w-xl -translate-x-1/2 sm:top-24 sm:w-full sm:px-4">
             <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl">
               <div className="flex items-center gap-2 border-b border-slate-200 px-4">
                 <svg className="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

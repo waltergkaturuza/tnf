@@ -36,7 +36,7 @@ export function SubpageLayout({
           )}
         </div>
       </div>
-      <div className={`page-shell-body ${bodyMax} py-10 lg:py-12`}>{children}</div>
+      <div className={`page-shell-body min-w-0 ${bodyMax} py-10 lg:py-12`}>{children}</div>
     </div>
   );
 }

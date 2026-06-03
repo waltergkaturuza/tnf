@@ -190,7 +190,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="-mx-[10mm] mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/15 px-[10mm] py-6 sm:flex-row">
+        <div className="-mx-4 mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/15 px-4 py-6 sm:-mx-6 sm:px-6 sm:flex-row lg:-mx-8 lg:px-8 xl:-mx-[10mm] xl:px-[10mm]">
           <p className="text-center text-sm text-slate-200">
             © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
