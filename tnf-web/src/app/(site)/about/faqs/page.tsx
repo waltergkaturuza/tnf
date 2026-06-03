@@ -87,7 +87,7 @@ export default function FAQsPage() {
               </svg>
             </button>
             {openIndex === i && (
-              <div className="border-t border-slate-100 px-6 py-4 text-slate-600">{faq.a}</div>
+              <p className="border-t border-slate-100 px-6 py-4 text-slate-600">{faq.a}</p>
             )}
           </div>
         ))}

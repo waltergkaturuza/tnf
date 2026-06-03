@@ -14,6 +14,11 @@ export const siteConfig = {
     phone: "+263 242 783 030",
     email: "info@tnfzim.com",
     address: "East Wing Block 3 Celestial Park, Borrowdale, Harare, Zimbabwe",
+    addressLines: [
+      "East Wing Block 3 Celestial Park",
+      "Borrowdale, Harare",
+      "Zimbabwe",
+    ],
     team: [
       { name: "Racheal", phone: "077 956 0229" },
       { name: "Lloyd", phone: "077 340 2440" },

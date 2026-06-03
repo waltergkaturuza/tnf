@@ -139,11 +139,61 @@ body {
   padding-right: 10mm;
 }
 
-/* About page: justified body copy */
+/* Justified body copy — site-wide */
+.tnf-text-justify,
 .about-text-justify {
   text-align: justify;
   text-justify: inter-word;
   hyphens: auto;
+}
+
+main p,
+main li,
+main dd,
+main blockquote,
+main .prose p,
+main .prose li,
+footer p,
+footer li {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+/* Keep centered headers and UI controls aligned as designed */
+main h1,
+main h2,
+main h3,
+main h4,
+main h5,
+main h6,
+main label,
+main button,
+main input,
+main textarea,
+main select,
+main option,
+main nav,
+main time,
+main figcaption,
+.page-shell-header,
+.page-shell-header p,
+footer h4,
+footer a,
+footer button,
+footer input,
+footer label {
+  text-align: unset;
+  text-justify: auto;
+  hyphens: manual;
+}
+
+.page-shell-header,
+.page-shell-header h1,
+.page-shell-header p {
+  text-align: center;
+  text-justify: auto;
+  hyphens: manual;
 }
 
 /* About page — warm cream tones */

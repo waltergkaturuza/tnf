@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/lib/site-config";
 import { Search } from "./Search";
 
@@ -16,11 +16,25 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
 
   const navItems = siteConfig.nav as NavEntry[];
 
+  useEffect(() => {
+    const handlePointerDown = (e: MouseEvent) => {
+      if (!headerRef.current?.contains(e.target as Node)) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => document.removeEventListener("mousedown", handlePointerDown);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-50 w-full overflow-visible border-b border-slate-200/80 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80"
+    >
       <div className="container-wide flex h-20 items-center sm:h-24">
         <Link href="/" className="flex shrink-0 items-center">
           <Image
@@ -33,33 +47,59 @@ export function Header() {
           />
         </Link>
 
-        <nav className="hidden md:flex md:min-w-0 md:flex-1 md:items-center md:justify-center md:gap-1 md:overflow-hidden md:px-2 lg:gap-3 lg:px-4" aria-label="Main navigation">
+        <nav
+          className="hidden md:flex md:min-w-0 md:flex-1 md:items-center md:justify-center md:gap-1 md:overflow-visible md:px-2 lg:gap-3 lg:px-4"
+          aria-label="Main navigation"
+        >
           {navItems.map((item) =>
             item.children?.length ? (
               <div
                 key={item.label}
-                className="relative group"
+                className="group relative"
                 onMouseEnter={() => setOpenDropdown(item.label)}
                 onMouseLeave={() => setOpenDropdown(null)}
               >
-                <Link
-                  href={item.href}
-                  className={`${linkClass} flex items-center gap-0.5`}
-                >
-                  {item.label}
-                  <svg className="h-3.5 w-3.5 shrink-0 lg:h-4 lg:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </Link>
+                <div className="flex items-stretch">
+                  <Link href={item.href} className={`${linkClass} flex items-center gap-0.5`}>
+                    {item.label}
+                  </Link>
+                  <button
+                    type="button"
+                    aria-expanded={openDropdown === item.label}
+                    aria-haspopup="true"
+                    aria-label={`${item.label} menu`}
+                    onClick={() =>
+                      setOpenDropdown((current) => (current === item.label ? null : item.label))
+                    }
+                    className={`${linkClass} flex items-center px-1`}
+                  >
+                    <svg
+                      className={`h-3.5 w-3.5 shrink-0 transition-transform lg:h-4 lg:w-4 ${
+                        openDropdown === item.label ? "rotate-180" : ""
+                      }`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      aria-hidden
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                </div>
                 <div
-                  className={`absolute left-0 top-full pt-1 ${openDropdown === item.label ? "opacity-100" : "pointer-events-none opacity-0"} transition-opacity`}
+                  className={`absolute left-0 top-full z-[60] pt-1 transition-opacity duration-150 ${
+                    openDropdown === item.label
+                      ? "pointer-events-auto visible opacity-100"
+                      : "pointer-events-none invisible opacity-0 group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100"
+                  }`}
                 >
-                  <div className="min-w-[200px] rounded-lg border border-slate-200 bg-white py-1 shadow-lg">
+                  <div className="min-w-[220px] rounded-lg border border-slate-200 bg-white py-1 shadow-lg">
                     {item.children.map((child) => (
                       <Link
-                        key={child.href}
+                        key={`${child.href}-${child.label}`}
                         href={child.href}
                         className={dropdownClass}
+                        onClick={() => setOpenDropdown(null)}
                       >
                         {child.label}
                       </Link>
