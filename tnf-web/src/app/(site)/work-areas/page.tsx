@@ -12,7 +12,6 @@ export default function WorkAreasPage() {
     <SubpageLayout
       title="Work Areas"
       description="Key focus areas where TNF facilitates dialogue and drives policy outcomes."
-      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Work Areas" }]}
     >
       <div className="grid gap-8">
         {siteConfig.workAreas.map((area, i) => (

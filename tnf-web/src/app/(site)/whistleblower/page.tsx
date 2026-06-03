@@ -20,7 +20,6 @@ export default function WhistleblowerPage() {
     <SubpageLayout
       title="Whistleblower"
       description="Report concerns confidentially. Your reports help uphold integrity and accountability."
-      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Whistleblower" }]}
       narrow
     >
       {error && <p className="mb-4 text-sm text-red-600">{error}</p>}

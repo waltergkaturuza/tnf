@@ -34,7 +34,6 @@ export default function ResourcesPage() {
     <SubpageLayout
       title="Plans & Reports"
       description="Annual reports, strategic plans, performance plans, policy papers, and press releases."
-      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Resources" }]}
     >
       <div className="flex flex-col gap-6 lg:flex-row">
         <aside className="lg:w-64">

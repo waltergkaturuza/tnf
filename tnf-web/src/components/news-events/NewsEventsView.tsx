@@ -78,13 +78,13 @@ export function NewsEventsView({ items }: Props) {
         Latest TNF news, announcements and upcoming events.
       </div>
 
-      {/* Header + filters on white */}
-      <div className="updates-tone-white border-b border-slate-200/50 py-10 lg:py-12">
+      {/* Header + filters */}
+      <div className="page-shell-hero border-b border-emerald-800/30 py-6 sm:py-8">
         <div className="mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">
-          <h1 className="text-center text-3xl font-bold tracking-tight text-tnf-navy sm:text-4xl lg:text-5xl">
+          <h1 className="text-center text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
             Updates &amp; Events
           </h1>
-          <div className="mt-8 flex flex-wrap justify-center gap-2">
+          <div className="mt-6 flex flex-wrap justify-center gap-2 sm:mt-8">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -92,8 +92,8 @@ export function NewsEventsView({ items }: Props) {
                 onClick={() => setActiveTab(tab.id)}
                 className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${
                   activeTab === tab.id
-                    ? "bg-tnf-green text-white shadow-md"
-                    : "border border-slate-300 bg-white text-slate-600 hover:border-tnf-green/50 hover:bg-emerald-50"
+                    ? "bg-white text-tnf-green shadow-md"
+                    : "border border-white/40 bg-white/10 text-white hover:bg-white/20"
                 }`}
               >
                 {tab.label}

@@ -28,7 +28,6 @@ export default function TeamPage() {
     <SubpageLayout
       title="Our Team"
       description="The TNF Secretariat and leadership driving social dialogue in Zimbabwe."
-      breadcrumbs={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Our Team" }]}
     >
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {teamMembers.map((member) => (

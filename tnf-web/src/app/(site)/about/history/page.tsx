@@ -38,7 +38,6 @@ export default function HistoryPage() {
     <SubpageLayout
       title="History"
       description="The evolution of the Tripartite Negotiating Forum in Zimbabwe."
-      breadcrumbs={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "History" }]}
     >
       <section className="prose prose-slate mx-auto max-w-3xl lg:prose-lg">
         <h2>The Evolution of the Tripartite Negotiating Forum in Zimbabwe</h2>

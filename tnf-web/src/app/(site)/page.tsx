@@ -7,7 +7,6 @@ import { VideoSection } from "@/components/VideoSection";
 import { Infographics } from "@/components/Infographics";
 import { LatestNews } from "@/components/LatestNews";
 import { UpcomingEvents } from "@/components/UpcomingEvents";
-import { CTASection } from "@/components/CTASection";
 
 export const revalidate = 3600; // revalidate every hour
 
@@ -23,7 +22,6 @@ export default function Home() {
       <Infographics />
       <LatestNews />
       <UpcomingEvents />
-      <CTASection />
     </>
   );
 }

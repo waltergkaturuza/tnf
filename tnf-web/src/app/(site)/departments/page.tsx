@@ -47,7 +47,6 @@ export default function DepartmentsPage() {
     <SubpageLayout
       title="Departments"
       description="Our departments and units work together to support transparent and effective social dialogue in Zimbabwe."
-      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Departments" }]}
     >
       <p className="mb-12 text-center text-lg text-slate-600">
         At TNF, our departments work together to support our mission of transparent and effective social dialogue in

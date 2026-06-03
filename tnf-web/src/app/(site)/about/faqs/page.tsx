@@ -54,7 +54,6 @@ export default function FAQsPage() {
     <SubpageLayout
       title="FAQs"
       description="Frequently asked questions about the TNF."
-      breadcrumbs={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "FAQs" }]}
     >
       <p className="mb-12 text-center text-slate-600">
         If you cannot find the answer below, please use the{" "}

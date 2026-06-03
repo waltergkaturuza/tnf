@@ -25,11 +25,6 @@ export default async function WorkAreaPage({ params }: Props) {
     <SubpageLayout
       title={area.title}
       description={area.description}
-      breadcrumbs={[
-        { label: "Home", href: "/" },
-        { label: "Work Areas", href: "/work-areas" },
-        { label: area.title },
-      ]}
     >
       <div className="grid gap-12 lg:grid-cols-3">
         <div className="lg:col-span-2">

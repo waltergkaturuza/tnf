@@ -49,13 +49,13 @@ export function ContactPageView() {
         programmes and partnerships.
       </div>
 
-      <section className="about-tone-ivory border-b border-slate-200/40 py-12 lg:py-16">
+      <section className="page-shell-hero border-b border-emerald-800/30 py-6 sm:py-8">
         <div className="mx-auto max-w-6xl px-5 text-center sm:px-8 lg:px-10">
-          <p className="tnf-label text-sm font-semibold uppercase tracking-widest">Contact</p>
-          <h1 className="mt-3 text-3xl font-bold tracking-tight text-tnf-navy sm:text-4xl lg:text-5xl">
+          <p className="text-sm font-semibold uppercase tracking-widest text-emerald-100">Contact</p>
+          <h1 className="mt-2 text-2xl font-bold tracking-tight text-white sm:mt-3 sm:text-3xl lg:text-4xl">
             Contact Us
           </h1>
-          <p className="about-text-justify mx-auto mt-5 max-w-2xl text-base text-slate-600 sm:text-lg">
+          <p className="about-text-justify mx-auto mt-3 max-w-2xl text-sm text-emerald-50 sm:mt-4 sm:text-base">
             Reach the Tripartite Negotiating Forum Secretariat in Harare. For summit registration
             and programme enquiries, visit the{" "}
             <a

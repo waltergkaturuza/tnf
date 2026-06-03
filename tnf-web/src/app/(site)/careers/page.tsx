@@ -11,7 +11,6 @@ export default function CareersPage() {
     <SubpageLayout
       title="Careers at TNF"
       description="Join our team and be part of promoting transparency, integrity, and effective social dialogue in Zimbabwe."
-      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Careers" }]}
     >
       <div className="mx-auto max-w-3xl text-center">
         <p className="text-lg text-slate-600">

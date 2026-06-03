@@ -25,7 +25,6 @@ export default function FeedbackPage() {
     <SubpageLayout
       title="Feedback Portal"
       description="Share your feedback on economic, social, or labour issues affecting Zimbabwe."
-      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Feedback" }]}
       narrow
     >
       {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
