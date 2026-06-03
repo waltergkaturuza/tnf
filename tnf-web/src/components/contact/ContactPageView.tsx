@@ -44,11 +44,6 @@ export function ContactPageView() {
 
   return (
     <div className="page-about">
-      <div className="bg-tnf-green/90 px-5 py-3 text-center text-sm font-medium text-white sm:text-base">
-        Get in touch with the TNF Secretariat — we welcome your enquiries on social dialogue,
-        programmes and partnerships.
-      </div>
-
       <section className="page-shell-hero border-b border-emerald-800/30 py-6 sm:py-8">
         <div className="mx-auto max-w-6xl px-5 text-center sm:px-8 lg:px-10">
           <p className="text-sm font-semibold uppercase tracking-widest text-emerald-100">Contact</p>

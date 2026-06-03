@@ -74,10 +74,6 @@ export function NewsEventsView({ items }: Props) {
 
   return (
     <div className="page-updates">
-      <div className="bg-tnf-green/90 px-5 py-3 text-center text-sm font-medium text-white sm:text-base">
-        Latest TNF news, announcements and upcoming events.
-      </div>
-
       {/* Header + filters */}
       <div className="page-shell-hero border-b border-emerald-800/30 py-6 sm:py-8">
         <div className="mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">

@@ -146,10 +146,6 @@ export function AboutPageView() {
 
   return (
     <div className="page-about">
-      <div className="bg-tnf-green/90 px-5 py-3 text-center text-sm font-medium text-white sm:text-base">
-        Facilitating national social dialogue for inclusive economic development since 1998.
-      </div>
-
       {/* Hero */}
       <section className="page-shell-hero border-b border-emerald-800/30 py-8 sm:py-10 lg:py-12">
         <div className="mx-auto max-w-4xl px-5 text-center sm:px-8 lg:px-10">
