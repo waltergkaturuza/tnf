@@ -79,8 +79,8 @@ export function ContactPageView() {
       </section>
 
       <section className="about-tone-warm py-12 lg:py-16">
-        <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-2 lg:gap-12 lg:px-10">
-          <div className="space-y-6">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-5 lg:gap-12 lg:px-10">
+          <div className="min-w-0 space-y-6 lg:col-span-2">
             <div className={CONTACT_CARD}>
               <h2 className="text-lg font-semibold text-tnf-navy">TNF Secretariat</h2>
               <p className="mt-2 text-sm text-slate-600">
@@ -205,7 +205,7 @@ export function ContactPageView() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md">
+          <div className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md lg:col-span-3">
             <div className="border-b border-emerald-200/60 bg-emerald-50/90 px-6 py-5 sm:px-8">
               <h2 className="text-lg font-semibold text-tnf-navy">Send a message</h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">

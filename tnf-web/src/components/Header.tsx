@@ -14,6 +14,25 @@ const linkClass =
 const dropdownClass =
   "block w-full rounded-md px-3 py-2 text-left text-sm text-slate-700 hover:bg-tnf-navy/5 hover:text-tnf-navy";
 
+const mobileLinkClass =
+  "block py-1 text-sm font-bold uppercase tracking-wide text-slate-800 transition-colors hover:text-tnf-green";
+const mobileAccordionClass =
+  "flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-left text-sm font-bold uppercase tracking-wide text-slate-800 transition-colors hover:border-slate-300";
+
+function Chevron({ open }: { open: boolean }) {
+  return (
+    <svg
+      className={`h-4 w-4 shrink-0 text-slate-500 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      aria-hidden
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+    </svg>
+  );
+}
+
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
@@ -21,6 +40,11 @@ export function Header() {
   const headerRef = useRef<HTMLElement>(null);
 
   const navItems = siteConfig.nav as NavEntry[];
+
+  const closeMobile = () => {
+    setMobileOpen(false);
+    setMobileExpanded(null);
+  };
 
   useEffect(() => {
     const handlePointerDown = (e: MouseEvent) => {
@@ -37,6 +61,15 @@ export function Header() {
     return () => {
       document.body.style.overflow = "";
     };
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeMobile();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, [mobileOpen]);
 
   return (
@@ -82,17 +115,7 @@ export function Header() {
                     }
                     className={`${linkClass} flex items-center px-1`}
                   >
-                    <svg
-                      className={`h-3.5 w-3.5 shrink-0 transition-transform lg:h-4 lg:w-4 ${
-                        openDropdown === item.label ? "rotate-180" : ""
-                      }`}
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      aria-hidden
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
+                    <Chevron open={openDropdown === item.label} />
                   </button>
                 </div>
                 <div
@@ -120,7 +143,7 @@ export function Header() {
               <Link key={item.href} href={item.href} className={linkClass}>
                 {item.label}
               </Link>
-            )
+            ),
           )}
         </nav>
 
@@ -128,62 +151,83 @@ export function Header() {
           <Search />
           <button
             type="button"
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => setMobileOpen(true)}
             className="rounded-md p-2 text-slate-600 hover:bg-slate-100 xl:hidden"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-label="Open menu"
             aria-expanded={mobileOpen}
           >
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              {mobileOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
       </div>
 
-      {mobileOpen && (
-        <div className="container-wide max-h-[min(70vh,32rem)] overflow-y-auto border-t border-slate-200 bg-white py-4 xl:hidden">
-          <nav className="flex flex-col gap-1" aria-label="Main navigation">
+      {/* Mobile drawer — slides in from the right with blurred backdrop */}
+      <div
+        className={`fixed inset-0 z-[100] xl:hidden ${mobileOpen ? "pointer-events-auto" : "pointer-events-none"}`}
+        aria-hidden={!mobileOpen}
+      >
+        <button
+          type="button"
+          className={`absolute inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity duration-300 ${
+            mobileOpen ? "opacity-100" : "opacity-0"
+          }`}
+          aria-label="Close menu"
+          tabIndex={mobileOpen ? 0 : -1}
+          onClick={closeMobile}
+        />
+
+        <aside
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu"
+          className={`absolute right-0 top-0 flex h-full w-[min(100%,20rem)] flex-col bg-white shadow-2xl transition-transform duration-300 ease-out sm:w-80 ${
+            mobileOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex shrink-0 items-center justify-between border-b border-slate-100 px-5 py-4">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Menu</span>
+            <button
+              type="button"
+              onClick={closeMobile}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50"
+              aria-label="Close menu"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <nav className="flex-1 space-y-3 overflow-y-auto px-5 py-6" aria-label="Main navigation">
             {navItems.map((item) =>
               item.children?.length ? (
                 <div key={item.label}>
-                  <div className="flex items-stretch">
-                    <Link
-                      href={item.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="min-w-0 flex-1 rounded-md px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50"
-                    >
-                      {item.label}
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={() => setMobileExpanded(mobileExpanded === item.label ? null : item.label)}
-                      className="rounded-md px-3 py-2 text-slate-600 hover:bg-slate-50"
-                      aria-expanded={mobileExpanded === item.label}
-                      aria-label={`${item.label} submenu`}
-                    >
-                      <svg
-                        className={`h-4 w-4 transition-transform ${mobileExpanded === item.label ? "rotate-180" : ""}`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        aria-hidden
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setMobileExpanded(mobileExpanded === item.label ? null : item.label)}
+                    className={mobileAccordionClass}
+                    aria-expanded={mobileExpanded === item.label}
+                  >
+                    {item.label}
+                    <Chevron open={mobileExpanded === item.label} />
+                  </button>
                   {mobileExpanded === item.label && (
-                    <div className="ml-4 mt-1 flex flex-col gap-0.5 border-l-2 border-slate-200 pl-4">
+                    <div className="mt-2 space-y-1 rounded-xl border border-slate-100 bg-slate-50/80 p-2">
+                      <Link
+                        href={item.href}
+                        onClick={closeMobile}
+                        className="block rounded-lg px-3 py-2 text-sm font-semibold text-tnf-green hover:bg-white"
+                      >
+                        All {item.label}
+                      </Link>
                       {item.children.map((child) => (
                         <Link
                           key={`${child.href}-${child.label}`}
                           href={child.href}
-                          onClick={() => setMobileOpen(false)}
-                          className="rounded-md px-2 py-1.5 text-sm text-slate-600 hover:bg-slate-50"
+                          onClick={closeMobile}
+                          className="block rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-white hover:text-tnf-navy"
                         >
                           {child.label}
                         </Link>
@@ -192,19 +236,24 @@ export function Header() {
                   )}
                 </div>
               ) : (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="rounded-md px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50"
-                >
+                <Link key={item.href} href={item.href} onClick={closeMobile} className={mobileLinkClass}>
                   {item.label}
                 </Link>
-              )
+              ),
             )}
           </nav>
-        </div>
-      )}
+
+          <div className="shrink-0 border-t border-slate-100 p-5">
+            <Link
+              href="/contact"
+              onClick={closeMobile}
+              className="btn-tnf-primary block w-full rounded-full py-3.5 text-center text-sm font-semibold shadow-md"
+            >
+              Contact Us
+            </Link>
+          </div>
+        </aside>
+      </div>
     </header>
   );
 }
