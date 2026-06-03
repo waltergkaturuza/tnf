@@ -69,7 +69,7 @@ export function ContactPageView() {
               href="https://summit.tnfzim.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold text-white underline underline-offset-4 decoration-white/80 transition-colors hover:text-emerald-50 hover:decoration-white"
+              className="hero-inline-link"
             >
               TNF Global Summit
             </a>{" "}

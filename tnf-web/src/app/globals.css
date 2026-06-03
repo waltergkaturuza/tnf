@@ -73,6 +73,25 @@ main h3 {
   background-color: var(--tnf-green);
 }
 
+/* Inline links on green hero bands — gold/white, never brand green on green */
+.page-shell-hero .hero-inline-link,
+.page-shell-hero p a.hero-inline-link {
+  color: var(--tnf-gold-light);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-color: rgb(230 192 77 / 0.85);
+  text-align: left;
+  text-justify: auto;
+  hyphens: manual;
+}
+
+.page-shell-hero .hero-inline-link:hover,
+.page-shell-hero p a.hero-inline-link:hover {
+  color: #ffffff;
+  text-decoration-color: #ffffff;
+}
+
 .page-shell-header {
   margin-left: auto;
   margin-right: auto;
