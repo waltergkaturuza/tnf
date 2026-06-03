@@ -12,6 +12,8 @@ type Props = {
   items: UpdateItem[];
 };
 
+const UPDATES_CARD = "updates-card p-5 sm:p-6";
+
 function matchesSearch(item: UpdateItem, query: string): boolean {
   const q = query.trim().toLowerCase();
   if (!q) return true;
@@ -39,7 +41,7 @@ function FeaturedImage({ item }: { item: UpdateItem }) {
   }
   return (
     <div className="relative aspect-[16/9] w-full overflow-hidden bg-gradient-to-br from-tnf-navy-light to-tnf-navy">
-      <div className="absolute inset-0 flex items-center justify-center opacity-20">
+      <div className="absolute inset-0 flex items-center justify-center opacity-25">
         <span className="text-6xl font-serif text-white">TNF</span>
       </div>
     </div>
@@ -71,88 +73,92 @@ export function NewsEventsView({ items }: Props) {
   ];
 
   return (
-    <div className="bg-[#0f1f33] text-white">
-      {/* Announcement strip */}
-      <div className="bg-emerald-600 px-[10mm] py-3 text-center text-sm font-medium text-white sm:text-base">
+    <div className="page-updates">
+      <div className="bg-emerald-700/90 px-5 py-3 text-center text-sm font-medium text-white sm:text-base">
         Latest TNF news, announcements and upcoming events.
       </div>
 
-      <div className="container-wide py-10 lg:py-14">
-        <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-          Updates &amp; Events
-        </h1>
-
-        {/* Filter pills */}
-        <div className="mt-8 flex flex-wrap gap-2">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              type="button"
-              onClick={() => setActiveTab(tab.id)}
-              className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
-                activeTab === tab.id
-                  ? "bg-tnf-gold text-tnf-navy"
-                  : "border border-white/25 bg-white/5 text-slate-200 hover:border-white/40 hover:bg-white/10"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+      {/* Header + filters on white */}
+      <div className="updates-tone-white border-b border-slate-200/50 py-10 lg:py-12">
+        <div className="mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">
+          <h1 className="text-center text-3xl font-bold tracking-tight text-tnf-navy sm:text-4xl lg:text-5xl">
+            Updates &amp; Events
+          </h1>
+          <div className="mt-8 flex flex-wrap justify-center gap-2">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${
+                  activeTab === tab.id
+                    ? "bg-tnf-gold text-tnf-navy shadow-md"
+                    : "border border-slate-300 bg-white text-slate-600 hover:border-tnf-gold/50 hover:bg-amber-50"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
+      </div>
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_320px] xl:grid-cols-[1fr_360px]">
-          {/* Main column */}
+      {/* Main content on pearl */}
+      <div className="updates-tone-pearl py-10 lg:py-14">
+        <div className="mx-auto grid max-w-6xl gap-10 px-5 sm:px-8 lg:grid-cols-[1fr_320px] lg:gap-12 lg:px-10 xl:grid-cols-[1fr_360px]">
           <div className="min-w-0 space-y-8">
             {featured ? (
-              <article className="overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+              <article className={`${UPDATES_CARD} overflow-hidden p-0`}>
                 <div className="relative">
                   <FeaturedImage item={featured} />
                   <div className="absolute left-4 top-4 flex flex-wrap gap-2">
                     <span className="rounded-md bg-tnf-gold px-2.5 py-1 text-xs font-bold uppercase text-tnf-navy">
                       {featured.category}
                     </span>
-                    <span className="rounded-md bg-white/20 px-2.5 py-1 text-xs font-semibold uppercase text-white backdrop-blur-sm">
+                    <span className="rounded-md bg-white/90 px-2.5 py-1 text-xs font-semibold uppercase text-tnf-navy shadow-sm">
                       {featured.type === "event" ? "Event" : "Article"}
                     </span>
                   </div>
                 </div>
                 <div className="p-6 sm:p-8">
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-300">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-500">
                     <time dateTime={featured.dateISO}>{featured.dateDisplay}</time>
                     {featured.location && (
                       <>
-                        <span className="text-slate-500">·</span>
+                        <span>·</span>
                         <span className="font-medium text-tnf-gold">{featured.location}</span>
                       </>
                     )}
-                    <span className="text-slate-500">·</span>
+                    <span>·</span>
                     <span>{featured.category}</span>
                   </div>
-                  <h2 className="mt-4 text-2xl font-bold text-tnf-gold sm:text-3xl">{featured.title}</h2>
-                  <p className="mt-4 line-clamp-4 text-slate-300 leading-relaxed">{featured.excerpt}</p>
+                  <h2 className="mt-4 text-2xl font-bold text-tnf-navy sm:text-3xl">{featured.title}</h2>
+                  <p className="about-text-justify mt-4 line-clamp-4 leading-relaxed text-slate-600">
+                    {featured.excerpt}
+                  </p>
                   <Link
                     href={`/news-events#${featured.slug}`}
-                    className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-tnf-gold hover:text-tnf-gold-light"
+                    className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-tnf-gold hover:text-tnf-navy"
                   >
                     Read more →
                   </Link>
                 </div>
               </article>
             ) : (
-              <p className="rounded-xl border border-white/10 bg-white/5 p-8 text-center text-slate-400">
+              <p className={`${UPDATES_CARD} text-center text-slate-500`}>
                 No updates match your filters. Try another category or search term.
               </p>
             )}
 
             {rest.length > 0 && (
-              <div className="space-y-6">
+              <div className="space-y-5">
                 {rest.map((item) => (
                   <article
                     key={item.id}
                     id={item.slug}
-                    className="scroll-mt-28 rounded-xl border border-white/10 bg-white/5 p-6 transition-colors hover:border-white/20"
+                    className={`${UPDATES_CARD} scroll-mt-28`}
                   >
-                    <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-slate-400">
+                    <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-slate-500">
                       <span className="text-tnf-gold">{item.category}</span>
                       <span>·</span>
                       <time dateTime={item.dateISO}>{item.dateDisplay}</time>
@@ -163,18 +169,19 @@ export function NewsEventsView({ items }: Props) {
                         </>
                       )}
                     </div>
-                    <h3 className="mt-2 text-xl font-bold text-white">{item.title}</h3>
-                    <p className="mt-2 line-clamp-2 text-sm text-slate-300">{item.excerpt}</p>
+                    <h3 className="mt-2 text-xl font-bold text-tnf-navy">{item.title}</h3>
+                    <p className="about-text-justify mt-2 line-clamp-2 text-sm text-slate-600">
+                      {item.excerpt}
+                    </p>
                   </article>
                 ))}
               </div>
             )}
           </div>
 
-          {/* Sidebar */}
-          <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
-            <div className="rounded-xl border border-white/10 bg-[#1a2d45] p-5">
-              <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-white">
+          <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
+            <div className={UPDATES_CARD}>
+              <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-tnf-navy">
                 <svg className="h-4 w-4 text-tnf-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -185,13 +192,13 @@ export function NewsEventsView({ items }: Props) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search updates"
-                className="mt-3 w-full rounded-lg border border-white/15 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none focus:border-tnf-gold"
+                className="mt-3 w-full rounded-lg border border-slate-200 bg-[#f9f8f6] px-4 py-2.5 text-sm text-tnf-navy placeholder-slate-400 outline-none focus:border-tnf-gold focus:ring-1 focus:ring-tnf-gold/30"
                 aria-label="Search updates"
               />
             </div>
 
-            <div className="rounded-xl border border-white/10 bg-[#1a2d45] p-5">
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-white">Recent posts</h3>
+            <div className={UPDATES_CARD}>
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-tnf-navy">Recent posts</h3>
               <ul className="mt-4 space-y-4">
                 {recentPosts.map((post) => (
                   <li key={post.id}>
@@ -204,10 +211,10 @@ export function NewsEventsView({ items }: Props) {
                         setActiveTab("all");
                       }}
                     >
-                      <p className="text-sm font-medium text-white group-hover:text-tnf-gold line-clamp-2">
+                      <p className="line-clamp-2 text-sm font-medium text-tnf-navy group-hover:text-tnf-gold">
                         {post.title}
                       </p>
-                      <p className="mt-1 text-xs text-slate-400">
+                      <p className="mt-1 text-xs text-slate-500">
                         {post.category} · {post.dateDisplay}
                       </p>
                     </Link>
@@ -216,8 +223,8 @@ export function NewsEventsView({ items }: Props) {
               </ul>
             </div>
 
-            <div className="rounded-xl border border-white/10 bg-[#1a2d45] p-5">
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-white">Categories</h3>
+            <div className={`${UPDATES_CARD} bg-[#f9f8f6]`}>
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-tnf-navy">Categories</h3>
               <ul className="mt-4 space-y-1">
                 <li>
                   <button
@@ -225,8 +232,8 @@ export function NewsEventsView({ items }: Props) {
                     onClick={() => setActiveCategory("All")}
                     className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
                       activeCategory === "All"
-                        ? "bg-white/10 font-semibold text-tnf-gold"
-                        : "text-slate-300 hover:bg-white/5 hover:text-white"
+                        ? "bg-tnf-gold/15 font-semibold text-tnf-navy"
+                        : "text-slate-600 hover:bg-white hover:text-tnf-navy"
                     }`}
                   >
                     All
@@ -239,8 +246,8 @@ export function NewsEventsView({ items }: Props) {
                       onClick={() => setActiveCategory(cat)}
                       className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
                         activeCategory === cat
-                          ? "bg-white/10 font-semibold text-tnf-gold"
-                          : "text-slate-300 hover:bg-white/5 hover:text-white"
+                          ? "bg-tnf-gold/15 font-semibold text-tnf-navy"
+                          : "text-slate-600 hover:bg-white hover:text-tnf-navy"
                       }`}
                     >
                       {cat}
@@ -250,14 +257,14 @@ export function NewsEventsView({ items }: Props) {
               </ul>
             </div>
 
-            <div className="rounded-xl border border-white/10 bg-[#1a2d45] p-5">
-              <h3 className="text-sm font-semibold text-white">Stay Updated</h3>
-              <p className="mt-2 text-sm text-slate-400">
+            <div className={UPDATES_CARD}>
+              <h3 className="text-sm font-semibold text-tnf-navy">Stay Updated</h3>
+              <p className="about-text-justify mt-2 text-sm text-slate-600">
                 Subscribe for TNF updates, event announcements and more.
               </p>
               <Link
                 href="/contact"
-                className="mt-4 inline-block w-full rounded-lg bg-tnf-gold py-2.5 text-center text-sm font-semibold text-tnf-navy transition-colors hover:bg-tnf-gold-light"
+                className="mt-4 block w-full rounded-lg bg-tnf-gold py-2.5 text-center text-sm font-semibold text-tnf-navy transition-all hover:bg-tnf-gold-light hover:shadow-md"
               >
                 Subscribe
               </Link>
@@ -265,6 +272,9 @@ export function NewsEventsView({ items }: Props) {
           </aside>
         </div>
       </div>
+
+      {/* Bottom strip — mist tone */}
+      <div className="updates-tone-mist h-8 border-t border-slate-200/40" aria-hidden />
     </div>
   );
 }

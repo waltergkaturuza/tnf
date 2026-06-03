@@ -11,9 +11,14 @@ export const siteConfig = {
     "The Tripartite Negotiating Forum (TNF) is the statutory national platform in Zimbabwe that brings together government, organised business, and organised labour to address socio-economic and labour market issues.",
   url: "https://tnfzim.com",
   contact: {
-    phone: "+263 24 278 3030",
+    phone: "+263 242 783 030",
     email: "info@tnfzim.com",
     address: "East Wing Block 3 Celestial Park, Borrowdale, Harare, Zimbabwe",
+    team: [
+      { name: "Racheal", phone: "077 956 0229" },
+      { name: "Lloyd", phone: "077 340 2440" },
+      { name: "Emanuel", phone: "071 987 9890" },
+    ],
     social: {
       twitter: "https://x.com/TNFZimbabwe",
       facebook: "https://www.facebook.com/profile.php?id=61581995522540",

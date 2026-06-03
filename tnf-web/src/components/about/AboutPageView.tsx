@@ -101,18 +101,21 @@ const CORE_VALUES = [
   { name: "Accountability", desc: "Answerable for our actions." },
 ];
 
-const CARD_HOVER =
-  "rounded-2xl border border-white/10 bg-[#1a2d45]/90 p-6 shadow-md backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-tnf-gold/50 hover:bg-[#223a58] hover:shadow-xl hover:shadow-black/25 lg:p-8";
+const ABOUT_CARD = "about-card p-6 lg:p-8";
 
 function AboutSection({
   children,
+  tone = "warm",
   className = "",
 }: {
   children: React.ReactNode;
+  tone?: "ivory" | "warm" | "sand";
   className?: string;
 }) {
+  const toneClass =
+    tone === "ivory" ? "about-tone-ivory" : tone === "sand" ? "about-tone-sand" : "about-tone-warm";
   return (
-    <section className={`border-b border-white/10 py-14 lg:py-16 ${className}`}>
+    <section className={`border-b border-slate-200/40 py-14 lg:py-16 ${toneClass} ${className}`}>
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-10">{children}</div>
     </section>
   );
@@ -130,9 +133,9 @@ function SectionHeader({
   return (
     <div className="mx-auto mb-10 max-w-3xl text-center">
       <p className="text-sm font-semibold uppercase tracking-widest text-tnf-gold">{label}</p>
-      <h2 className="mt-2 text-2xl font-bold text-white sm:text-3xl">{title}</h2>
+      <h2 className="mt-2 text-2xl font-bold text-tnf-navy sm:text-3xl">{title}</h2>
       {description && (
-        <p className="about-text-justify mt-4 text-sm text-slate-400 sm:text-base">{description}</p>
+        <p className="about-text-justify mt-4 text-sm text-slate-600 sm:text-base">{description}</p>
       )}
     </div>
   );
@@ -142,19 +145,19 @@ export function AboutPageView() {
   const workAreaLetters = "ABCDEF".split("");
 
   return (
-    <div className="bg-[#0f1f33] text-white">
-      <div className="bg-emerald-600 px-5 py-3 text-center text-sm font-medium text-white sm:text-base">
+    <div className="page-about">
+      <div className="bg-emerald-700/90 px-5 py-3 text-center text-sm font-medium text-white sm:text-base">
         Facilitating national social dialogue for inclusive economic development since 1998.
       </div>
 
       {/* Hero */}
-      <AboutSection className="pt-14 lg:pt-20">
+      <AboutSection tone="ivory" className="pt-14 lg:pt-20">
         <div className="mx-auto max-w-4xl text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-tnf-gold">The Forum</p>
-          <h1 className="mt-3 text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+          <h1 className="mt-3 text-3xl font-bold leading-tight text-tnf-navy sm:text-4xl lg:text-5xl">
             Zimbabwe&apos;s Statutory Tripartite Platform
           </h1>
-          <p className="about-text-justify mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-300">
+          <p className="about-text-justify mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-600">
             The Tripartite Negotiating Forum (TNF) is Zimbabwe&apos;s national platform where
             government, organised business and organised labour address socio-economic and labour
             market issues — from voluntary forum in 1998 to a legislated body under the TNF Act of
@@ -169,7 +172,7 @@ export function AboutPageView() {
             </Link>
             <Link
               href="/about/team"
-              className="rounded-full border border-white/25 bg-white/5 px-6 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:border-tnf-gold/50 hover:bg-white/10"
+              className="rounded-full border border-slate-300 bg-white px-6 py-2.5 text-sm font-semibold text-tnf-navy transition-all hover:-translate-y-0.5 hover:border-tnf-gold hover:shadow-md"
             >
               Meet the Team
             </Link>
@@ -178,13 +181,13 @@ export function AboutPageView() {
       </AboutSection>
 
       {/* What is TNF */}
-      <AboutSection>
+      <AboutSection tone="warm">
         <SectionHeader
           label="About TNF"
           title="What is the Tripartite Negotiating Forum?"
         />
-        <div className={`${CARD_HOVER} mx-auto max-w-4xl`}>
-          <p className="about-text-justify text-slate-300 leading-relaxed">
+        <div className={`${ABOUT_CARD} mx-auto max-w-4xl`}>
+          <p className="about-text-justify text-slate-600 leading-relaxed">
             Social dialogue in Zimbabwe is under the auspices of the Tripartite Negotiating Forum
             (TNF), a forum that is tripartite in nature consisting of the Government, Organised
             Business and Organised Labour. The TNF was established in 1998 as a voluntary forum with
@@ -192,7 +195,7 @@ export function AboutPageView() {
             market. The TNF has evolved from a non-legislated body into a legislated body with the
             enactment of the TNF Act in 2019.
           </p>
-          <p className="about-text-justify mt-4 text-slate-300 leading-relaxed">
+          <p className="about-text-justify mt-4 text-slate-600 leading-relaxed">
             Anchored in Zimbabwe&apos;s Constitution, the TNF Act, National Development Strategy,
             Vision 2030 and international labour standards, the Forum produces recommendations,
             social contracts and monitored agreements that support inclusive growth and decent work.
@@ -201,7 +204,7 @@ export function AboutPageView() {
             {ANCHOR_TAGS.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-200 transition-colors hover:border-tnf-gold/40 hover:bg-tnf-gold/10"
+                className="rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-medium text-slate-600 shadow-sm transition-colors hover:border-tnf-gold/50 hover:bg-amber-50"
               >
                 {tag}
               </span>
@@ -211,12 +214,12 @@ export function AboutPageView() {
       </AboutSection>
 
       {/* Outcomes */}
-      <AboutSection>
+      <AboutSection tone="sand">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {OUTCOMES.map((item) => (
-            <div key={item.title} className={CARD_HOVER}>
+            <div key={item.title} className={ABOUT_CARD}>
               <h3 className="text-center text-lg font-bold text-tnf-gold">{item.title}</h3>
-              <p className="about-text-justify mt-3 text-sm leading-relaxed text-slate-400">
+              <p className="about-text-justify mt-3 text-sm leading-relaxed text-slate-600">
                 {item.description}
               </p>
             </div>
@@ -225,7 +228,7 @@ export function AboutPageView() {
       </AboutSection>
 
       {/* Mission / Vision / Motto */}
-      <AboutSection>
+      <AboutSection tone="ivory">
         <div className="grid gap-6 md:grid-cols-3">
           {[
             {
@@ -238,9 +241,9 @@ export function AboutPageView() {
             },
             { title: "Motto", text: "Social dialogue for nation building." },
           ].map((item) => (
-            <div key={item.title} className={`${CARD_HOVER} text-center`}>
+            <div key={item.title} className={`${ABOUT_CARD} text-center`}>
               <h3 className="font-bold text-tnf-gold">{item.title}</h3>
-              <p className="about-text-justify mt-3 text-sm text-slate-300 leading-relaxed">
+              <p className="about-text-justify mt-3 text-sm text-slate-600 leading-relaxed">
                 {item.text}
               </p>
             </div>
@@ -249,13 +252,13 @@ export function AboutPageView() {
       </AboutSection>
 
       {/* Who engages */}
-      <AboutSection>
+      <AboutSection tone="warm">
         <SectionHeader label="Why Engage" title="Who Participates in the TNF?" />
         <div className="grid gap-6 sm:grid-cols-2">
           {WHO_ENGAGES.map((item) => (
-            <div key={item.title} className={CARD_HOVER}>
-              <h3 className="text-center text-xl font-bold text-white">{item.title}</h3>
-              <p className="about-text-justify mt-3 text-sm leading-relaxed text-slate-400">
+            <div key={item.title} className={ABOUT_CARD}>
+              <h3 className="text-center text-xl font-bold text-tnf-navy">{item.title}</h3>
+              <p className="about-text-justify mt-3 text-sm leading-relaxed text-slate-600">
                 {item.description}
               </p>
             </div>
@@ -264,7 +267,7 @@ export function AboutPageView() {
       </AboutSection>
 
       {/* Work areas */}
-      <AboutSection>
+      <AboutSection tone="sand">
         <SectionHeader
           label="Focus Areas"
           title={`${siteConfig.workAreas.length} Critical Work Areas`}
@@ -275,16 +278,16 @@ export function AboutPageView() {
             <Link
               key={area.id}
               href={`/work-areas/${area.slug}`}
-              className={`group ${CARD_HOVER} flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left`}
+              className={`group ${ABOUT_CARD} flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left`}
             >
               <span className="mb-3 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-tnf-gold text-base font-bold text-tnf-navy shadow-md transition-transform group-hover:scale-110 sm:mb-0 sm:mr-4">
                 {workAreaLetters[i] ?? i + 1}
               </span>
               <div className="min-w-0">
-                <h3 className="font-semibold text-white transition-colors group-hover:text-tnf-gold">
+                <h3 className="font-semibold text-tnf-navy transition-colors group-hover:text-tnf-gold">
                   {area.title}
                 </h3>
-                <p className="about-text-justify mt-2 line-clamp-3 text-xs text-slate-400 sm:text-sm">
+                <p className="about-text-justify mt-2 line-clamp-3 text-xs text-slate-600 sm:text-sm">
                   {area.description}
                 </p>
               </div>
@@ -302,7 +305,7 @@ export function AboutPageView() {
       </AboutSection>
 
       {/* Tripartite */}
-      <AboutSection>
+      <AboutSection tone="ivory">
         <SectionHeader
           label="Our Foundation"
           title="The Tripartite Model"
@@ -310,12 +313,12 @@ export function AboutPageView() {
         />
         <div className="grid gap-6 md:grid-cols-3">
           {TRIPARTITE.map((item) => (
-            <div key={item.title} className={`${CARD_HOVER} text-center`}>
+            <div key={item.title} className={`${ABOUT_CARD} text-center`}>
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-tnf-gold bg-tnf-gold/10 text-2xl font-bold text-tnf-gold transition-transform duration-300 group-hover:scale-105">
                 {item.title.charAt(0)}
               </div>
-              <h3 className="text-lg font-bold text-white">{item.title}</h3>
-              <p className="about-text-justify mt-3 text-sm text-slate-400 leading-relaxed">
+              <h3 className="text-lg font-bold text-tnf-navy">{item.title}</h3>
+              <p className="about-text-justify mt-3 text-sm text-slate-600 leading-relaxed">
                 {item.description}
               </p>
             </div>
@@ -324,13 +327,13 @@ export function AboutPageView() {
       </AboutSection>
 
       {/* Structure */}
-      <AboutSection>
+      <AboutSection tone="warm">
         <SectionHeader label="Governance" title="Structure of the TNF" />
         <div className="mx-auto max-w-3xl space-y-5">
           {STRUCTURE.map((item) => (
-            <div key={item.title} className={CARD_HOVER}>
+            <div key={item.title} className={ABOUT_CARD}>
               <h3 className="text-center font-bold text-tnf-gold">{item.title}</h3>
-              <p className="about-text-justify mt-2 text-sm text-slate-300 leading-relaxed">
+              <p className="about-text-justify mt-2 text-sm text-slate-600 leading-relaxed">
                 {item.description}
               </p>
             </div>
@@ -339,11 +342,11 @@ export function AboutPageView() {
       </AboutSection>
 
       {/* Mandate + legal */}
-      <AboutSection>
+      <AboutSection tone="sand">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
-          <div className={CARD_HOVER}>
+          <div className={ABOUT_CARD}>
             <SectionHeader label="Mandate" title="What the TNF Does" />
-            <ul className="about-text-justify mx-auto max-w-xl space-y-3 text-sm text-slate-300">
+            <ul className="about-text-justify mx-auto max-w-xl space-y-3 text-sm text-slate-600">
               {[
                 "Consult and negotiate over social and economic issues and submit recommendations to Cabinet",
                 "Negotiate a social contract as and when necessary",
@@ -359,12 +362,12 @@ export function AboutPageView() {
               ))}
             </ul>
           </div>
-          <div className={CARD_HOVER}>
+          <div className={ABOUT_CARD}>
             <p className="text-center text-sm font-semibold uppercase tracking-widest text-tnf-gold">
               Legal Basis
             </p>
-            <h3 className="mt-2 text-center text-xl font-bold text-white">Guiding Framework</h3>
-            <ul className="about-text-justify mx-auto mt-6 max-w-md space-y-2 text-sm text-slate-300">
+            <h3 className="mt-2 text-center text-xl font-bold text-tnf-navy">Guiding Framework</h3>
+            <ul className="about-text-justify mx-auto mt-6 max-w-md space-y-2 text-sm text-slate-600">
               <li>Constitution of Zimbabwe Amendment No. 1 of 2013</li>
               <li>Tripartite Negotiating Forum Act [No. 3 of 2019]</li>
               <li>Labour Act [Chapter 28:01]</li>
@@ -373,34 +376,34 @@ export function AboutPageView() {
             </ul>
             <div className="mx-auto mt-8 max-w-sm rounded-xl border border-tnf-gold/30 bg-tnf-gold/10 p-4 text-center transition-colors hover:border-tnf-gold/50">
               <p className="text-sm font-semibold text-tnf-gold">TNF Act 2019</p>
-              <p className="mt-1 text-xs text-slate-400">Full Act document — coming soon.</p>
+              <p className="mt-1 text-xs text-slate-600">Full Act document — coming soon.</p>
             </div>
           </div>
         </div>
       </AboutSection>
 
       {/* Core values */}
-      <AboutSection>
+      <AboutSection tone="ivory">
         <SectionHeader label="Values" title="Core Values" />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CORE_VALUES.map((v) => (
             <div
               key={v.name}
-              className={`${CARD_HOVER} text-center transition-all hover:-translate-y-1`}
+              className={`${ABOUT_CARD} text-center transition-all hover:-translate-y-1`}
             >
               <p className="font-semibold text-tnf-gold">{v.name}</p>
-              <p className="about-text-justify mt-2 text-sm text-slate-400">{v.desc}</p>
+              <p className="about-text-justify mt-2 text-sm text-slate-600">{v.desc}</p>
             </div>
           ))}
         </div>
       </AboutSection>
 
       {/* Secretariat */}
-      <AboutSection className="border-b-0 pb-16 lg:pb-20">
+      <AboutSection tone="warm" className="border-b-0 pb-16 lg:pb-20">
         <div className="grid gap-10 lg:grid-cols-[1fr_300px] lg:gap-12">
-          <div className={CARD_HOVER}>
+          <div className={ABOUT_CARD}>
             <SectionHeader label="Organiser" title="TNF Secretariat" />
-            <p className="about-text-justify mx-auto max-w-2xl text-slate-300 leading-relaxed">
+            <p className="about-text-justify mx-auto max-w-2xl text-slate-600 leading-relaxed">
               The Tripartite Negotiating Forum (TNF) is Zimbabwe&apos;s official tripartite
               institution, comprising Government, Employers&apos; organisations and Workers&apos;
               organisations. The Secretariat, based in Harare, coordinates Forum activities and
@@ -417,22 +420,22 @@ export function AboutPageView() {
                 href="https://summit.tnfzim.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full border border-white/25 px-6 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:border-tnf-gold/50 hover:bg-white/10"
+                className="rounded-full border border-slate-300 bg-white px-6 py-2.5 text-sm font-semibold text-tnf-navy transition-all hover:-translate-y-0.5 hover:border-tnf-gold hover:shadow-md"
               >
                 TNF Global Summit 2026 →
               </Link>
             </div>
           </div>
           <aside className="space-y-5">
-            <div className={CARD_HOVER}>
+            <div className={ABOUT_CARD}>
               <h3 className="text-center text-sm font-semibold uppercase tracking-wide text-tnf-gold">
                 Head Office
               </h3>
-              <p className="about-text-justify mt-3 text-center text-sm text-slate-300">
+              <p className="about-text-justify mt-3 text-center text-sm text-slate-600">
                 {siteConfig.contact.address}
               </p>
               <p className="mt-2 text-center text-sm">
-                <a href={`tel:${siteConfig.contact.phone}`} className="text-white hover:text-tnf-gold">
+                <a href={`tel:${siteConfig.contact.phone}`} className="text-tnf-navy hover:text-tnf-gold">
                   {siteConfig.contact.phone}
                 </a>
               </p>
@@ -445,8 +448,8 @@ export function AboutPageView() {
                 </a>
               </p>
             </div>
-            <div className={CARD_HOVER}>
-              <h3 className="text-center text-sm font-semibold text-white">Explore More</h3>
+            <div className={ABOUT_CARD}>
+              <h3 className="text-center text-sm font-semibold text-tnf-navy">Explore More</h3>
               <ul className="mt-4 space-y-2 text-center text-sm">
                 {[
                   { href: "/about/history", label: "History" },
@@ -455,16 +458,16 @@ export function AboutPageView() {
                   { href: "/departments", label: "Departments" },
                 ].map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-slate-300 transition-colors hover:text-tnf-gold">
+                    <Link href={link.href} className="text-slate-600 transition-colors hover:text-tnf-gold">
                       {link.label} →
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className={CARD_HOVER}>
-              <h3 className="text-center text-sm font-semibold text-white">Stay Updated</h3>
-              <p className="about-text-justify mt-2 text-center text-xs text-slate-400">
+            <div className={ABOUT_CARD}>
+              <h3 className="text-center text-sm font-semibold text-tnf-navy">Stay Updated</h3>
+              <p className="about-text-justify mt-2 text-center text-xs text-slate-600">
                 Subscribe for TNF updates and event announcements.
               </p>
               <Link

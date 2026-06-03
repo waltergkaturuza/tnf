@@ -42,3 +42,75 @@ body {
   text-justify: inter-word;
   hyphens: auto;
 }
+
+/* About page — warm cream tones */
+.page-about {
+  --page-cream-base: #faf6f0;
+  --page-cream-ivory: #fffcf8;
+  --page-cream-warm: #faf6f0;
+  --page-cream-sand: #f3ede4;
+  background-color: var(--page-cream-base);
+  color: #1e3a5f;
+}
+
+.about-tone-ivory {
+  background-color: var(--page-cream-ivory);
+}
+
+.about-tone-warm {
+  background-color: var(--page-cream-warm);
+}
+
+.about-tone-sand {
+  background-color: var(--page-cream-sand);
+}
+
+.about-card {
+  border-radius: 1rem;
+  border: 1px solid rgb(226 232 240 / 0.9);
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgb(30 58 95 / 0.06);
+  transition: all 0.3s ease-out;
+}
+
+.about-card:hover {
+  transform: translateY(-4px);
+  border-color: rgb(201 162 39 / 0.45);
+  box-shadow: 0 12px 28px rgb(30 58 95 / 0.1);
+}
+
+/* Updates & Events — linen / pearl tones (distinct from About) */
+.page-updates {
+  --updates-linen: #f6f4f0;
+  --updates-white: #ffffff;
+  --updates-pearl: #efe9e1;
+  --updates-mist: #f9f8f6;
+  background-color: var(--updates-linen);
+  color: #1e3a5f;
+}
+
+.updates-tone-white {
+  background-color: var(--updates-white);
+}
+
+.updates-tone-pearl {
+  background-color: var(--updates-pearl);
+}
+
+.updates-tone-mist {
+  background-color: var(--updates-mist);
+}
+
+.updates-card {
+  border-radius: 1rem;
+  border: 1px solid rgb(226 232 240 / 0.9);
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgb(30 58 95 / 0.06);
+  transition: all 0.3s ease-out;
+}
+
+.updates-card:hover {
+  transform: translateY(-3px);
+  border-color: rgb(201 162 39 / 0.4);
+  box-shadow: 0 10px 24px rgb(30 58 95 / 0.08);
+}
