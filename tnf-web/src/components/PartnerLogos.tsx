@@ -39,7 +39,7 @@ export function PartnerLogos() {
                 href={partner.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="focus:outline-none focus:ring-2 focus:ring-tnf-gold focus:ring-offset-2"
+                className="focus:outline-none focus:ring-2 focus:ring-tnf-green focus:ring-offset-2"
               >
                 {content}
               </a>

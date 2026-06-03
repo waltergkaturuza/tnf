@@ -45,7 +45,7 @@ export default async function WorkAreaPage({ params }: Props) {
                 <ul className="mt-4 space-y-2">
                   {area.keyServices.map((service) => (
                     <li key={service} className="flex items-start gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-tnf-gold" />
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-tnf-green" />
                       <span className="text-slate-600">{service}</span>
                     </li>
                   ))}
@@ -54,14 +54,14 @@ export default async function WorkAreaPage({ params }: Props) {
             )}
 
             {area.slug === "client-service-charter" && (
-              <div className="mt-12 rounded-xl border border-tnf-gold/30 bg-tnf-gold/5 p-6">
+              <div className="mt-12 rounded-xl border border-tnf-green/30 bg-tnf-green/5 p-6">
                 <h3 className="font-semibold text-tnf-navy">Client Service Charter</h3>
                 <p className="mt-2 text-sm text-slate-600">
                   Download the Client Services Charter (abridged version for display).
                 </p>
                 <a
                   href="#"
-                  className="mt-4 inline-flex items-center text-sm font-medium text-tnf-gold hover:text-tnf-navy"
+                  className="mt-4 inline-flex items-center text-sm font-medium text-tnf-green hover:text-tnf-green"
                 >
                   Download PDF (Coming soon)
                   <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -78,19 +78,19 @@ export default async function WorkAreaPage({ params }: Props) {
               <p className="mt-2 text-sm text-slate-600">Opening hours: 8am – 4pm</p>
               <a
                 href={`tel:${siteConfig.contact.phone}`}
-                className="mt-2 block text-tnf-gold hover:underline"
+                className="mt-2 block text-tnf-green hover:underline"
               >
                 {siteConfig.contact.phone}
               </a>
               <a
                 href={`mailto:${siteConfig.contact.email}`}
-                className="mt-1 block text-tnf-gold hover:underline"
+                className="mt-1 block text-tnf-green hover:underline"
               >
                 {siteConfig.contact.email}
               </a>
               <Link
                 href="/work-areas"
-                className="mt-6 block text-sm font-medium text-tnf-gold hover:text-tnf-navy"
+                className="mt-6 block text-sm font-medium text-tnf-green hover:text-tnf-green"
               >
                 ← All Work Areas
               </Link>

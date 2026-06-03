@@ -63,7 +63,7 @@ export default function TeamPage() {
         <div className="mt-12">
           <Link
             href="/about"
-            className="inline-flex items-center text-sm font-medium text-tnf-gold hover:text-tnf-navy"
+            className="inline-flex items-center text-sm font-medium text-tnf-green hover:text-tnf-green"
           >
             ← Back to About
           </Link>

@@ -7,7 +7,7 @@ export function Breadcrumbs({ items, variant = "default" }: { items: Item[]; var
 
   const isLight = variant === "light";
   const baseClass = isLight ? "text-slate-300" : "text-slate-600";
-  const linkClass = isLight ? "hover:text-white" : "hover:text-tnf-gold";
+  const linkClass = isLight ? "hover:text-white" : "hover:text-tnf-green";
   const currentClass = isLight ? "text-white" : "text-tnf-navy";
   const separatorClass = isLight ? "text-slate-500" : "text-slate-400";
 

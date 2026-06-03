@@ -79,7 +79,7 @@ export function Header() {
           <Search />
           <Link
             href="/contact"
-            className="hidden shrink-0 rounded-full bg-tnf-gold px-3 py-1.5 text-sm font-semibold text-tnf-navy transition-colors hover:bg-tnf-gold/90 sm:block lg:px-4 lg:py-2"
+            className="btn-tnf-primary hidden shrink-0 rounded-full px-3 py-1.5 text-sm font-semibold sm:block lg:px-4 lg:py-2"
           >
             Contact
           </Link>

@@ -39,8 +39,8 @@ export async function LatestNews() {
           {items.map((item) => (
             <article key={item.slug}>
               <Link href={`/news-events#${item.slug}`} className="block group">
-                <div className="h-full rounded-xl border border-slate-200 bg-slate-50/50 p-6 transition-all group-hover:border-tnf-gold/50 group-hover:bg-white group-hover:shadow-md">
-                  <time className="text-sm font-medium text-tnf-gold">{item.date}</time>
+                <div className="h-full rounded-xl border border-slate-200 bg-slate-50/50 p-6 transition-all group-hover:border-tnf-green/50 group-hover:bg-white group-hover:shadow-md">
+                  <time className="text-sm font-medium text-tnf-green">{item.date}</time>
                   <h3 className="mt-2 font-semibold text-tnf-navy group-hover:text-tnf-navy-light">{item.title}</h3>
                   <p className="mt-2 text-sm text-slate-600 line-clamp-2">{item.excerpt}</p>
                 </div>

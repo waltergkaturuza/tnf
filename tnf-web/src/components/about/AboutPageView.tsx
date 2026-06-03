@@ -132,7 +132,7 @@ function SectionHeader({
 }) {
   return (
     <div className="mx-auto mb-10 max-w-3xl text-center">
-      <p className="text-sm font-semibold uppercase tracking-widest text-tnf-gold">{label}</p>
+      <p className="tnf-label text-sm font-semibold uppercase tracking-widest">{label}</p>
       <h2 className="mt-2 text-2xl font-bold text-tnf-navy sm:text-3xl">{title}</h2>
       {description && (
         <p className="about-text-justify mt-4 text-sm text-slate-600 sm:text-base">{description}</p>
@@ -146,14 +146,14 @@ export function AboutPageView() {
 
   return (
     <div className="page-about">
-      <div className="bg-emerald-700/90 px-5 py-3 text-center text-sm font-medium text-white sm:text-base">
+      <div className="bg-tnf-green/90 px-5 py-3 text-center text-sm font-medium text-white sm:text-base">
         Facilitating national social dialogue for inclusive economic development since 1998.
       </div>
 
       {/* Hero */}
       <AboutSection tone="ivory" className="pt-14 lg:pt-20">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-tnf-gold">The Forum</p>
+          <p className="text-sm font-semibold uppercase tracking-widest text-tnf-green">The Forum</p>
           <h1 className="mt-3 text-3xl font-bold leading-tight text-tnf-navy sm:text-4xl lg:text-5xl">
             Zimbabwe&apos;s Statutory Tripartite Platform
           </h1>
@@ -166,13 +166,13 @@ export function AboutPageView() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/about/history"
-              className="rounded-full bg-tnf-gold px-6 py-2.5 text-sm font-semibold text-tnf-navy shadow-md transition-all hover:-translate-y-0.5 hover:bg-tnf-gold-light hover:shadow-lg"
+              className="btn-tnf-primary rounded-full px-6 py-2.5 text-sm font-semibold shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg"
             >
               Our History
             </Link>
             <Link
               href="/about/team"
-              className="rounded-full border border-slate-300 bg-white px-6 py-2.5 text-sm font-semibold text-tnf-navy transition-all hover:-translate-y-0.5 hover:border-tnf-gold hover:shadow-md"
+              className="rounded-full border border-slate-300 bg-white px-6 py-2.5 text-sm font-semibold text-tnf-navy transition-all hover:-translate-y-0.5 hover:border-tnf-green hover:shadow-md"
             >
               Meet the Team
             </Link>
@@ -204,7 +204,7 @@ export function AboutPageView() {
             {ANCHOR_TAGS.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-medium text-slate-600 shadow-sm transition-colors hover:border-tnf-gold/50 hover:bg-amber-50"
+                className="rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-medium text-slate-600 shadow-sm transition-colors hover:border-tnf-green/50 hover:bg-emerald-50"
               >
                 {tag}
               </span>
@@ -218,7 +218,7 @@ export function AboutPageView() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {OUTCOMES.map((item) => (
             <div key={item.title} className={ABOUT_CARD}>
-              <h3 className="text-center text-lg font-bold text-tnf-gold">{item.title}</h3>
+              <h3 className="text-center text-lg font-bold text-tnf-green">{item.title}</h3>
               <p className="about-text-justify mt-3 text-sm leading-relaxed text-slate-600">
                 {item.description}
               </p>
@@ -242,7 +242,7 @@ export function AboutPageView() {
             { title: "Motto", text: "Social dialogue for nation building." },
           ].map((item) => (
             <div key={item.title} className={`${ABOUT_CARD} text-center`}>
-              <h3 className="font-bold text-tnf-gold">{item.title}</h3>
+              <h3 className="font-bold text-tnf-green">{item.title}</h3>
               <p className="about-text-justify mt-3 text-sm text-slate-600 leading-relaxed">
                 {item.text}
               </p>
@@ -280,11 +280,11 @@ export function AboutPageView() {
               href={`/work-areas/${area.slug}`}
               className={`group ${ABOUT_CARD} flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left`}
             >
-              <span className="mb-3 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-tnf-gold text-base font-bold text-tnf-navy shadow-md transition-transform group-hover:scale-110 sm:mb-0 sm:mr-4">
+              <span className="mb-3 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-tnf-green text-base font-bold text-white shadow-md transition-transform group-hover:scale-110 sm:mb-0 sm:mr-4">
                 {workAreaLetters[i] ?? i + 1}
               </span>
               <div className="min-w-0">
-                <h3 className="font-semibold text-tnf-navy transition-colors group-hover:text-tnf-gold">
+                <h3 className="font-semibold text-tnf-navy transition-colors group-hover:text-tnf-green">
                   {area.title}
                 </h3>
                 <p className="about-text-justify mt-2 line-clamp-3 text-xs text-slate-600 sm:text-sm">
@@ -297,7 +297,7 @@ export function AboutPageView() {
         <p className="mt-10 text-center">
           <Link
             href="/work-areas"
-            className="inline-flex items-center gap-1 text-sm font-semibold text-tnf-gold transition-colors hover:text-tnf-gold-light"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-tnf-green transition-colors hover:text-tnf-green"
           >
             Explore all work areas →
           </Link>
@@ -314,7 +314,7 @@ export function AboutPageView() {
         <div className="grid gap-6 md:grid-cols-3">
           {TRIPARTITE.map((item) => (
             <div key={item.title} className={`${ABOUT_CARD} text-center`}>
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-tnf-gold bg-tnf-gold/10 text-2xl font-bold text-tnf-gold transition-transform duration-300 group-hover:scale-105">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-tnf-green bg-tnf-green/10 text-2xl font-bold text-tnf-green transition-transform duration-300 group-hover:scale-105">
                 {item.title.charAt(0)}
               </div>
               <h3 className="text-lg font-bold text-tnf-navy">{item.title}</h3>
@@ -332,7 +332,7 @@ export function AboutPageView() {
         <div className="mx-auto max-w-3xl space-y-5">
           {STRUCTURE.map((item) => (
             <div key={item.title} className={ABOUT_CARD}>
-              <h3 className="text-center font-bold text-tnf-gold">{item.title}</h3>
+              <h3 className="text-center font-bold text-tnf-green">{item.title}</h3>
               <p className="about-text-justify mt-2 text-sm text-slate-600 leading-relaxed">
                 {item.description}
               </p>
@@ -356,14 +356,14 @@ export function AboutPageView() {
                 "Consult and negotiate Zimbabwe labour laws in line with the Constitution",
               ].map((line) => (
                 <li key={line} className="flex gap-2">
-                  <span className="shrink-0 text-tnf-gold">•</span>
+                  <span className="shrink-0 text-tnf-green">•</span>
                   <span>{line}</span>
                 </li>
               ))}
             </ul>
           </div>
           <div className={ABOUT_CARD}>
-            <p className="text-center text-sm font-semibold uppercase tracking-widest text-tnf-gold">
+            <p className="text-center text-sm font-semibold uppercase tracking-widest text-tnf-green">
               Legal Basis
             </p>
             <h3 className="mt-2 text-center text-xl font-bold text-tnf-navy">Guiding Framework</h3>
@@ -374,8 +374,8 @@ export function AboutPageView() {
               <li>National Development Strategy &amp; National Vision 2030</li>
               <li>International Labour Conventions</li>
             </ul>
-            <div className="mx-auto mt-8 max-w-sm rounded-xl border border-tnf-gold/30 bg-tnf-gold/10 p-4 text-center transition-colors hover:border-tnf-gold/50">
-              <p className="text-sm font-semibold text-tnf-gold">TNF Act 2019</p>
+            <div className="mx-auto mt-8 max-w-sm rounded-xl border border-tnf-green/30 bg-tnf-green/10 p-4 text-center transition-colors hover:border-tnf-green/50">
+              <p className="text-sm font-semibold text-tnf-green">TNF Act 2019</p>
               <p className="mt-1 text-xs text-slate-600">Full Act document — coming soon.</p>
             </div>
           </div>
@@ -391,7 +391,7 @@ export function AboutPageView() {
               key={v.name}
               className={`${ABOUT_CARD} text-center transition-all hover:-translate-y-1`}
             >
-              <p className="font-semibold text-tnf-gold">{v.name}</p>
+              <p className="font-semibold text-tnf-green">{v.name}</p>
               <p className="about-text-justify mt-2 text-sm text-slate-600">{v.desc}</p>
             </div>
           ))}
@@ -412,7 +412,7 @@ export function AboutPageView() {
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Link
                 href="/contact"
-                className="rounded-full bg-tnf-gold px-6 py-2.5 text-sm font-semibold text-tnf-navy shadow-md transition-all hover:-translate-y-0.5 hover:bg-tnf-gold-light hover:shadow-lg"
+                className="btn-tnf-primary rounded-full px-6 py-2.5 text-sm font-semibold shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg"
               >
                 Contact the Secretariat
               </Link>
@@ -420,7 +420,7 @@ export function AboutPageView() {
                 href="https://summit.tnfzim.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full border border-slate-300 bg-white px-6 py-2.5 text-sm font-semibold text-tnf-navy transition-all hover:-translate-y-0.5 hover:border-tnf-gold hover:shadow-md"
+                className="rounded-full border border-slate-300 bg-white px-6 py-2.5 text-sm font-semibold text-tnf-navy transition-all hover:-translate-y-0.5 hover:border-tnf-green hover:shadow-md"
               >
                 TNF Global Summit 2026 →
               </Link>
@@ -428,21 +428,21 @@ export function AboutPageView() {
           </div>
           <aside className="space-y-5">
             <div className={ABOUT_CARD}>
-              <h3 className="text-center text-sm font-semibold uppercase tracking-wide text-tnf-gold">
+              <h3 className="text-center text-sm font-semibold uppercase tracking-wide text-tnf-green">
                 Head Office
               </h3>
               <p className="about-text-justify mt-3 text-center text-sm text-slate-600">
                 {siteConfig.contact.address}
               </p>
               <p className="mt-2 text-center text-sm">
-                <a href={`tel:${siteConfig.contact.phone}`} className="text-tnf-navy hover:text-tnf-gold">
+                <a href={`tel:${siteConfig.contact.phone}`} className="text-tnf-navy hover:text-tnf-green">
                   {siteConfig.contact.phone}
                 </a>
               </p>
               <p className="mt-1 text-center text-sm">
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
-                  className="text-tnf-gold hover:text-tnf-gold-light"
+                  className="text-tnf-green hover:text-tnf-green"
                 >
                   {siteConfig.contact.email}
                 </a>
@@ -458,7 +458,7 @@ export function AboutPageView() {
                   { href: "/departments", label: "Departments" },
                 ].map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-slate-600 transition-colors hover:text-tnf-gold">
+                    <Link href={link.href} className="text-slate-600 transition-colors hover:text-tnf-green">
                       {link.label} →
                     </Link>
                   </li>
@@ -472,7 +472,7 @@ export function AboutPageView() {
               </p>
               <Link
                 href="/contact"
-                className="mt-4 block w-full rounded-lg bg-tnf-gold py-2.5 text-center text-sm font-semibold text-tnf-navy transition-all hover:-translate-y-0.5 hover:bg-tnf-gold-light hover:shadow-md"
+                className="btn-tnf-primary mt-4 block w-full rounded-lg py-2.5 text-center text-sm font-semibold transition-all hover:-translate-y-0.5 hover:shadow-md"
               >
                 Subscribe
               </Link>

@@ -54,12 +54,12 @@ export function NewsletterForm({ variant = "banner" }: NewsletterFormProps) {
             placeholder="Your email"
             required
             disabled={status === "loading"}
-            className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white placeholder-slate-400 outline-none focus:border-tnf-gold"
+            className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white placeholder-slate-400 outline-none focus:border-tnf-green"
           />
           <button
             type="submit"
             disabled={status === "loading"}
-            className="rounded-lg bg-tnf-gold px-4 py-2.5 text-sm font-semibold text-tnf-navy transition-colors hover:bg-tnf-gold-light disabled:opacity-50"
+            className="btn-tnf-primary rounded-lg px-4 py-2.5 text-sm font-semibold"
           >
             {status === "loading" ? "..." : "Subscribe"}
           </button>

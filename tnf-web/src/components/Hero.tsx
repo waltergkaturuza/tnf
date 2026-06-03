@@ -28,7 +28,7 @@ export function Hero() {
             <div className="mt-10 flex flex-wrap gap-4">
             <Link
               href="/about"
-              className="inline-flex items-center rounded-full bg-tnf-gold px-6 py-3 text-sm font-semibold text-tnf-navy shadow-lg transition-all hover:bg-tnf-gold-light hover:shadow-xl"
+              className="btn-tnf-primary inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold shadow-lg hover:shadow-xl"
             >
               About TNF
             </Link>

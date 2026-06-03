@@ -44,14 +44,14 @@ export function ContactPageView() {
 
   return (
     <div className="page-about">
-      <div className="bg-emerald-700/90 px-5 py-3 text-center text-sm font-medium text-white sm:text-base">
+      <div className="bg-tnf-green/90 px-5 py-3 text-center text-sm font-medium text-white sm:text-base">
         Get in touch with the TNF Secretariat — we welcome your enquiries on social dialogue,
         programmes and partnerships.
       </div>
 
       <section className="about-tone-ivory border-b border-slate-200/40 py-12 lg:py-16">
         <div className="mx-auto max-w-6xl px-5 text-center sm:px-8 lg:px-10">
-          <p className="text-sm font-semibold uppercase tracking-widest text-tnf-gold">Contact</p>
+          <p className="tnf-label text-sm font-semibold uppercase tracking-widest">Contact</p>
           <h1 className="mt-3 text-3xl font-bold tracking-tight text-tnf-navy sm:text-4xl lg:text-5xl">
             Contact Us
           </h1>
@@ -62,7 +62,7 @@ export function ContactPageView() {
               href="https://summit.tnfzim.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-tnf-gold hover:text-tnf-gold-light"
+              className="font-medium text-tnf-green hover:text-tnf-green"
             >
               TNF Global Summit
             </a>{" "}
@@ -96,7 +96,7 @@ export function ContactPageView() {
                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Email</p>
                     <a
                       href={`mailto:${siteConfig.contact.email}`}
-                      className="mt-0.5 block font-medium text-tnf-navy hover:text-tnf-gold"
+                      className="mt-0.5 block font-medium text-tnf-navy hover:text-tnf-green"
                     >
                       {siteConfig.contact.email}
                     </a>
@@ -118,7 +118,7 @@ export function ContactPageView() {
                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Phone</p>
                     <a
                       href={telHref(siteConfig.contact.phone)}
-                      className="mt-0.5 block font-medium text-tnf-navy hover:text-tnf-gold"
+                      className="mt-0.5 block font-medium text-tnf-navy hover:text-tnf-green"
                     >
                       {siteConfig.contact.phone}
                     </a>
@@ -169,7 +169,7 @@ export function ContactPageView() {
                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Website</p>
                     <a
                       href={siteConfig.url}
-                      className="mt-0.5 block font-medium text-tnf-gold hover:text-tnf-gold-light"
+                      className="mt-0.5 block font-medium text-tnf-green hover:text-tnf-green"
                     >
                       tnfzim.com
                     </a>
@@ -179,7 +179,7 @@ export function ContactPageView() {
             </div>
 
             <div className={CONTACT_CARD}>
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-tnf-gold">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-tnf-green">
                 Secretariat team
               </h3>
               <ul className="mt-4 divide-y divide-slate-100">
@@ -188,7 +188,7 @@ export function ContactPageView() {
                     <span className="font-medium text-tnf-navy">{member.name}</span>
                     <a
                       href={telHref(member.phone)}
-                      className="text-sm font-medium text-slate-600 hover:text-tnf-gold"
+                      className="text-sm font-medium text-slate-600 hover:text-tnf-green"
                     >
                       {member.phone}
                     </a>
@@ -219,7 +219,7 @@ export function ContactPageView() {
                     name="name"
                     type="text"
                     required
-                    className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-tnf-navy focus:border-tnf-gold focus:outline-none focus:ring-1 focus:ring-tnf-gold"
+                    className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-tnf-navy focus:border-tnf-green focus:outline-none focus:ring-1 focus:ring-tnf-green"
                   />
                 </div>
                 <div>
@@ -231,7 +231,7 @@ export function ContactPageView() {
                     name="email"
                     type="email"
                     required
-                    className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-tnf-navy focus:border-tnf-gold focus:outline-none focus:ring-1 focus:ring-tnf-gold"
+                    className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-tnf-navy focus:border-tnf-green focus:outline-none focus:ring-1 focus:ring-tnf-green"
                   />
                 </div>
                 <div>
@@ -242,7 +242,7 @@ export function ContactPageView() {
                     id="subject"
                     name="subject"
                     type="text"
-                    className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-tnf-navy focus:border-tnf-gold focus:outline-none focus:ring-1 focus:ring-tnf-gold"
+                    className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-tnf-navy focus:border-tnf-green focus:outline-none focus:ring-1 focus:ring-tnf-green"
                   />
                 </div>
                 <div>
@@ -253,12 +253,12 @@ export function ContactPageView() {
                     id="message"
                     name="message"
                     rows={5}
-                    className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-tnf-navy focus:border-tnf-gold focus:outline-none focus:ring-1 focus:ring-tnf-gold"
+                    className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-tnf-navy focus:border-tnf-green focus:outline-none focus:ring-1 focus:ring-tnf-green"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full rounded-full bg-tnf-navy py-3 font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-tnf-navy-light hover:shadow-md"
+                  className="btn-tnf-primary w-full rounded-full py-3 font-semibold transition-all hover:-translate-y-0.5 hover:shadow-md"
                 >
                   Send Message
                 </button>
@@ -278,7 +278,7 @@ export function ContactPageView() {
               </p>
               <Link
                 href="/feedback"
-                className="mt-4 inline-block text-sm font-semibold text-tnf-gold hover:text-tnf-gold-light"
+                className="mt-4 inline-block text-sm font-semibold text-tnf-green hover:text-tnf-green"
               >
                 Submit feedback →
               </Link>
@@ -290,7 +290,7 @@ export function ContactPageView() {
               </p>
               <Link
                 href="/whistleblower"
-                className="mt-4 inline-block text-sm font-semibold text-tnf-gold hover:text-tnf-gold-light"
+                className="mt-4 inline-block text-sm font-semibold text-tnf-green hover:text-tnf-green"
               >
                 Report confidentially →
               </Link>
@@ -304,7 +304,7 @@ export function ContactPageView() {
                 href="https://summit.tnfzim.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-block text-sm font-semibold text-tnf-gold hover:text-tnf-gold-light"
+                className="mt-4 inline-block text-sm font-semibold text-tnf-green hover:text-tnf-green"
               >
                 Visit summit site →
               </a>

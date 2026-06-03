@@ -28,7 +28,7 @@ export function Infographics() {
               </div>
               <div className="flex flex-col items-center lg:flex-row lg:gap-6">
                 <div className="flex flex-col items-center">
-                  <div className="flex h-20 w-40 items-center justify-center rounded-xl border border-tnf-gold/50 bg-tnf-gold/5 px-3 py-2 text-center">
+                  <div className="flex h-20 w-40 items-center justify-center rounded-xl border border-tnf-green/50 bg-tnf-green/5 px-3 py-2 text-center">
                     <span className="text-xs font-bold text-tnf-navy">Technical Committee</span>
                     <span className="mt-0.5 text-[10px] text-slate-600">Clusters · Research</span>
                   </div>
@@ -60,7 +60,7 @@ export function Infographics() {
                 "Consult on labour laws",
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3 rounded-lg border border-slate-100 bg-slate-50/50 p-4">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-tnf-gold/20 text-xs font-bold text-tnf-navy">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-tnf-green/20 text-xs font-bold text-tnf-navy">
                     {i + 1}
                   </span>
                   <span className="text-sm text-slate-700">{item}</span>
@@ -80,7 +80,7 @@ export function Infographics() {
                 { value: "21+", label: "Members in Main TNF" },
                 { value: "2019", label: "TNF Act enacted" },
               ].map((stat) => (
-                <div key={stat.label} className="flex flex-col items-center rounded-xl border border-tnf-gold/30 bg-tnf-gold/5 px-6 py-4">
+                <div key={stat.label} className="flex flex-col items-center rounded-xl border border-tnf-green/30 bg-tnf-green/5 px-6 py-4">
                   <span className="text-2xl font-bold text-tnf-navy sm:text-3xl">{stat.value}</span>
                   <span className="mt-1 text-xs font-medium text-slate-600">{stat.label}</span>
                 </div>

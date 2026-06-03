@@ -38,7 +38,7 @@ export default function WorkAreasPage() {
                   <div className="mt-4 flex gap-4">
                     <Link
                       href={`/work-areas/${area.slug}`}
-                      className="inline-flex items-center text-sm font-medium text-tnf-gold hover:text-tnf-navy"
+                      className="inline-flex items-center text-sm font-medium text-tnf-green hover:text-tnf-green"
                     >
                       Learn more
                       <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

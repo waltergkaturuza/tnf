@@ -92,7 +92,7 @@ export default function FeedbackPage() {
         )}
 
         <p className="mt-6 text-center text-sm text-slate-500">
-          <Link href="/contact" className="text-tnf-gold hover:underline">Contact us</Link> for urgent inquiries.
+          <Link href="/contact" className="text-tnf-green hover:underline">Contact us</Link> for urgent inquiries.
         </p>
       </div>
     </div>

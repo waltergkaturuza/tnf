@@ -19,7 +19,7 @@ export function WorkAreaCards() {
               key={area.id}
             >
               <Link href={`/work-areas/${area.slug}`}>
-                <div className="group h-full rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:border-tnf-gold/50 hover:shadow-lg">
+                <div className="group h-full rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:border-tnf-green/50 hover:shadow-lg">
                   <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-tnf-navy/10 text-tnf-navy">
                     <span className="text-sm font-bold">{String(i + 1).padStart(2, "0")}</span>
                   </div>
@@ -27,7 +27,7 @@ export function WorkAreaCards() {
                     {area.title}
                   </h3>
                   <p className="mt-2 text-sm text-slate-600 line-clamp-3">{area.description}</p>
-                  <span className="mt-4 inline-flex items-center text-sm font-medium text-tnf-gold">
+                  <span className="mt-4 inline-flex items-center text-sm font-medium text-tnf-green">
                     Learn more
                     <svg className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

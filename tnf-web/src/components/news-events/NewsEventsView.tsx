@@ -74,7 +74,7 @@ export function NewsEventsView({ items }: Props) {
 
   return (
     <div className="page-updates">
-      <div className="bg-emerald-700/90 px-5 py-3 text-center text-sm font-medium text-white sm:text-base">
+      <div className="bg-tnf-green/90 px-5 py-3 text-center text-sm font-medium text-white sm:text-base">
         Latest TNF news, announcements and upcoming events.
       </div>
 
@@ -92,8 +92,8 @@ export function NewsEventsView({ items }: Props) {
                 onClick={() => setActiveTab(tab.id)}
                 className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${
                   activeTab === tab.id
-                    ? "bg-tnf-gold text-tnf-navy shadow-md"
-                    : "border border-slate-300 bg-white text-slate-600 hover:border-tnf-gold/50 hover:bg-amber-50"
+                    ? "bg-tnf-green text-white shadow-md"
+                    : "border border-slate-300 bg-white text-slate-600 hover:border-tnf-green/50 hover:bg-emerald-50"
                 }`}
               >
                 {tab.label}
@@ -112,7 +112,7 @@ export function NewsEventsView({ items }: Props) {
                 <div className="relative">
                   <FeaturedImage item={featured} />
                   <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-                    <span className="rounded-md bg-tnf-gold px-2.5 py-1 text-xs font-bold uppercase text-tnf-navy">
+                    <span className="rounded-md bg-tnf-green px-2.5 py-1 text-xs font-bold uppercase text-white">
                       {featured.category}
                     </span>
                     <span className="rounded-md bg-white/90 px-2.5 py-1 text-xs font-semibold uppercase text-tnf-navy shadow-sm">
@@ -126,7 +126,7 @@ export function NewsEventsView({ items }: Props) {
                     {featured.location && (
                       <>
                         <span>·</span>
-                        <span className="font-medium text-tnf-gold">{featured.location}</span>
+                        <span className="font-medium text-tnf-green">{featured.location}</span>
                       </>
                     )}
                     <span>·</span>
@@ -138,7 +138,7 @@ export function NewsEventsView({ items }: Props) {
                   </p>
                   <Link
                     href={`/news-events#${featured.slug}`}
-                    className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-tnf-gold hover:text-tnf-navy"
+                    className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-tnf-green hover:text-tnf-green"
                   >
                     Read more →
                   </Link>
@@ -159,13 +159,13 @@ export function NewsEventsView({ items }: Props) {
                     className={`${UPDATES_CARD} scroll-mt-28`}
                   >
                     <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-slate-500">
-                      <span className="text-tnf-gold">{item.category}</span>
+                      <span className="text-tnf-green">{item.category}</span>
                       <span>·</span>
                       <time dateTime={item.dateISO}>{item.dateDisplay}</time>
                       {item.location && (
                         <>
                           <span>·</span>
-                          <span className="normal-case text-tnf-gold">{item.location}</span>
+                          <span className="normal-case text-tnf-green">{item.location}</span>
                         </>
                       )}
                     </div>
@@ -182,7 +182,7 @@ export function NewsEventsView({ items }: Props) {
           <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
             <div className={UPDATES_CARD}>
               <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-tnf-navy">
-                <svg className="h-4 w-4 text-tnf-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
+                <svg className="h-4 w-4 text-tnf-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 Search
@@ -192,7 +192,7 @@ export function NewsEventsView({ items }: Props) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search updates"
-                className="mt-3 w-full rounded-lg border border-slate-200 bg-[#f9f8f6] px-4 py-2.5 text-sm text-tnf-navy placeholder-slate-400 outline-none focus:border-tnf-gold focus:ring-1 focus:ring-tnf-gold/30"
+                className="mt-3 w-full rounded-lg border border-slate-200 bg-[#f9f8f6] px-4 py-2.5 text-sm text-tnf-navy placeholder-slate-400 outline-none focus:border-tnf-green focus:ring-1 focus:ring-tnf-green/30"
                 aria-label="Search updates"
               />
             </div>
@@ -211,7 +211,7 @@ export function NewsEventsView({ items }: Props) {
                         setActiveTab("all");
                       }}
                     >
-                      <p className="line-clamp-2 text-sm font-medium text-tnf-navy group-hover:text-tnf-gold">
+                      <p className="line-clamp-2 text-sm font-medium text-tnf-navy group-hover:text-tnf-green">
                         {post.title}
                       </p>
                       <p className="mt-1 text-xs text-slate-500">
@@ -232,7 +232,7 @@ export function NewsEventsView({ items }: Props) {
                     onClick={() => setActiveCategory("All")}
                     className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
                       activeCategory === "All"
-                        ? "bg-tnf-gold/15 font-semibold text-tnf-navy"
+                        ? "bg-tnf-green/15 font-semibold text-tnf-navy"
                         : "text-slate-600 hover:bg-white hover:text-tnf-navy"
                     }`}
                   >
@@ -246,7 +246,7 @@ export function NewsEventsView({ items }: Props) {
                       onClick={() => setActiveCategory(cat)}
                       className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
                         activeCategory === cat
-                          ? "bg-tnf-gold/15 font-semibold text-tnf-navy"
+                          ? "bg-tnf-green/15 font-semibold text-tnf-navy"
                           : "text-slate-600 hover:bg-white hover:text-tnf-navy"
                       }`}
                     >
@@ -264,7 +264,7 @@ export function NewsEventsView({ items }: Props) {
               </p>
               <Link
                 href="/contact"
-                className="mt-4 block w-full rounded-lg bg-tnf-gold py-2.5 text-center text-sm font-semibold text-tnf-navy transition-all hover:bg-tnf-gold-light hover:shadow-md"
+                className="btn-tnf-primary mt-4 block w-full rounded-lg py-2.5 text-center text-sm font-semibold transition-all hover:shadow-md"
               >
                 Subscribe
               </Link>

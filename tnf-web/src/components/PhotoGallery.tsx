@@ -64,7 +64,7 @@ export function PhotoGallery() {
         </div>
         <p className="mt-6 text-center text-sm text-slate-500">
           Add your own event photos via the{" "}
-          <Link href="/admin" className="text-tnf-gold hover:underline">
+          <Link href="/admin" className="text-tnf-green hover:underline">
             admin
           </Link>{" "}
           media library. Real photos replace these placeholders automatically.

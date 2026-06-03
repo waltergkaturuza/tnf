@@ -76,7 +76,7 @@ export default function WhistleblowerPage() {
         )}
 
         <p className="mt-6 text-center text-sm text-slate-500">
-          Reports are treated confidentially. <Link href="/contact" className="text-tnf-gold hover:underline">Contact us</Link> for other inquiries.
+          Reports are treated confidentially. <Link href="/contact" className="text-tnf-green hover:underline">Contact us</Link> for other inquiries.
         </p>
       </div>
     </div>

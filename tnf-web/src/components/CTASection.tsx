@@ -13,7 +13,7 @@ export function CTASection() {
         <div className="mt-10 flex flex-wrap justify-center gap-4">
           <Link
             href="/contact"
-            className="inline-flex items-center rounded-full bg-tnf-gold px-6 py-3 text-sm font-semibold text-tnf-navy transition-colors hover:bg-tnf-gold-light"
+            className="btn-tnf-primary inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold"
           >
             Contact Us
           </Link>

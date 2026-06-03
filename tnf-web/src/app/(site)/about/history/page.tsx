@@ -68,7 +68,7 @@ export default function HistoryPage() {
                 <span className="text-sm font-bold">{i + 1}</span>
               </div>
               <div>
-                <span className="text-sm font-semibold text-tnf-gold">{item.era}</span>
+                <span className="text-sm font-semibold text-tnf-green">{item.era}</span>
                 <h3 className="mt-1 text-xl font-bold text-tnf-navy">{item.period}</h3>
                 <p className="mt-4 text-slate-600">{item.content}</p>
               </div>
@@ -79,7 +79,7 @@ export default function HistoryPage() {
         <div className="mt-12">
           <Link
             href="/about"
-            className="inline-flex items-center text-sm font-medium text-tnf-gold hover:text-tnf-navy"
+            className="inline-flex items-center text-sm font-medium text-tnf-green hover:text-tnf-green"
           >
             ← Back to About
           </Link>

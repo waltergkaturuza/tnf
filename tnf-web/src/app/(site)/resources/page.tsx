@@ -118,7 +118,7 @@ export default function ResourcesPage() {
                       </div>
                       <Link
                         href="#"
-                        className="mt-3 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-tnf-gold hover:text-tnf-navy"
+                        className="mt-3 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-tnf-green hover:text-tnf-green"
                       >
                         Download
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

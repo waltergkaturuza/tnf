@@ -65,11 +65,11 @@ export default function FAQsPage() {
       <div className="container-wide py-16">
         <p className="mb-12 text-slate-600">
           If you cannot find the answer below, please use the{" "}
-          <Link href="/contact" className="text-tnf-gold hover:underline">
+          <Link href="/contact" className="text-tnf-green hover:underline">
             contact form
           </Link>{" "}
           or email us at{" "}
-          <a href="mailto:info@tnfzim.com" className="text-tnf-gold hover:underline">
+          <a href="mailto:info@tnfzim.com" className="text-tnf-green hover:underline">
             info@tnfzim.com
           </a>
           .
@@ -87,7 +87,7 @@ export default function FAQsPage() {
               >
                 <span className="font-semibold text-tnf-navy">{faq.q}</span>
                 <svg
-                  className={`h-5 w-5 shrink-0 text-tnf-gold transition-transform ${
+                  className={`h-5 w-5 shrink-0 text-tnf-green transition-transform ${
                     openIndex === i ? "rotate-180" : ""
                   }`}
                   fill="none"
@@ -109,7 +109,7 @@ export default function FAQsPage() {
         <div className="mt-12">
           <Link
             href="/about"
-            className="inline-flex items-center text-sm font-medium text-tnf-gold hover:text-tnf-navy"
+            className="inline-flex items-center text-sm font-medium text-tnf-green hover:text-tnf-green"
           >
             ← Back to About
           </Link>

@@ -41,7 +41,7 @@ export default function SiteLayout({
       <body className="min-h-screen bg-white font-sans antialiased">
         <a
           href="#main-content"
-          className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-4 focus-visible:top-4 focus-visible:z-[100] focus-visible:rounded-md focus-visible:bg-tnf-gold focus-visible:px-4 focus-visible:py-2 focus-visible:text-tnf-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-tnf-gold"
+          className="btn-tnf-primary sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-4 focus-visible:top-4 focus-visible:z-[100] focus-visible:rounded-md focus-visible:px-4 focus-visible:py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-tnf-green"
         >
           Skip to main content
         </a>
