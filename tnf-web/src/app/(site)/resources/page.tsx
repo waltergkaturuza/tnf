@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { SubpageLayout } from "@/components/layout/SubpageLayout";
+import { siteConfig } from "@/lib/site-config";
 
 const resourceCategories = [
   "All",
@@ -32,10 +33,10 @@ export default function ResourcesPage() {
 
   return (
     <SubpageLayout
-      title="Plans & Reports"
-      description="Annual reports, strategic plans, performance plans, policy papers, and press releases."
+      title="Resources"
+      description="Reports, plans, gallery, and downloadable documents from the Tripartite Negotiating Forum."
     >
-      <div className="flex flex-col gap-6 lg:flex-row">
+      <div id="reports-plans" className="scroll-mt-28 flex flex-col gap-6 lg:flex-row">
         <aside className="lg:w-64">
           <div className="sticky top-24 space-y-6">
             <div>
@@ -121,6 +122,40 @@ export default function ResourcesPage() {
           </p>
         </div>
       </div>
+
+      <section id="gallery" className="scroll-mt-28 mt-16 border-t border-slate-200 pt-16">
+        <h2 className="text-center text-2xl font-bold text-tnf-navy">Gallery</h2>
+        <p className="mx-auto mt-3 max-w-2xl text-center text-slate-600">
+          Events, dialogues, and stakeholder engagement across Zimbabwe.
+        </p>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {(siteConfig.galleryImages ?? []).map((img, i) => (
+            <div
+              key={i}
+              className="flex aspect-[4/3] flex-col items-center justify-center rounded-xl border border-slate-200 bg-gradient-to-br from-tnf-navy to-slate-700 p-4 text-center"
+            >
+              <span className="text-sm font-medium text-white/90">{img.caption || img.alt}</span>
+              {!img.src && <span className="mt-2 text-xs text-white/60">Photo coming soon</span>}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="downloads" className="scroll-mt-28 mt-16 border-t border-slate-200 pt-16">
+        <h2 className="text-center text-2xl font-bold text-tnf-navy">Other Downloads</h2>
+        <p className="mx-auto mt-3 max-w-2xl text-center text-slate-600">
+          Additional publications, forms, and reference materials will be listed here.
+        </p>
+        <div className="mx-auto mt-8 max-w-xl rounded-xl border border-slate-200 bg-slate-50 p-8 text-center">
+          <p className="text-sm text-slate-600">
+            Downloadable files are being prepared. For specific documents, please{" "}
+            <Link href="/contact" className="font-medium text-tnf-green hover:underline">
+              contact the Secretariat
+            </Link>
+            .
+          </p>
+        </div>
+      </section>
     </SubpageLayout>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { UpdateCategory, UpdateItem } from "@/lib/updates";
@@ -68,9 +68,15 @@ export function NewsEventsView({ items }: Props) {
 
   const tabs: { id: FilterTab; label: string }[] = [
     { id: "all", label: "All" },
-    { id: "news", label: "News" },
+    { id: "news", label: "Current News" },
     { id: "events", label: "Upcoming Events" },
   ];
+
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (hash === "news") setActiveTab("news");
+    else if (hash === "events") setActiveTab("events");
+  }, []);
 
   return (
     <div className="page-updates">
@@ -78,7 +84,7 @@ export function NewsEventsView({ items }: Props) {
       <div className="page-shell-hero border-b border-emerald-800/30 py-6 sm:py-8">
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-10">
           <h1 className="text-center text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
-            Updates &amp; Events
+            News and Events
           </h1>
           <div className="mt-6 flex flex-wrap justify-center gap-2 sm:mt-8">
             {tabs.map((tab) => (
@@ -101,6 +107,8 @@ export function NewsEventsView({ items }: Props) {
 
       {/* Main content on pearl */}
       <div className="updates-tone-pearl py-10 lg:py-14">
+        <span id="news" className="block scroll-mt-28" aria-hidden />
+        <span id="events" className="block scroll-mt-28" aria-hidden />
         <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)] lg:gap-12 lg:px-10 xl:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
           <div className="min-w-0 space-y-8">
             {featured ? (

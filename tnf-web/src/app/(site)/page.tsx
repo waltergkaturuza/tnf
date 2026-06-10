@@ -1,5 +1,4 @@
 import { Hero } from "@/components/Hero";
-import { WorkAreaCards } from "@/components/WorkAreaCards";
 import { Stakeholders } from "@/components/Stakeholders";
 import { PartnerLogos } from "@/components/PartnerLogos";
 import { PhotoGallery } from "@/components/PhotoGallery";
@@ -14,7 +13,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <WorkAreaCards />
       <PartnerLogos />
       <Stakeholders />
       <PhotoGallery />

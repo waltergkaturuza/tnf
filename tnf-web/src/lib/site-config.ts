@@ -6,12 +6,13 @@
 export const siteConfig = {
   name: "Tripartite Negotiating Forum",
   shortName: "TNF",
-  tagline: "Facilitating National Social Dialogue for Inclusive Economic Development",
+  tagline: "Facilitating National Social Dialogue for Socio-Economic Development",
   description:
     "The Tripartite Negotiating Forum (TNF) is the statutory national platform in Zimbabwe that brings together government, organised business, and organised labour to address socio-economic and labour market issues.",
   url: "https://tnfzim.com",
   contact: {
     phone: "+263 242 783 030",
+    whatsapp: "0789399889",
     email: "info@tnfzim.com",
     address: "East Wing Block 3 Celestial Park, Borrowdale, Harare, Zimbabwe",
     addressLines: [
@@ -19,6 +20,9 @@ export const siteConfig = {
       "Borrowdale, Harare",
       "Zimbabwe",
     ],
+    mapsUrl: "https://maps.app.goo.gl/8v1Q6uqbkkFsGhQs7",
+    mapsEmbedUrl:
+      "https://www.google.com/maps?q=East+Wing+Block+3+Celestial+Park,+Borrowdale,+Harare,+Zimbabwe&hl=en&z=17&output=embed",
     team: [
       { name: "Racheal", phone: "077 956 0229" },
       { name: "Lloyd", phone: "077 340 2440" },
@@ -35,103 +39,66 @@ export const siteConfig = {
       label: "About",
       href: "/about",
       children: [
-        { href: "/about", label: "Overview" },
-        { href: "/about/history", label: "History" },
+        { href: "/about#overview", label: "TNF Overview" },
+        { href: "/about#mandate", label: "Mandate" },
         { href: "/about/team", label: "Our Team" },
-        { href: "/about/faqs", label: "FAQs" },
       ],
     },
-    { href: "/departments", label: "Departments" },
     {
-      label: "Work Areas",
-      href: "/work-areas",
+      label: "Departments",
+      href: "/departments",
       children: [
-        { href: "/work-areas", label: "All Work Areas" },
-        { href: "/work-areas/client-service-charter", label: "Client Service Charter" },
-        { href: "/work-areas/social-dialogue-facilitation", label: "Social Dialogue" },
-        { href: "/work-areas/labour-relations", label: "Labour Relations" },
-        { href: "/work-areas/policy-consultation", label: "Policy Consultation" },
-        { href: "/work-areas/business-environment-enhancement", label: "Business Environment" },
-        { href: "/work-areas/public-engagement", label: "Public Engagement" },
+        { href: "/departments#finance-administration-hr", label: "Finance, Administration and Human Resources" },
+        { href: "/departments#programmes", label: "Programmes" },
+        { href: "/departments#communications-advocacy", label: "Communications and Advocacy" },
+        { href: "/departments#audit-compliance", label: "Audit and Compliance" },
       ],
     },
-    { href: "/resources", label: "Resources" },
-    { href: "/news-events", label: "Updates & Events" },
-    { href: "/careers", label: "Careers" },
+    {
+      label: "Resources",
+      href: "/resources",
+      children: [
+        { href: "/resources#reports-plans", label: "Reports and Plans" },
+        { href: "/resources#gallery", label: "Gallery" },
+        { href: "/resources#downloads", label: "Other Downloads" },
+      ],
+    },
+    {
+      label: "News and Events",
+      href: "/news-events",
+      children: [
+        { href: "/news-events#news", label: "Current News" },
+        { href: "/news-events#events", label: "Upcoming Events" },
+      ],
+    },
+    {
+      label: "Careers",
+      href: "/careers",
+      children: [
+        { href: "/careers#vacancies", label: "Vacancies" },
+        { href: "/careers#achievements", label: "Employees' Achievements" },
+      ],
+    },
     {
       label: "Engage",
       href: "/feedback",
       children: [
-        { href: "/feedback", label: "Feedback" },
-        { href: "/whistleblower", label: "Whistleblower" },
+        { href: "/feedback", label: "Feedback Form" },
+        { href: "/contact", label: "Inquiry Form" },
+        { href: "/feedback#suggestions", label: "Suggestions" },
+        { href: "/whistleblower", label: "Whistleblower Reporting" },
       ],
     },
     { href: "/contact", label: "Contact" },
   ],
-  workAreas: [
-    {
-      id: "client-service-charter",
-      title: "Client Service Charter",
-      slug: "client-service-charter",
-      description:
-        "The TNF, established through the Tripartite Negotiating Forum Act [No. 3 of 2019], serves as Zimbabwe's principal platform for consultation, cooperation, and negotiation on key social and economic issues.",
-      keyServices: [],
-    },
-    {
-      id: "social-dialogue",
-      title: "Social Dialogue Facilitation",
-      slug: "social-dialogue-facilitation",
-      description:
-        "The TNF specialises in facilitating social dialogue among key stakeholders, including government, business, and labour, to build consensus on critical socio-economic issues.",
-      keyServices: ["Stakeholder consultations", "Consensus building", "Dialogue facilitation"],
-    },
-    {
-      id: "labour-relations",
-      title: "Labour Relations",
-      slug: "labour-relations",
-      description:
-        "The TNF plays a vital role in enhancing labour relations in Zimbabwe. It provides a forum for addressing labour issues, negotiating labour agreements, and promoting fair labour practices.",
-      keyServices: [
-        "Labour inspections",
-        "Ensuring compliance with national laws and regulations",
-        "Implementing agreed-upon policies and programmes",
-        "Formulating labour laws and policies",
-      ],
-    },
-    {
-      id: "policy-consultation",
-      title: "Policy Consultation",
-      slug: "policy-consultation",
-      description:
-        "The TNF offers expert consultation on policy formulation and implementation. By leveraging the collective expertise of its stakeholders, the TNF ensures policies are well-informed and aligned with socio-economic needs.",
-      keyServices: [
-        "Assessing policy implementation by relevant agencies",
-        "Drafting policy recommendations and reports",
-        "Stakeholder consultations on policy proposals",
-        "Policy research and analysis",
-        "Policy formulation",
-      ],
-    },
-    {
-      id: "business-environment",
-      title: "Business Environment Enhancement",
-      slug: "business-environment-enhancement",
-      description:
-        "The TNF is committed to improving the business environment in Zimbabwe. By engaging with organized business, government, and labour, the TNF helps identify and address challenges faced by businesses.",
-      keyServices: [
-        "Facilitating dialogue between businesses and policymakers",
-        "Proposing reforms to enhance business operations",
-        "Assessing the business environment and identifying challenges",
-      ],
-    },
-    {
-      id: "public-engagement",
-      title: "Public Engagement",
-      slug: "public-engagement",
-      description:
-        "The TNF actively engages with the public to ensure their voices inform social dialogue and policy outcomes.",
-      keyServices: ["Outreach programmes", "Public consultations", "Feedback mechanisms"],
-    },
+  footerQuickLinks: [
+    { href: "/about", label: "About" },
+    { href: "/about/faqs", label: "FAQs" },
+    { href: "/departments", label: "Departments" },
+    { href: "/resources", label: "Resources" },
+    { href: "/news-events", label: "News and Events" },
+    { href: "/careers", label: "Careers" },
+    { href: "/contact", label: "Contact" },
   ],
   stakeholders: [
     "Government (central and local)",

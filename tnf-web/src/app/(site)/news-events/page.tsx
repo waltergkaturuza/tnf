@@ -8,7 +8,7 @@ import {
 } from "@/lib/updates";
 
 export const metadata = {
-  title: "Updates & Events",
+  title: "News and Events",
   description: "Latest TNF news, announcements and upcoming events.",
 };
 

@@ -40,7 +40,7 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-white">Quick Links</h4>
             <ul className="mt-3 space-y-2">
-              {siteConfig.nav.slice(1).map((item) => (
+              {siteConfig.footerQuickLinks.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-sm text-slate-200 hover:text-white">
                     {item.label}

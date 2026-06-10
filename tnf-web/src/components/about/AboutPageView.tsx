@@ -93,21 +93,51 @@ const STRUCTURE = [
   },
 ];
 
+const MANDATE = {
+  summary:
+    "The TNF's mandate is to facilitate dialogue among government, employers, and trade unions to foster mutual understanding and cooperation on labour-related issues as well as contribute to the formulation and implementation of policies that promote decent work, fair labour practices, and economic growth.",
+  functions: [
+    "Consult and negotiate over social and economic issues and submit recommendations to Cabinet;",
+    "Negotiate a social contract as and when necessary;",
+    "Foster cooperation of the Tripartite constituents and consult other key stakeholders and contribute to the formulation and implementation of social and economic policies;",
+    "Follow up and monitor the implementation of agreements;",
+    "Generate and promote a shared national socio-economic vision;",
+    "Consult and negotiate Zimbabwe labour laws in line with the constitution and other international best practices.",
+  ],
+};
+
 const CORE_VALUES = [
-  { name: "Transparency", desc: "Open and honest in social dialogue." },
-  { name: "Inclusivity", desc: "All three social partners at the table." },
-  { name: "Integrity", desc: "Moral and ethical conduct." },
-  { name: "Mutual Respect", desc: "Dignity and recognition of each partner." },
-  { name: "Accountability", desc: "Answerable for our actions." },
+  {
+    name: "Transparency",
+    desc: "Openness, clarity and honesty in social dialogue.",
+  },
+  {
+    name: "Inclusivity",
+    desc: "Ensuring the involvement of all three social partners (Business, Government and Labour).",
+  },
+  {
+    name: "Integrity",
+    desc: "Conducting our business practices following a moral and ethical framework.",
+  },
+  {
+    name: "Mutual Respect",
+    desc: "Ensuring that each social partner is treated with dignity and equally recognise each member's value.",
+  },
+  {
+    name: "Accountability",
+    desc: "Willingness to accept responsibility for our decisions and actions.",
+  },
 ];
 
 const ABOUT_CARD = "about-card p-6 lg:p-8";
 
 function AboutSection({
+  id,
   children,
   tone = "warm",
   className = "",
 }: {
+  id?: string;
   children: React.ReactNode;
   tone?: "ivory" | "warm" | "sand";
   className?: string;
@@ -115,7 +145,10 @@ function AboutSection({
   const toneClass =
     tone === "ivory" ? "about-tone-ivory" : tone === "sand" ? "about-tone-sand" : "about-tone-warm";
   return (
-    <section className={`border-b border-slate-200/40 py-14 lg:py-16 ${toneClass} ${className}`}>
+    <section
+      id={id}
+      className={`border-b border-slate-200/40 py-14 lg:py-16 ${id ? "scroll-mt-28" : ""} ${toneClass} ${className}`}
+    >
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-10">{children}</div>
     </section>
   );
@@ -142,8 +175,6 @@ function SectionHeader({
 }
 
 export function AboutPageView() {
-  const workAreaLetters = "ABCDEF".split("");
-
   return (
     <div className="page-about">
       {/* Hero */}
@@ -177,7 +208,7 @@ export function AboutPageView() {
       </section>
 
       {/* What is TNF */}
-      <AboutSection tone="warm">
+      <AboutSection id="overview" tone="warm">
         <SectionHeader
           label="About TNF"
           title="What is the Tripartite Negotiating Forum?"
@@ -228,12 +259,12 @@ export function AboutPageView() {
         <div className="grid gap-6 md:grid-cols-3">
           {[
             {
-              title: "Mission",
-              text: "To facilitate and promote consultation, cooperation and negotiation on social and economic issues by Government, Organized Business and Organized Labour.",
+              title: "Vision",
+              text: "An autonomous, independent, democratic and inclusive trusted national social dialogue platform that drives socio-economic development and shared prosperity by 2030.",
             },
             {
-              title: "Vision",
-              text: "Inclusive, shared growth and human centred development through social dialogue by 2030.",
+              title: "Mission",
+              text: "To facilitate consultation, cooperation and negotiation among social partners to promote national development, inclusive economic growth, decent work and social justice.",
             },
             { title: "Motto", text: "Social dialogue for nation building." },
           ].map((item) => (
@@ -260,44 +291,6 @@ export function AboutPageView() {
             </div>
           ))}
         </div>
-      </AboutSection>
-
-      {/* Work areas */}
-      <AboutSection tone="sand">
-        <SectionHeader
-          label="Focus Areas"
-          title={`${siteConfig.workAreas.length} Critical Work Areas`}
-          description="The TNF addresses key domains of national social and economic dialogue."
-        />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {siteConfig.workAreas.map((area, i) => (
-            <Link
-              key={area.id}
-              href={`/work-areas/${area.slug}`}
-              className={`group ${ABOUT_CARD} flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left`}
-            >
-              <span className="mb-3 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-tnf-green text-base font-bold text-white shadow-md transition-transform group-hover:scale-110 sm:mb-0 sm:mr-4">
-                {workAreaLetters[i] ?? i + 1}
-              </span>
-              <div className="min-w-0">
-                <h3 className="font-semibold text-tnf-navy transition-colors group-hover:text-tnf-green">
-                  {area.title}
-                </h3>
-                <p className="about-text-justify mt-2 line-clamp-3 text-xs text-slate-600 sm:text-sm">
-                  {area.description}
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
-        <p className="mt-10 text-center">
-          <Link
-            href="/work-areas"
-            className="inline-flex items-center gap-1 text-sm font-semibold text-tnf-green transition-colors hover:text-tnf-green"
-          >
-            Explore all work areas →
-          </Link>
-        </p>
       </AboutSection>
 
       {/* Tripartite */}
@@ -338,19 +331,18 @@ export function AboutPageView() {
       </AboutSection>
 
       {/* Mandate + legal */}
-      <AboutSection tone="sand">
+      <AboutSection id="mandate" tone="sand">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
           <div className={ABOUT_CARD}>
-            <SectionHeader label="Mandate" title="What the TNF Does" />
-            <ul className="about-text-justify mx-auto max-w-xl space-y-3 text-sm text-slate-600">
-              {[
-                "Consult and negotiate over social and economic issues and submit recommendations to Cabinet",
-                "Negotiate a social contract as and when necessary",
-                "Foster cooperation of tripartite constituents and contribute to policy formulation",
-                "Follow up and monitor implementation of agreements",
-                "Generate and promote a shared national socio-economic vision",
-                "Consult and negotiate Zimbabwe labour laws in line with the Constitution",
-              ].map((line) => (
+            <SectionHeader label="Mandate" title="Mandate" />
+            <p className="about-text-justify mx-auto max-w-xl text-sm leading-relaxed text-slate-600">
+              {MANDATE.summary}
+            </p>
+            <p className="about-text-justify mx-auto mt-5 max-w-xl text-sm font-medium text-tnf-navy">
+              The specific functions include the following:
+            </p>
+            <ul className="about-text-justify mx-auto mt-3 max-w-xl space-y-3 text-sm text-slate-600">
+              {MANDATE.functions.map((line) => (
                 <li key={line} className="flex gap-2">
                   <span className="shrink-0 text-tnf-green">•</span>
                   <span>{line}</span>

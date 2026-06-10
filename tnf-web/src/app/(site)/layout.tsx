@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Source_Serif_4, Source_Sans_3 } from "next/font/google";
 import { siteConfig } from "@/lib/site-config";
+import { Chatbot } from "@/components/chatbot/Chatbot";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import "../globals.css";
@@ -50,6 +51,7 @@ export default function SiteLayout({
           {children}
         </main>
         <Footer />
+        <Chatbot />
       </body>
     </html>
   );

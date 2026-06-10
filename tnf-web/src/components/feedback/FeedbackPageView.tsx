@@ -117,7 +117,7 @@ export function FeedbackPageView() {
           </p>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md">
+        <div id="suggestions" className="scroll-mt-28 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md">
           <div className="border-b border-slate-100 bg-slate-50/80 px-6 py-5 sm:px-8">
             <p className="text-sm font-semibold text-tnf-navy">What would you like to report?</p>
             <div className="mt-4 flex flex-wrap gap-2">

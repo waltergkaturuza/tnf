@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Field } from "@/components/forms/Field";
 import { CONTACT_ENQUIRY_TYPES } from "@/components/forms/location-constants";
 import { formInputClass } from "@/components/forms/form-styles";
+import { TnfLocationMap } from "@/components/maps/TnfLocationMap";
 import { siteConfig } from "@/lib/site-config";
 import { submitToPayload } from "@/lib/submit-form";
 
@@ -151,12 +152,23 @@ export function ContactPageView() {
                   </ContactIcon>
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Address</p>
-                    <p className="mt-0.5 font-medium leading-relaxed text-tnf-navy">
-                      East Wing Block 3 Celestial Park
-                      <br />
-                      Borrowdale, Harare
-                      <br />
-                      Zimbabwe
+                    <a
+                      href={siteConfig.contact.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-0.5 block font-medium leading-relaxed text-tnf-navy hover:text-tnf-green"
+                    >
+                      {siteConfig.contact.addressLines.map((line, i) => (
+                        <Fragment key={line}>
+                          {i > 0 && <br />}
+                          {line}
+                        </Fragment>
+                      ))}
+                    </a>
+                    <p className="mt-1 text-xs text-tnf-green">
+                      <a href={siteConfig.contact.mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                        Get directions →
+                      </a>
                     </p>
                   </div>
                 </li>
@@ -333,6 +345,10 @@ export function ContactPageView() {
               </form>
             )}
           </div>
+        </div>
+
+        <div className="mx-auto mt-12 w-full max-w-6xl px-4 sm:px-6 lg:px-10">
+          <TnfLocationMap />
         </div>
       </section>
 

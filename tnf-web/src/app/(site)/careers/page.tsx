@@ -29,8 +29,11 @@ export default function CareersPage() {
         </p>
       </div>
 
-      <div className="mx-auto mt-16 max-w-2xl rounded-xl border border-slate-200 bg-slate-50 p-12 text-center">
-        <h2 className="text-xl font-semibold text-tnf-navy">Current Openings</h2>
+      <div
+        id="vacancies"
+        className="scroll-mt-28 mx-auto mt-16 max-w-2xl rounded-xl border border-slate-200 bg-slate-50 p-12 text-center"
+      >
+        <h2 className="text-xl font-semibold text-tnf-navy">Vacancies</h2>
         <p className="mt-4 text-slate-600">
           There are no open positions at the moment. Please check back later or contact us to express your interest.
         </p>
@@ -43,6 +46,16 @@ export default function CareersPage() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </Link>
+      </div>
+
+      <div
+        id="achievements"
+        className="scroll-mt-28 mx-auto mt-12 max-w-2xl rounded-xl border border-slate-200 bg-white p-12 text-center"
+      >
+        <h2 className="text-xl font-semibold text-tnf-navy">Employees&apos; Achievements</h2>
+        <p className="mt-4 text-slate-600">
+          Stories celebrating TNF staff contributions to social dialogue and national development will be shared here.
+        </p>
       </div>
     </SubpageLayout>
   );
