@@ -14,10 +14,10 @@ const linkClass =
 const dropdownClass =
   "block w-full rounded-md px-3 py-2 text-left text-sm text-slate-700 hover:bg-tnf-navy/5 hover:text-tnf-navy";
 
-const mobileLinkClass =
-  "block py-1 text-sm font-bold uppercase tracking-wide text-slate-800 transition-colors hover:text-tnf-green";
-const mobileAccordionClass =
-  "flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-left text-sm font-bold uppercase tracking-wide text-slate-800 transition-colors hover:border-slate-300";
+const mobileBoxClass =
+  "flex w-full flex-col items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-3.5 text-center transition-colors hover:border-slate-300";
+const mobileLinkClass = `${mobileBoxClass} text-xs font-bold uppercase tracking-[0.12em] text-slate-800 hover:text-tnf-navy sm:text-sm`;
+const mobileAccordionClass = `${mobileBoxClass} gap-1.5 text-xs font-bold uppercase tracking-[0.12em] text-slate-800 sm:text-sm`;
 
 function Chevron({ open }: { open: boolean }) {
   return (
@@ -40,6 +40,7 @@ export function Header() {
   const headerRef = useRef<HTMLElement>(null);
 
   const navItems = siteConfig.nav as NavEntry[];
+  const mobileNavItems = navItems.filter((item) => item.href !== "/contact");
 
   const closeMobile = () => {
     setMobileOpen(false);
@@ -182,12 +183,14 @@ export function Header() {
           role="dialog"
           aria-modal="true"
           aria-label="Menu"
-          className={`absolute right-0 top-0 flex h-full w-[min(100%,20rem)] flex-col bg-white shadow-2xl transition-transform duration-300 ease-out sm:w-80 ${
+          className={`absolute right-0 top-0 flex h-full w-[42vw] min-w-[10.5rem] max-w-[13.5rem] flex-col bg-white shadow-2xl transition-transform duration-300 ease-out sm:max-w-[15rem] ${
             mobileOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div className="flex shrink-0 items-center justify-between border-b border-slate-100 px-5 py-4">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Menu</span>
+          <div className="flex shrink-0 items-center justify-between border-b border-slate-200 px-4 py-4">
+            <span className="text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-slate-500 sm:text-xs">
+              Menu
+            </span>
             <button
               type="button"
               onClick={closeMobile}
@@ -200,25 +203,25 @@ export function Header() {
             </button>
           </div>
 
-          <nav className="flex-1 space-y-3 overflow-y-auto px-5 py-6" aria-label="Main navigation">
-            {navItems.map((item) =>
+          <nav className="flex-1 space-y-2.5 overflow-y-auto px-4 py-5" aria-label="Main navigation">
+            {mobileNavItems.map((item) =>
               item.children?.length ? (
-                <div key={item.label}>
+                <div key={item.label} className="space-y-2">
                   <button
                     type="button"
                     onClick={() => setMobileExpanded(mobileExpanded === item.label ? null : item.label)}
                     className={mobileAccordionClass}
                     aria-expanded={mobileExpanded === item.label}
                   >
-                    {item.label}
+                    <span>{item.label}</span>
                     <Chevron open={mobileExpanded === item.label} />
                   </button>
                   {mobileExpanded === item.label && (
-                    <div className="mt-2 space-y-1 rounded-xl border border-slate-100 bg-slate-50/80 p-2">
+                    <div className="space-y-1.5 pl-1">
                       <Link
                         href={item.href}
                         onClick={closeMobile}
-                        className="block rounded-lg px-3 py-2 text-sm font-semibold text-tnf-green hover:bg-white"
+                        className="block rounded-lg border border-slate-100 bg-slate-50 px-3 py-2 text-center text-xs font-semibold text-tnf-green hover:bg-white"
                       >
                         All {item.label}
                       </Link>
@@ -227,7 +230,7 @@ export function Header() {
                           key={`${child.href}-${child.label}`}
                           href={child.href}
                           onClick={closeMobile}
-                          className="block rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-white hover:text-tnf-navy"
+                          className="block rounded-lg border border-slate-100 bg-slate-50 px-3 py-2 text-center text-xs text-slate-600 hover:bg-white hover:text-tnf-navy"
                         >
                           {child.label}
                         </Link>
@@ -243,11 +246,11 @@ export function Header() {
             )}
           </nav>
 
-          <div className="shrink-0 border-t border-slate-100 p-5">
+          <div className="shrink-0 border-t border-slate-200 p-4">
             <Link
               href="/contact"
               onClick={closeMobile}
-              className="btn-tnf-primary block w-full rounded-full py-3.5 text-center text-sm font-semibold shadow-md"
+              className="btn-tnf-primary block w-full rounded-full py-3 text-center text-xs font-semibold uppercase tracking-wide shadow-md sm:text-sm"
             >
               Contact Us
             </Link>
