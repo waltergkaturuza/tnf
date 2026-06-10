@@ -3,11 +3,50 @@ import { siteConfig } from "@/lib/site-config";
 
 type Props = {
   className?: string;
+  /** Compact card for sidebar columns (e.g. Contact page left column). */
   compact?: boolean;
 };
 
 export function TnfLocationMap({ className = "", compact = false }: Props) {
-  const { address, addressLines, mapsUrl, mapsEmbedUrl, social } = siteConfig.contact;
+  const { mapsUrl, mapsEmbedUrl, social } = siteConfig.contact;
+
+  if (compact) {
+    return (
+      <div className={className} aria-labelledby="tnf-location-heading">
+        <h3 id="tnf-location-heading" className="text-sm font-semibold uppercase tracking-wide text-tnf-green">
+          Location
+        </h3>
+        <div className="mt-4 overflow-hidden rounded-lg border border-slate-200">
+          <iframe
+            title="TNF Zimbabwe Secretariat location on Google Maps"
+            src={mapsEmbedUrl}
+            className="aspect-[4/3] w-full border-0"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </div>
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+          <a
+            href={mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-tnf-green hover:underline"
+          >
+            Open in Google Maps →
+          </a>
+          <Link
+            href={social.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-slate-500 hover:text-tnf-green hover:underline"
+          >
+            @TNFZimbabwe
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <section className={className} aria-labelledby="tnf-location-heading">
@@ -17,11 +56,9 @@ export function TnfLocationMap({ className = "", compact = false }: Props) {
           <h2 id="tnf-location-heading" className="mt-1 text-xl font-bold text-tnf-navy sm:text-2xl">
             Find the Secretariat
           </h2>
-          {!compact && (
-            <p className="mt-2 max-w-xl text-sm text-slate-600">
-              {address} — use the map for directions or open the full location in Google Maps.
-            </p>
-          )}
+          <p className="mt-2 max-w-xl text-sm text-slate-600">
+            {siteConfig.contact.address}. Use the map for directions or open the full location in Google Maps.
+          </p>
         </div>
         <a
           href={mapsUrl}
@@ -49,7 +86,7 @@ export function TnfLocationMap({ className = "", compact = false }: Props) {
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
         <address className="not-italic leading-relaxed">
-          {addressLines.map((line) => (
+          {siteConfig.contact.addressLines.map((line) => (
             <span key={line} className="block">
               {line}
             </span>

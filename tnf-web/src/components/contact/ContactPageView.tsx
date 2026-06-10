@@ -85,7 +85,7 @@ export function ContactPageView() {
             <div className={CONTACT_CARD}>
               <h2 className="text-lg font-semibold text-tnf-navy">TNF Secretariat</h2>
               <p className="mt-2 text-sm text-slate-600">
-                Tripartite Negotiating Forum — national platform for government, business and labour.
+                Tripartite Negotiating Forum, national platform for government, business and labour.
               </p>
 
               <ul className="mt-6 space-y-5">
@@ -215,6 +215,10 @@ export function ContactPageView() {
                 ))}
               </ul>
             </div>
+
+            <div className={CONTACT_CARD}>
+              <TnfLocationMap compact />
+            </div>
           </div>
 
           <div className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md lg:col-span-3">
@@ -271,7 +275,7 @@ export function ContactPageView() {
                     <Field label="Phone number" htmlFor="phone" hint="Optional">
                       <input id="phone" name="phone" type="tel" autoComplete="tel" className={formInputClass} />
                     </Field>
-                    <Field label="Organisation" htmlFor="organisation" hint="Optional — employer, union, or affiliation">
+                    <Field label="Organisation" htmlFor="organisation" hint="Optional, employer, union, or affiliation">
                       <input id="organisation" name="organisation" type="text" className={formInputClass} />
                     </Field>
                     <Field label="Preferred contact method" htmlFor="preferredContact" className="sm:col-span-2">
@@ -345,10 +349,6 @@ export function ContactPageView() {
               </form>
             )}
           </div>
-        </div>
-
-        <div className="mx-auto mt-12 w-full max-w-6xl px-4 sm:px-6 lg:px-10">
-          <TnfLocationMap />
         </div>
       </section>
 

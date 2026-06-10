@@ -20,9 +20,9 @@ export const siteConfig = {
       "Borrowdale, Harare",
       "Zimbabwe",
     ],
-    mapsUrl: "https://maps.app.goo.gl/8v1Q6uqbkkFsGhQs7",
+    mapsUrl: "https://www.google.com/maps/place/Celestial+Park./@-17.7858713,31.0572926,17z",
     mapsEmbedUrl:
-      "https://www.google.com/maps?q=East+Wing+Block+3+Celestial+Park,+Borrowdale,+Harare,+Zimbabwe&hl=en&z=17&output=embed",
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15196.495759824613!2d31.057292587158212!3d-17.78587129999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1931a5527eef03dd%3A0x74379bac5352ea72!2sCelestial%20Park.!5e0!3m2!1sen!2szw!4v1781085701099!5m2!1sen!2szw",
     team: [
       { name: "Racheal", phone: "077 956 0229" },
       { name: "Lloyd", phone: "077 340 2440" },

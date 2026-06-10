@@ -98,7 +98,7 @@ export function FeedbackPageView() {
   return (
     <SubpageLayout
       title="Feedback Portal"
-      description="Share structured feedback on economic, social, or labour issues — your input helps inform national social dialogue."
+      description="Share structured feedback on economic, social, or labour issues. Your input helps inform national social dialogue."
       wideForm
     >
       {error && (
@@ -155,7 +155,7 @@ export function FeedbackPageView() {
                     className={formInputClass}
                   />
                 </Field>
-                <Field label="Phone number" htmlFor="phone" hint="Optional — for follow-up only">
+                <Field label="Phone number" htmlFor="phone" hint="Optional, for follow-up only">
                   <input id="phone" name="phone" type="tel" autoComplete="tel" className={formInputClass} />
                 </Field>
                 <Field label="Organisation / affiliation" htmlFor="organisation" hint="Employer, union, NGO, etc. (optional)">

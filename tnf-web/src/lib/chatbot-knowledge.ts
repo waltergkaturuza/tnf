@@ -153,7 +153,7 @@ export function getChatbotReply(input: string): ChatbotReply {
 
   return {
     content:
-      "I'm not sure I have a specific answer for that. A member of the Secretariat can help — try the contact form, feedback portal, or FAQs.",
+      "I'm not sure I have a specific answer for that. A member of the Secretariat can help. Try the contact form, feedback portal, or FAQs.",
     links: [
       { label: "Contact", href: "/contact" },
       { label: "Feedback", href: "/feedback" },

@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 const teamMembers = [
-  { name: "Honourable Edgar Moyo", role: "Minister of Public Service, Labour and Social Welfare — TNF Chairman", image: "/team/Minister-Edgar-Moyo.png" },
+  { name: "Honourable Edgar Moyo", role: "Minister of Public Service, Labour and Social Welfare, TNF Chairman", image: "/team/Minister-Edgar-Moyo.png" },
   { name: "Mr Albert Nyakadzumbu", role: "TNF Executive Director", image: "/team/Albert-Nyakadzumbu-TNF-Executive-Director.jpg" },
   { name: "Mr Emmanuel Mazhawidza", role: "Economic and Labour Cluster Coordinator", image: "/team/Mazhawidza.jpg" },
   { name: "Ms Beaula Ruparanganda", role: "Cluster Coordinator (Social)", image: "/team/Beaula-Ruparanganda.jpg" },

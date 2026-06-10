@@ -61,7 +61,7 @@ const TRIPARTITE = [
   {
     title: "Government",
     description:
-      "Ministries and agencies responsible for labour, finance, industry and social welfare — shaping policy and implementation.",
+      "Ministries and agencies responsible for labour, finance, industry and social welfare, shaping policy and implementation.",
   },
   {
     title: "Employers",
@@ -71,7 +71,7 @@ const TRIPARTITE = [
   {
     title: "Workers",
     description:
-      "Trade unions and workers' organisations — the voice of labour in tripartite negotiations.",
+      "Trade unions and workers' organisations, the voice of labour in tripartite negotiations.",
   },
 ];
 
@@ -187,7 +187,7 @@ export function AboutPageView() {
           <p className="about-text-justify mx-auto mt-4 max-w-3xl text-base leading-relaxed text-emerald-50 sm:mt-6 sm:text-lg">
             The Tripartite Negotiating Forum (TNF) is Zimbabwe&apos;s national platform where
             government, organised business and organised labour address socio-economic and labour
-            market issues — from voluntary forum in 1998 to a legislated body under the TNF Act of
+            market issues, from voluntary forum in 1998 to a legislated body under the TNF Act of
             2019.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -298,7 +298,7 @@ export function AboutPageView() {
         <SectionHeader
           label="Our Foundation"
           title="The Tripartite Model"
-          description="The TNF is grounded in genuine tripartism — Government, Employers and Workers as equal partners in national dialogue."
+          description="The TNF is grounded in genuine tripartism. Government, Employers and Workers are equal partners in national dialogue."
         />
         <div className="grid gap-6 md:grid-cols-3">
           {TRIPARTITE.map((item) => (
@@ -364,7 +364,7 @@ export function AboutPageView() {
             </ul>
             <div className="mx-auto mt-8 max-w-sm rounded-xl border border-tnf-green/30 bg-tnf-green/10 p-4 text-center transition-colors hover:border-tnf-green/50">
               <p className="text-sm font-semibold text-tnf-green">TNF Act 2019</p>
-              <p className="mt-1 text-xs text-slate-600">Full Act document — coming soon.</p>
+              <p className="mt-1 text-xs text-slate-600">Full Act document. Coming soon.</p>
             </div>
           </div>
         </div>

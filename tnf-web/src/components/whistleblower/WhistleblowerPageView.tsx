@@ -93,7 +93,7 @@ export function WhistleblowerPageView() {
             <p className="text-sm font-semibold text-amber-900">Confidential reporting</p>
             <p className="mt-2 text-sm leading-relaxed text-amber-950/80">
               Reports are treated seriously and in confidence. You may submit anonymously. Do not include information
-              that puts anyone at immediate risk — contact emergency services if needed.
+              that puts anyone at immediate risk. Contact emergency services if needed.
             </p>
           </div>
 
@@ -109,7 +109,7 @@ export function WhistleblowerPageView() {
                     className="mt-1 rounded border-slate-300 text-tnf-green focus:ring-tnf-green"
                   />
                   <span className="text-sm text-slate-700">
-                    <span className="font-semibold text-tnf-navy">Submit anonymously</span> — we will not require your
+                    <span className="font-semibold text-tnf-navy">Submit anonymously</span>. We will not require your
                     name or email. You may still add contact details below if you are willing to be contacted
                     confidentially.
                   </span>
@@ -139,7 +139,7 @@ export function WhistleblowerPageView() {
                     className={`${formInputClass} disabled:cursor-not-allowed disabled:bg-slate-100`}
                   />
                 </Field>
-                <Field label="Phone number" htmlFor="phone" hint="Optional — confidential follow-up only">
+                <Field label="Phone number" htmlFor="phone" hint="Optional, confidential follow-up only">
                   <input id="phone" name="phone" type="tel" autoComplete="tel" className={formInputClass} />
                 </Field>
                 <Field label="Preferred contact method" htmlFor="preferredContact">
@@ -277,7 +277,7 @@ export function WhistleblowerPageView() {
                     id="persons"
                     name="persons"
                     type="text"
-                    placeholder="Names, roles, or descriptions — only if known"
+                    placeholder="Names, roles, or descriptions, only if known"
                     className={formInputClass}
                   />
                 </Field>

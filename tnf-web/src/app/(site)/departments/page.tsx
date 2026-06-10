@@ -10,7 +10,7 @@ const departments = [
     id: "finance-administration-hr",
     title: "Finance, Administration and Human Resources",
     description:
-      "Manages TNF finances, procurement, administrative operations, and human resources — including recruitment, staff development, and organisational support for the Secretariat.",
+      "Manages TNF finances, procurement, administrative operations, and human resources, including recruitment, staff development, and organisational support for the Secretariat.",
   },
   {
     id: "programmes",
