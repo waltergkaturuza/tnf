@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AboutPhotoBackdrop } from "@/components/about/AboutPhotoBackdrop";
 import { siteConfig } from "@/lib/site-config";
 
 const ANCHOR_TAGS = [
@@ -139,17 +140,25 @@ function AboutSection({
 }: {
   id?: string;
   children: React.ReactNode;
-  tone?: "ivory" | "warm" | "sand";
+  tone?: "ivory" | "warm" | "sand" | "photo";
   className?: string;
 }) {
   const toneClass =
-    tone === "ivory" ? "about-tone-ivory" : tone === "sand" ? "about-tone-sand" : "about-tone-warm";
+    tone === "ivory"
+      ? "about-tone-ivory"
+      : tone === "sand"
+        ? "about-tone-sand"
+        : tone === "photo"
+          ? "about-tone-photo"
+          : "about-tone-warm";
+  const borderClass = tone === "photo" ? "border-white/10" : "border-slate-200/40";
   return (
     <section
       id={id}
-      className={`border-b border-slate-200/40 py-14 lg:py-16 ${id ? "scroll-mt-28" : ""} ${toneClass} ${className}`}
+      className={`relative overflow-hidden border-b ${borderClass} py-14 lg:py-16 ${id ? "scroll-mt-28" : ""} ${toneClass} ${className}`}
     >
-      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-10">{children}</div>
+      {tone === "photo" && <AboutPhotoBackdrop />}
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-10">{children}</div>
     </section>
   );
 }
@@ -158,13 +167,15 @@ function SectionHeader({
   label,
   title,
   description,
+  className = "mb-10",
 }: {
   label: string;
   title: string;
   description?: string;
+  className?: string;
 }) {
   return (
-    <div className="mx-auto mb-10 max-w-3xl text-center">
+    <div className={`mx-auto max-w-3xl text-center ${className}`}>
       <p className="tnf-label text-sm font-semibold uppercase tracking-widest">{label}</p>
       <h2 className="mt-2 text-2xl font-bold text-tnf-navy sm:text-3xl">{title}</h2>
       {description && (
@@ -208,11 +219,14 @@ export function AboutPageView() {
       </section>
 
       {/* What is TNF */}
-      <AboutSection id="overview" tone="warm">
-        <SectionHeader
-          label="About TNF"
-          title="What is the Tripartite Negotiating Forum?"
-        />
+      <AboutSection id="overview" tone="photo">
+        <div className="about-section__intro text-center">
+          <SectionHeader
+            label="About TNF"
+            title="What is the Tripartite Negotiating Forum?"
+            className="mb-0"
+          />
+        </div>
         <div className={`${ABOUT_CARD} mx-auto max-w-4xl`}>
           <p className="about-text-justify text-slate-600 leading-relaxed">
             Social dialogue in Zimbabwe is under the auspices of the Tripartite Negotiating Forum
@@ -238,11 +252,8 @@ export function AboutPageView() {
             ))}
           </div>
         </div>
-      </AboutSection>
 
-      {/* Outcomes */}
-      <AboutSection tone="sand">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4">
           {OUTCOMES.map((item) => (
             <div key={item.title} className={ABOUT_CARD}>
               <h3 className="text-center text-lg font-bold text-tnf-green">{item.title}</h3>

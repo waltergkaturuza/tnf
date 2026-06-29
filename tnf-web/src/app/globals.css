@@ -491,6 +491,97 @@ footer label {
   background-color: var(--page-cream-sand);
 }
 
+.about-tone-photo {
+  background-color: #1e3a5f;
+}
+
+.about-photo-slider {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.about-photo-slider__track {
+  position: absolute;
+  inset: 0;
+}
+
+.about-photo-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.4s ease-in-out;
+}
+
+.about-photo-slide--active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.about-photo-slide__image {
+  transform: scale(1);
+}
+
+.about-photo-slide--active .about-photo-slide__image {
+  animation: hero-ken-burns 6s ease-out forwards;
+}
+
+.about-photo-slider__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    180deg,
+    rgb(15 23 42 / 0.35) 0%,
+    rgb(15 23 42 / 0.2) 45%,
+    rgb(15 23 42 / 0.35) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-photo-slide {
+    transition: none;
+  }
+
+  .about-photo-slide--active .about-photo-slide__image {
+    animation: none;
+  }
+}
+
+.about-section__intro {
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2.5rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1rem;
+  background: rgb(15 23 42 / 0.72);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.28);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+@media (min-width: 640px) {
+  .about-section__intro {
+    padding: 1.5rem 1.75rem;
+    border-radius: 1.25rem;
+  }
+}
+
+.about-section__intro .tnf-label {
+  color: rgb(167 243 208);
+}
+
+.about-section__intro h2 {
+  color: #fff;
+}
+
+.about-section__intro p {
+  color: rgb(241 245 249);
+}
+
 /* About / Contact — floating glass cards with green edge glow on hover */
 .about-card {
   border-radius: 1.25rem;
