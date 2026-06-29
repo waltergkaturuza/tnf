@@ -44,56 +44,59 @@ export function Hero() {
 
       <div className="hero-slider__overlay" aria-hidden />
 
-      <div className="hero-slider__content relative py-16 sm:py-20 lg:py-24">
-        <div className="page-shell-inner flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-16">
+      <div className="hero-slider__content relative py-10 sm:py-12 lg:py-14">
+        <div className="page-shell-inner flex flex-col items-center gap-6 lg:flex-row lg:items-center lg:gap-10">
           <div className="hero-slider__logo shrink-0">
             <Image
               src="/tnf-logo.png"
               alt="TNF Tripartite Negotiating Forum"
               width={320}
               height={160}
-              className="h-32 w-auto object-contain sm:h-40 lg:h-48"
+              className="h-28 w-auto object-contain sm:h-36 lg:h-40"
               priority
             />
           </div>
 
-          <div className="min-w-0 max-w-2xl flex-1 text-center lg:text-left">
-            <h1 className="text-2xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl xl:text-6xl">
-              {siteConfig.tagline}
-            </h1>
-            <p className="mt-6 text-lg text-slate-100 sm:text-xl">{siteConfig.description}</p>
-            <div className="mt-10 flex flex-wrap justify-center gap-3 sm:gap-4 lg:justify-start">
-              <Link
-                href="/about"
-                className="btn-tnf-primary inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold shadow-lg hover:shadow-xl"
-              >
-                About TNF
-              </Link>
-              <Link
-                href="/resources"
-                className="inline-flex items-center rounded-full border-2 border-white/50 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
-              >
-                Latest Reports
-              </Link>
-              <Link
-                href="/feedback"
-                className="inline-flex items-center rounded-full border-2 border-white/30 px-6 py-3 text-sm font-medium text-slate-200 transition-colors hover:border-white/50 hover:text-white"
-              >
-                Submit Feedback
-              </Link>
-            </div>
+          <div className="hero-slider__text min-w-0 max-w-2xl flex-1">
+            <div className="hero-slider__card text-center lg:text-left">
+              <p className="hero-slider__eyebrow">{siteConfig.shortName}</p>
+              <h1 className="text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl lg:text-4xl xl:text-5xl">
+                {siteConfig.tagline}
+              </h1>
+              <p className="mt-4 text-base leading-relaxed text-slate-100 sm:text-lg">{siteConfig.description}</p>
+              <div className="mt-6 flex flex-wrap justify-center gap-3 sm:gap-4 lg:justify-start">
+                <Link
+                  href="/about"
+                  className="btn-tnf-primary inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold shadow-lg hover:shadow-xl"
+                >
+                  About TNF
+                </Link>
+                <Link
+                  href="/resources"
+                  className="inline-flex items-center rounded-full border-2 border-white/50 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
+                >
+                  Latest Reports
+                </Link>
+                <Link
+                  href="/feedback"
+                  className="inline-flex items-center rounded-full border-2 border-white/30 px-6 py-3 text-sm font-medium text-slate-200 transition-colors hover:border-white/50 hover:text-white"
+                >
+                  Submit Feedback
+                </Link>
+              </div>
 
-            <div className="mt-8 flex justify-center gap-2 lg:justify-start">
-              {heroSlides.map((slide, index) => (
-                <button
-                  key={slide.src}
-                  type="button"
-                  className={`hero-slider__dot${index === activeIndex ? " hero-slider__dot--active" : ""}`}
-                  onClick={() => goToSlide(index)}
-                  aria-label={`Show slide ${index + 1}: ${slide.alt}`}
-                  aria-current={index === activeIndex ? "true" : undefined}
-                />
-              ))}
+              <div className="mt-5 flex justify-center gap-2 lg:justify-start">
+                {heroSlides.map((slide, index) => (
+                  <button
+                    key={slide.src}
+                    type="button"
+                    className={`hero-slider__dot${index === activeIndex ? " hero-slider__dot--active" : ""}`}
+                    onClick={() => goToSlide(index)}
+                    aria-label={`Show slide ${index + 1}: ${slide.alt}`}
+                    aria-current={index === activeIndex ? "true" : undefined}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
