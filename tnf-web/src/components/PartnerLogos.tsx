@@ -60,12 +60,12 @@ export async function PartnerLogos() {
 
   return (
     <section className="partners-section py-10 sm:py-14">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-12">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold tracking-tight text-tnf-navy sm:text-3xl">
+      <div className="partners-section__inner">
+        <div className="partners-section__intro text-center">
+          <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
             Our Partners
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-slate-600">
+          <p className="mx-auto mt-3 max-w-2xl text-base text-slate-100 sm:text-lg">
             Government, labour, business, and development partners in social dialogue.
           </p>
         </div>

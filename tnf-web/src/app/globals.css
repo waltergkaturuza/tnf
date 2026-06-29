@@ -555,12 +555,82 @@ footer label {
   }
 }
 
+/* Watch TNF — full-width video section */
+.video-section__inner {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .video-section__inner {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .video-section__inner {
+    padding-left: 30mm;
+    padding-right: 30mm;
+  }
+}
+
+.video-section__media {
+  height: 15rem;
+}
+
+@media (min-width: 640px) {
+  .video-section__media {
+    height: 19rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .video-section__media {
+    height: 24rem;
+  }
+}
+
+.video-section__media .tnf-video-player,
+.video-section__media .tnf-video-player video,
+.video-section__media iframe {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+}
+
 /* TNF in Action gallery — glass cards with green edge glow on hover */
 .gallery-section {
   background-color: #f6f4f0;
   background-image:
     radial-gradient(circle at 10% 20%, rgb(255 255 255 / 0.7), transparent 40%),
     radial-gradient(circle at 90% 80%, rgb(4 120 87 / 0.06), transparent 35%);
+}
+
+.gallery-section__inner {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .gallery-section__inner {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-section__inner {
+    padding-left: 30mm;
+    padding-right: 30mm;
+  }
 }
 
 .gallery-card {
@@ -619,13 +689,54 @@ footer label {
 
 /* Our Partners — glass logo cards */
 .partners-section {
-  background-color: #f6f4f0;
-  background-image:
-    linear-gradient(rgb(246 244 240 / 0.82), rgb(246 244 240 / 0.88)),
-    url("/background2.jpg");
+  background-color: #1e3a5f;
+  background-image: url("/background2.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.partners-section__inner {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .partners-section__inner {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .partners-section__inner {
+    padding-left: 30mm;
+    padding-right: 30mm;
+  }
+}
+
+.partners-section__intro {
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1rem;
+  background: rgb(15 23 42 / 0.72);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.28);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+@media (min-width: 640px) {
+  .partners-section__intro {
+    padding: 1.5rem 1.75rem;
+    border-radius: 1.25rem;
+  }
 }
 
 .partner-card {

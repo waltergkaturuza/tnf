@@ -6,7 +6,7 @@ export function PhotoGallery() {
 
   return (
     <section className="gallery-section py-10 sm:py-14">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-12">
+      <div className="gallery-section__inner">
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight text-tnf-navy sm:text-4xl">
             TNF in Action
