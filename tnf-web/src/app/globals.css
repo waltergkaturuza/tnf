@@ -495,6 +495,28 @@ footer label {
   background-color: #1e3a5f;
 }
 
+.about-tone-photo-bg {
+  background-color: #1e3a5f;
+  background-image: url("/background2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.about-tone-photo-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    rgb(15 23 42 / 0.35) 0%,
+    rgb(15 23 42 / 0.2) 45%,
+    rgb(15 23 42 / 0.35) 100%
+  );
+  pointer-events: none;
+}
+
 .about-photo-slider {
   position: absolute;
   inset: 0;
@@ -580,6 +602,67 @@ footer label {
 
 .about-section__intro p {
   color: rgb(241 245 249);
+}
+
+/* About page — dark glass floating cards on photo backgrounds */
+.about-card-dark {
+  border-radius: 1.25rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  background: rgb(15 23 42 / 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow:
+    0 16px 48px rgb(0 0 0 / 0.3),
+    0 1px 0 rgb(255 255 255 / 0.08) inset;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.about-card-dark__title {
+  color: #fff;
+}
+
+.about-card-dark__text {
+  color: rgb(226 232 240);
+}
+
+.about-card-dark__badge {
+  border-color: rgb(52 211 153 / 0.55);
+  background: rgb(4 120 87 / 0.2);
+  color: rgb(167 243 208);
+}
+
+@media (hover: hover) {
+  .about-card-dark:hover {
+    transform: translateY(-6px);
+    border-color: rgb(4 120 87 / 0.55);
+    box-shadow:
+      0 22px 52px rgb(0 0 0 / 0.38),
+      0 0 0 1px rgb(4 120 87 / 0.4),
+      0 0 28px rgb(4 120 87 / 0.22),
+      0 1px 0 rgb(255 255 255 / 0.1) inset;
+  }
+}
+
+@media (hover: none) {
+  .about-card-dark {
+    border-color: rgb(4 120 87 / 0.35);
+    box-shadow:
+      0 16px 48px rgb(0 0 0 / 0.3),
+      0 0 0 1px rgb(4 120 87 / 0.2),
+      0 0 18px rgb(4 120 87 / 0.14);
+  }
+}
+
+.about-card-dark:active {
+  transform: translateY(-4px);
+  border-color: rgb(4 120 87 / 0.65);
+  box-shadow:
+    0 20px 48px rgb(0 0 0 / 0.35),
+    0 0 0 1px rgb(4 120 87 / 0.45),
+    0 0 28px rgb(4 120 87 / 0.28);
 }
 
 /* About / Contact — floating glass cards with green edge glow on hover */

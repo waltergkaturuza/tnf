@@ -131,6 +131,7 @@ const CORE_VALUES = [
 ];
 
 const ABOUT_CARD = "about-card p-6 lg:p-8";
+const ABOUT_CARD_DARK = "about-card-dark p-6 lg:p-8";
 
 function AboutSection({
   id,
@@ -140,7 +141,7 @@ function AboutSection({
 }: {
   id?: string;
   children: React.ReactNode;
-  tone?: "ivory" | "warm" | "sand" | "photo";
+  tone?: "ivory" | "warm" | "sand" | "photo" | "photo-bg";
   className?: string;
 }) {
   const toneClass =
@@ -150,8 +151,11 @@ function AboutSection({
         ? "about-tone-sand"
         : tone === "photo"
           ? "about-tone-photo"
-          : "about-tone-warm";
-  const borderClass = tone === "photo" ? "border-white/10" : "border-slate-200/40";
+          : tone === "photo-bg"
+            ? "about-tone-photo-bg"
+            : "about-tone-warm";
+  const borderClass =
+    tone === "photo" || tone === "photo-bg" ? "border-white/10" : "border-slate-200/40";
   return (
     <section
       id={id}
@@ -289,36 +293,42 @@ export function AboutPageView() {
         </div>
       </AboutSection>
 
-      {/* Who engages */}
-      <AboutSection tone="warm">
-        <SectionHeader label="Why Engage" title="Who Participates in the TNF?" />
+      {/* Who engages + Tripartite */}
+      <AboutSection tone="photo-bg">
+        <div className="about-section__intro text-center">
+          <SectionHeader
+            label="Why Engage"
+            title="Who Participates in the TNF?"
+            className="mb-0"
+          />
+        </div>
         <div className="grid gap-6 sm:grid-cols-2">
           {WHO_ENGAGES.map((item) => (
-            <div key={item.title} className={ABOUT_CARD}>
-              <h3 className="text-center text-xl font-bold text-tnf-navy">{item.title}</h3>
-              <p className="about-text-justify mt-3 text-sm leading-relaxed text-slate-600">
+            <div key={item.title} className={ABOUT_CARD_DARK}>
+              <h3 className="about-card-dark__title text-center text-xl font-bold">{item.title}</h3>
+              <p className="about-card-dark__text about-text-justify mt-3 text-sm leading-relaxed">
                 {item.description}
               </p>
             </div>
           ))}
         </div>
-      </AboutSection>
 
-      {/* Tripartite */}
-      <AboutSection tone="ivory">
-        <SectionHeader
-          label="Our Foundation"
-          title="The Tripartite Model"
-          description="The TNF is grounded in genuine tripartism. Government, Employers and Workers are equal partners in national dialogue."
-        />
+        <div className="about-section__intro mt-14 text-center lg:mt-16">
+          <SectionHeader
+            label="Our Foundation"
+            title="The Tripartite Model"
+            description="The TNF is grounded in genuine tripartism. Government, Employers and Workers are equal partners in national dialogue."
+            className="mb-0"
+          />
+        </div>
         <div className="grid gap-6 md:grid-cols-3">
           {TRIPARTITE.map((item) => (
-            <div key={item.title} className={`${ABOUT_CARD} text-center`}>
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-tnf-green bg-tnf-green/10 text-2xl font-bold text-tnf-green transition-transform duration-300 group-hover:scale-105">
+            <div key={item.title} className={`${ABOUT_CARD_DARK} text-center`}>
+              <div className="about-card-dark__badge mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 text-2xl font-bold transition-transform duration-300 group-hover:scale-105">
                 {item.title.charAt(0)}
               </div>
-              <h3 className="text-lg font-bold text-tnf-navy">{item.title}</h3>
-              <p className="about-text-justify mt-3 text-sm text-slate-600 leading-relaxed">
+              <h3 className="about-card-dark__title text-lg font-bold">{item.title}</h3>
+              <p className="about-card-dark__text about-text-justify mt-3 text-sm leading-relaxed">
                 {item.description}
               </p>
             </div>
