@@ -208,6 +208,26 @@ main h3 {
   z-index: 3;
 }
 
+.hero-slider__inner {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding-left: 1.25rem;
+  padding-right: max(1.25rem, 20mm);
+}
+
+@media (min-width: 640px) {
+  .hero-slider__inner {
+    padding-left: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-slider__inner {
+    padding-left: 2.5rem;
+  }
+}
+
 .hero-slider__card {
   border-radius: 1rem;
   padding: 1.5rem 1.25rem;
@@ -234,10 +254,23 @@ main h3 {
 .hero-slider__eyebrow {
   margin-bottom: 0.75rem;
   font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  line-height: 1.35;
   color: var(--tnf-gold-light);
+}
+
+@media (min-width: 640px) {
+  .hero-slider__eyebrow {
+    font-size: 0.9375rem;
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-slider__eyebrow {
+    font-size: 1rem;
+  }
 }
 
 .hero-slider__text h1 {
@@ -476,6 +509,8 @@ footer label {
   background: rgb(255 255 255 / 0.68);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   box-shadow:
     0 10px 36px rgb(30 58 95 / 0.08),
     0 1px 0 rgb(255 255 255 / 0.65) inset;
@@ -489,12 +524,90 @@ footer label {
   background: rgb(255 255 255 / 0.45);
 }
 
+/* Touch devices: subtle green edge by default, stronger glow on tap */
+@media (hover: none) {
+  .gallery-card {
+    border-color: rgb(4 120 87 / 0.38);
+    box-shadow:
+      0 10px 36px rgb(30 58 95 / 0.08),
+      0 0 0 1px rgb(4 120 87 / 0.22),
+      0 0 18px rgb(4 120 87 / 0.16);
+  }
+}
+
+.gallery-card:active {
+  transform: translateY(-4px);
+  border-color: rgb(4 120 87 / 0.75);
+  box-shadow:
+    0 18px 44px rgb(30 58 95 / 0.12),
+    0 0 0 1px rgb(4 120 87 / 0.5),
+    0 0 28px rgb(4 120 87 / 0.32),
+    0 0 0 4px rgb(4 120 87 / 0.12);
+}
+
 @media (hover: hover) {
   .gallery-card:hover {
     transform: translateY(-6px);
     border-color: rgb(4 120 87 / 0.65);
     box-shadow:
       0 20px 48px rgb(30 58 95 / 0.12),
+      0 0 0 1px rgb(4 120 87 / 0.45),
+      0 0 28px rgb(4 120 87 / 0.28),
+      0 0 0 4px rgb(4 120 87 / 0.1);
+  }
+}
+
+/* Our Partners — glass logo cards */
+.partners-section {
+  background-color: #f6f4f0;
+  background-image:
+    radial-gradient(circle at 15% 25%, rgb(255 255 255 / 0.65), transparent 42%),
+    radial-gradient(circle at 85% 75%, rgb(4 120 87 / 0.05), transparent 38%);
+}
+
+.partner-card {
+  border-radius: 1.25rem;
+  border: 1px solid rgb(255 255 255 / 0.55);
+  background: rgb(255 255 255 / 0.68);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  box-shadow:
+    0 10px 36px rgb(30 58 95 / 0.08),
+    0 1px 0 rgb(255 255 255 / 0.65) inset;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+@media (hover: none) {
+  .partner-card {
+    border-color: rgb(4 120 87 / 0.32);
+    box-shadow:
+      0 10px 36px rgb(30 58 95 / 0.08),
+      0 0 0 1px rgb(4 120 87 / 0.18),
+      0 0 16px rgb(4 120 87 / 0.14);
+  }
+}
+
+.partner-card:active {
+  transform: translateY(-4px);
+  border-color: rgb(4 120 87 / 0.7);
+  box-shadow:
+    0 16px 40px rgb(30 58 95 / 0.11),
+    0 0 0 1px rgb(4 120 87 / 0.45),
+    0 0 24px rgb(4 120 87 / 0.28),
+    0 0 0 4px rgb(4 120 87 / 0.1);
+}
+
+@media (hover: hover) {
+  .partner-card:hover {
+    transform: translateY(-6px);
+    border-color: rgb(4 120 87 / 0.65);
+    box-shadow:
+      0 18px 44px rgb(30 58 95 / 0.11),
       0 0 0 1px rgb(4 120 87 / 0.45),
       0 0 28px rgb(4 120 87 / 0.28),
       0 0 0 4px rgb(4 120 87 / 0.1);

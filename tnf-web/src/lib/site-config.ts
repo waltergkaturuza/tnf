@@ -108,11 +108,18 @@ export const siteConfig = {
     "Development Partners (e.g. ILO)",
   ],
   partners: [
-    { name: "Government of Zimbabwe", logo: "/partners/gov.svg", href: "#" },
-    { name: "Organised Labour", logo: "/partners/labour.svg", href: "#" },
-    { name: "Organised Business", logo: "/partners/business.svg", href: "#" },
+    {
+      name: "Government of Zimbabwe",
+      logo: "/partners/Governement of_Zimbabwe.svg_1-300x262-1920w.png",
+      href: "#",
+    },
+    {
+      name: "Organised Labour",
+      logo: "/partners/zimbabwes-labor-.png",
+      href: "#",
+    },
     { name: "ILO", logo: "/partners/ilo.svg", href: "https://www.ilo.org" },
-    { name: "NSSA", logo: "/partners/nssa.svg", href: "#" },
+    { name: "NSSA", logo: "/partners/NSSA.png", href: "#" },
   ],
   galleryImages: [
     {

@@ -24,6 +24,7 @@ import { Media } from "./collections/Media.js";
 import { Posts } from "./collections/Posts.js";
 import { Events } from "./collections/Events.js";
 import { Resources } from "./collections/Resources.js";
+import { Partners } from "./collections/Partners.js";
 import { FormSubmissions } from "./collections/FormSubmissions.js";
 
 const filename = fileURLToPath(import.meta.url);
@@ -108,7 +109,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Events, Resources, FormSubmissions],
+  collections: [Users, Media, Posts, Events, Resources, Partners, FormSubmissions],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "CHANGE_ME_IN_PRODUCTION",
   typescript: {

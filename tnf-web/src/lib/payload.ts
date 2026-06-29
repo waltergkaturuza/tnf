@@ -56,3 +56,10 @@ export async function getResources(limit = 20, category?: string) {
   const data = await payloadFetch(url);
   return data ?? { docs: [] };
 }
+
+export async function getPartners(limit = 24) {
+  const data = await payloadFetch(
+    `${PAYLOAD_API_URL}/api/partners?limit=${limit}&where[status][equals]=published&sort=sortOrder&depth=1`,
+  );
+  return data ?? { docs: [] };
+}

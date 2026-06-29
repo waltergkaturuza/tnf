@@ -1,52 +1,71 @@
 import Image from "next/image";
-import { siteConfig } from "@/lib/site-config";
+import { getFallbackPartners, payloadPartnersToItems, type PartnerItem } from "@/lib/partners";
+import { getPartners } from "@/lib/payload";
 
-export function PartnerLogos() {
-  const partners = (siteConfig as { partners?: { name: string; logo: string; href: string }[] }).partners ?? [];
+function PartnerCard({ partner }: { partner: PartnerItem }) {
+  const card = (
+    <div className="partner-card group flex h-full min-h-[9.5rem] flex-col items-center justify-center px-5 py-6 sm:min-h-[11rem] sm:px-6 sm:py-8">
+      <div className="relative flex h-20 w-full items-center justify-center sm:h-24 lg:h-28">
+        <Image
+          src={partner.logo}
+          alt={partner.name}
+          width={200}
+          height={120}
+          unoptimized
+          className="max-h-full max-w-[85%] object-contain transition-transform duration-300 group-hover:scale-105 group-active:scale-105"
+        />
+      </div>
+      <span className="mt-4 line-clamp-2 text-center text-sm font-semibold leading-snug text-tnf-navy sm:text-base">
+        {partner.name}
+      </span>
+    </div>
+  );
+
+  if (partner.href) {
+    return (
+      <a
+        href={partner.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block h-full rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-tnf-green focus-visible:ring-offset-2"
+      >
+        {card}
+      </a>
+    );
+  }
+
+  return <div className="h-full">{card}</div>;
+}
+
+export async function PartnerLogos() {
+  let partners = getFallbackPartners();
+
+  try {
+    const { docs } = await getPartners();
+    const fromCms = payloadPartnersToItems(docs ?? []);
+    if (fromCms.length > 0) partners = fromCms;
+  } catch {
+    // Use static fallbacks from site-config / public/partners
+  }
 
   if (partners.length === 0) return null;
 
   return (
-    <section className="border-y border-slate-200 bg-slate-50 py-12 sm:py-16">
-      <div className="page-shell-inner">
+    <section className="partners-section py-10 sm:py-14">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="text-center">
           <h2 className="text-2xl font-bold tracking-tight text-tnf-navy sm:text-3xl">
             Our Partners
           </h2>
-          <p className="mx-auto mt-2 max-w-xl text-slate-600">
+          <p className="mx-auto mt-3 max-w-2xl text-slate-600">
             Government, labour, business, and development partners in social dialogue.
           </p>
         </div>
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-8 lg:gap-12">
-          {partners.map((partner) => {
-            const content = (
-              <div className="flex h-16 w-24 flex-col items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-3 transition-shadow hover:shadow-md sm:h-20 sm:w-28">
-                <Image
-                  src={partner.logo}
-                  alt={partner.name}
-                  width={80}
-                  height={48}
-                  className="h-10 w-auto object-contain sm:h-12"
-                />
-                <span className="mt-1 hidden truncate text-center text-xs text-slate-600 sm:block">
-                  {partner.name}
-                </span>
-              </div>
-            );
-            return partner.href && partner.href !== "#" ? (
-              <a
-                key={partner.name}
-                href={partner.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="focus:outline-none focus:ring-2 focus:ring-tnf-green focus:ring-offset-2"
-              >
-                {content}
-              </a>
-            ) : (
-              <div key={partner.name}>{content}</div>
-            );
-          })}
+
+        <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 sm:gap-6 lg:grid-cols-5 lg:gap-8">
+          {partners.map((partner) => (
+            <PartnerCard key={partner.id} partner={partner} />
+          ))}
         </div>
       </div>
     </section>

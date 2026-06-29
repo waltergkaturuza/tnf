@@ -45,7 +45,7 @@ export function Hero() {
       <div className="hero-slider__overlay" aria-hidden />
 
       <div className="hero-slider__content relative py-10 sm:py-12 lg:py-14">
-        <div className="page-shell-inner flex flex-col items-center gap-6 lg:flex-row lg:items-center lg:gap-10">
+        <div className="hero-slider__inner flex flex-col items-center gap-6 lg:flex-row lg:items-center lg:gap-10">
           <div className="hero-slider__logo shrink-0">
             <Image
               src="/tnf-logo.png"
@@ -57,9 +57,9 @@ export function Hero() {
             />
           </div>
 
-          <div className="hero-slider__text min-w-0 max-w-2xl flex-1">
+          <div className="hero-slider__text min-w-0 w-full flex-1">
             <div className="hero-slider__card text-center lg:text-left">
-              <p className="hero-slider__eyebrow">{siteConfig.shortName}</p>
+              <p className="hero-slider__eyebrow">{siteConfig.name}</p>
               <h1 className="text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl lg:text-4xl xl:text-5xl">
                 {siteConfig.tagline}
               </h1>
