@@ -213,18 +213,25 @@ main h3 {
   margin-right: auto;
   width: 100%;
   padding-left: 1.25rem;
-  padding-right: max(1.25rem, 20mm);
+  padding-right: 1.25rem;
 }
 
 @media (min-width: 640px) {
   .hero-slider__inner {
     padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 
 @media (min-width: 1024px) {
   .hero-slider__inner {
     padding-left: 2.5rem;
+    padding-right: 30mm;
+  }
+
+  .hero-slider__text {
+    display: flex;
+    justify-content: flex-end;
   }
 }
 
@@ -283,7 +290,7 @@ main h3 {
 
 @media (min-width: 1024px) {
   .hero-slider__card {
-    margin-left: 0;
+    margin-left: auto;
     margin-right: 0;
     padding: 1.75rem 2rem;
   }
@@ -614,8 +621,11 @@ footer label {
 .partners-section {
   background-color: #f6f4f0;
   background-image:
-    radial-gradient(circle at 15% 25%, rgb(255 255 255 / 0.65), transparent 42%),
-    radial-gradient(circle at 85% 75%, rgb(4 120 87 / 0.05), transparent 38%);
+    linear-gradient(rgb(246 244 240 / 0.82), rgb(246 244 240 / 0.88)),
+    url("/background2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .partner-card {

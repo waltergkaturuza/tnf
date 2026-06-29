@@ -1,8 +1,20 @@
 "use client";
 
 import { siteConfig } from "@/lib/site-config";
+import { TnfVideoPlayer } from "@/components/TnfVideoPlayer";
 
-const videos = (siteConfig as { videos?: { id: string; title: string; description: string; embedId?: string; placeholder?: boolean }[] }).videos ?? [];
+type SiteVideo = {
+  id: string;
+  title: string;
+  description: string;
+  embedId?: string;
+  src?: string;
+  placeholder?: boolean;
+  loop?: boolean;
+  autoplay?: boolean;
+};
+
+const videos = ((siteConfig as { videos?: SiteVideo[] }).videos ?? []) as SiteVideo[];
 
 export function VideoSection() {
   if (videos.length === 0) return null;
@@ -22,7 +34,14 @@ export function VideoSection() {
           {videos.map((video) => (
             <div key={video.id} className="overflow-hidden rounded-xl border border-white/20 bg-white/5">
               <div className="relative aspect-video">
-                {video.embedId ? (
+                {video.src ? (
+                  <TnfVideoPlayer
+                    src={video.src}
+                    title={video.title}
+                    loop={video.loop ?? true}
+                    autoplay={video.autoplay ?? true}
+                  />
+                ) : video.embedId ? (
                   <iframe
                     src={`https://www.youtube.com/embed/${video.embedId}`}
                     title={video.title}
@@ -37,9 +56,7 @@ export function VideoSection() {
                         <path d="M8 5v14l11-7z" />
                       </svg>
                     </div>
-                    <p className="text-center text-sm text-slate-300">
-                      Video coming soon
-                    </p>
+                    <p className="text-center text-sm text-slate-300">Video coming soon</p>
                   </div>
                 )}
               </div>
