@@ -689,6 +689,7 @@ footer label {
 
 /* Our Partners — glass logo cards */
 .partners-section {
+  border-top: 5mm solid #fff;
   background-color: #1e3a5f;
   background-image: url("/background2.jpg");
   background-size: cover;
