@@ -1,5 +1,4 @@
 import { Hero } from "@/components/Hero";
-import { Stakeholders } from "@/components/Stakeholders";
 import { PartnerLogos } from "@/components/PartnerLogos";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { VideoSection } from "@/components/VideoSection";
@@ -14,7 +13,6 @@ export default function Home() {
     <>
       <Hero />
       <PartnerLogos />
-      <Stakeholders />
       <PhotoGallery />
       <VideoSection />
       <Infographics />

@@ -796,3 +796,88 @@ footer label {
       0 0 0 4px rgb(4 120 87 / 0.1);
   }
 }
+
+/* TNF at a Glance — infographics */
+.infographics-section {
+  background-color: #1e3a5f;
+  background-image: url("/background3.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.infographics-section__inner {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .infographics-section__inner {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .infographics-section__inner {
+    padding-left: 30mm;
+    padding-right: 30mm;
+  }
+}
+
+.infographics-section__intro {
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1rem;
+  background: rgb(15 23 42 / 0.72);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.28);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+@media (min-width: 640px) {
+  .infographics-section__intro {
+    padding: 1.5rem 1.75rem;
+    border-radius: 1.25rem;
+  }
+}
+
+.infographics-card {
+  border-radius: 1.25rem;
+  border: 1px solid rgb(255 255 255 / 0.55);
+  background: rgb(255 255 255 / 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 12px 40px rgb(30 58 95 / 0.12),
+    0 1px 0 rgb(255 255 255 / 0.65) inset;
+  padding: 1.75rem 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .infographics-card {
+    padding: 2rem 1.75rem;
+  }
+}
+
+.infographics-mandate-item {
+  border-radius: 0.75rem;
+  border: 1px solid rgb(255 255 255 / 0.45);
+  background: rgb(255 255 255 / 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1rem 1.1rem;
+}
+
+.infographics-stat {
+  background: rgb(255 255 255 / 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}

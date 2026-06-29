@@ -102,13 +102,6 @@ export const siteConfig = {
     { href: "/careers", label: "Careers" },
     { href: "/contact", label: "Contact" },
   ],
-  stakeholders: [
-    "Government (central and local)",
-    "Organised Labour",
-    "Organised Business",
-    "National Social Security Authority",
-    "Development Partners (e.g. ILO)",
-  ],
   partners: [
     {
       name: "Government of Zimbabwe",
