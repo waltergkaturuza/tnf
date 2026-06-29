@@ -60,8 +60,9 @@ export function Hero() {
           <div className="hero-slider__text min-w-0 w-full flex-1">
             <div className="hero-slider__card text-center lg:text-left">
               <p className="hero-slider__eyebrow">{siteConfig.name}</p>
-              <h1 className="text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl lg:text-4xl xl:text-5xl">
-                {siteConfig.tagline}
+              <h1 className="hero-slider__title text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl lg:text-4xl xl:text-[2.75rem]">
+                <span className="hero-slider__title-line">{siteConfig.taglineLine1}</span>
+                <span className="hero-slider__title-line">{siteConfig.taglineLine2}</span>
               </h1>
               <p className="mt-4 text-base leading-relaxed text-slate-100 sm:text-lg">{siteConfig.description}</p>
               <div className="mt-6 flex flex-wrap justify-center gap-3 sm:gap-4 lg:justify-start">

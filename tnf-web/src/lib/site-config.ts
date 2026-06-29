@@ -6,6 +6,8 @@
 export const siteConfig = {
   name: "Tripartite Negotiating Forum",
   shortName: "TNF",
+  taglineLine1: "Facilitating National Social Dialogue",
+  taglineLine2: "for Socio-Economic Development",
   tagline: "Facilitating National Social Dialogue for Socio-Economic Development",
   description:
     "The Tripartite Negotiating Forum (TNF) is the statutory national platform in Zimbabwe that brings together government, organised business, and organised labour to address socio-economic and labour market issues.",
