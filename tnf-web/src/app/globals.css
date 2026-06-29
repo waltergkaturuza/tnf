@@ -242,6 +242,38 @@ main h3 {
   -webkit-backdrop-filter: blur(14px);
 }
 
+/* Card width follows line 1 ("…Dialogue"); body text wraps inside that column */
+.hero-slider__card-grid {
+  display: inline-grid;
+  max-width: 100%;
+}
+
+.hero-slider__card-measure {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.hero-slider__card-content {
+  grid-area: 1 / 1;
+  width: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.hero-slider__description,
+.hero-slider__actions,
+.hero-slider__dots {
+  max-width: 100%;
+}
+
+.hero-slider__actions {
+  min-width: 0;
+}
+
 @media (min-width: 640px) {
   .hero-slider__card {
     padding: 1.75rem 1.75rem;
@@ -288,7 +320,8 @@ main h3 {
 }
 
 @media (min-width: 480px) {
-  .hero-slider__title-line {
+  .hero-slider__title-line:first-child,
+  .hero-slider__card-measure {
     white-space: nowrap;
   }
 }

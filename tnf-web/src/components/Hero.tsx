@@ -59,44 +59,56 @@ export function Hero() {
 
           <div className="hero-slider__text min-w-0 w-full flex-1">
             <div className="hero-slider__card text-center lg:text-left">
-              <p className="hero-slider__eyebrow">{siteConfig.name}</p>
-              <h1 className="hero-slider__title text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl lg:text-4xl xl:text-[2.75rem]">
-                <span className="hero-slider__title-line">{siteConfig.taglineLine1}</span>
-                <span className="hero-slider__title-line">{siteConfig.taglineLine2}</span>
-              </h1>
-              <p className="mt-4 text-base leading-relaxed text-slate-100 sm:text-lg">{siteConfig.description}</p>
-              <div className="mt-6 flex flex-wrap justify-center gap-3 sm:gap-4 lg:justify-start">
-                <Link
-                  href="/about"
-                  className="btn-tnf-primary inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold shadow-lg hover:shadow-xl"
+              <div className="hero-slider__card-grid">
+                <span
+                  className="hero-slider__title hero-slider__card-measure text-2xl font-bold leading-tight tracking-tight sm:text-3xl lg:text-4xl xl:text-[2.75rem]"
+                  aria-hidden="true"
                 >
-                  About TNF
-                </Link>
-                <Link
-                  href="/resources"
-                  className="inline-flex items-center rounded-full border-2 border-white/50 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
-                >
-                  Latest Reports
-                </Link>
-                <Link
-                  href="/feedback"
-                  className="inline-flex items-center rounded-full border-2 border-white/30 px-6 py-3 text-sm font-medium text-slate-200 transition-colors hover:border-white/50 hover:text-white"
-                >
-                  Submit Feedback
-                </Link>
-              </div>
+                  {siteConfig.taglineLine1}
+                </span>
+                <div className="hero-slider__card-content">
+                  <p className="hero-slider__eyebrow">{siteConfig.name}</p>
+                  <h1 className="hero-slider__title text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl lg:text-4xl xl:text-[2.75rem]">
+                    <span className="hero-slider__title-line">{siteConfig.taglineLine1}</span>
+                    <span className="hero-slider__title-line">{siteConfig.taglineLine2}</span>
+                  </h1>
+                  <p className="hero-slider__description mt-4 text-base leading-relaxed text-slate-100 sm:text-lg">
+                    {siteConfig.description}
+                  </p>
+                  <div className="hero-slider__actions mt-6 flex flex-wrap justify-center gap-3 sm:gap-4 lg:justify-start">
+                    <Link
+                      href="/about"
+                      className="btn-tnf-primary inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold shadow-lg hover:shadow-xl"
+                    >
+                      About TNF
+                    </Link>
+                    <Link
+                      href="/resources"
+                      className="inline-flex items-center rounded-full border-2 border-white/50 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
+                    >
+                      Latest Reports
+                    </Link>
+                    <Link
+                      href="/feedback"
+                      className="inline-flex items-center rounded-full border-2 border-white/30 px-6 py-3 text-sm font-medium text-slate-200 transition-colors hover:border-white/50 hover:text-white"
+                    >
+                      Submit Feedback
+                    </Link>
+                  </div>
 
-              <div className="mt-5 flex justify-center gap-2 lg:justify-start">
-                {heroSlides.map((slide, index) => (
-                  <button
-                    key={slide.src}
-                    type="button"
-                    className={`hero-slider__dot${index === activeIndex ? " hero-slider__dot--active" : ""}`}
-                    onClick={() => goToSlide(index)}
-                    aria-label={`Show slide ${index + 1}: ${slide.alt}`}
-                    aria-current={index === activeIndex ? "true" : undefined}
-                  />
-                ))}
+                  <div className="hero-slider__dots mt-5 flex justify-center gap-2 lg:justify-start">
+                    {heroSlides.map((slide, index) => (
+                      <button
+                        key={slide.src}
+                        type="button"
+                        className={`hero-slider__dot${index === activeIndex ? " hero-slider__dot--active" : ""}`}
+                        onClick={() => goToSlide(index)}
+                        aria-label={`Show slide ${index + 1}: ${slide.alt}`}
+                        aria-current={index === activeIndex ? "true" : undefined}
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
