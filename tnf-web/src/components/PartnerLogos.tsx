@@ -1,19 +1,27 @@
 import Image from "next/image";
-import { getFallbackPartners, payloadPartnersToItems, type PartnerItem } from "@/lib/partners";
+import { getFallbackPartners, partnerNeedsDarkPlate, payloadPartnersToItems, type PartnerItem } from "@/lib/partners";
 import { getPartners } from "@/lib/payload";
 
 function PartnerCard({ partner }: { partner: PartnerItem }) {
+  const darkPlate = partnerNeedsDarkPlate(partner);
+
   const card = (
     <div className="partner-card group flex h-full min-h-[9.5rem] flex-col items-center justify-center px-5 py-6 sm:min-h-[11rem] sm:px-6 sm:py-8">
       <div className="relative flex h-20 w-full items-center justify-center sm:h-24 lg:h-28">
-        <Image
-          src={partner.logo}
-          alt={partner.name}
-          width={200}
-          height={120}
-          unoptimized
-          className="max-h-full max-w-[85%] object-contain transition-transform duration-300 group-hover:scale-105 group-active:scale-105"
-        />
+        <div
+          className={`flex h-full w-full max-w-[11rem] items-center justify-center sm:max-w-[12rem]${
+            darkPlate ? " partner-card__logo-wrap--dark" : ""
+          }`}
+        >
+          <Image
+            src={partner.logo}
+            alt={partner.name}
+            width={200}
+            height={120}
+            unoptimized
+            className="max-h-full max-w-[85%] object-contain transition-transform duration-300 group-hover:scale-105 group-active:scale-105"
+          />
+        </div>
       </div>
       <span className="mt-4 line-clamp-2 text-center text-sm font-semibold leading-snug text-tnf-navy sm:text-base">
         {partner.name}

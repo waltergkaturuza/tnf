@@ -19,7 +19,7 @@ body:has(.template-minimal) {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.25rem !important;
+  padding: 1rem !important;
   background: transparent !important;
   color: var(--tnf-admin-navy);
 }
@@ -27,9 +27,9 @@ body:has(.template-minimal) {
 /* Glass floating card — wraps logo, intro, form, and footer */
 .template-minimal__wrap {
   width: 100%;
-  max-width: 26rem !important;
+  max-width: min(34rem, 100%) !important;
   margin: 0 auto;
-  padding: 1.75rem 1.5rem 1.5rem;
+  padding: 1.25rem 1.75rem 1.15rem;
   border-radius: 1.25rem;
   border: 1px solid rgb(255 255 255 / 0.22);
   background: rgb(255 255 255 / 0.9);
@@ -42,7 +42,7 @@ body:has(.template-minimal) {
 }
 
 .template-minimal .login__brand {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.35rem;
 }
 
 .template-minimal .login__form {
@@ -50,8 +50,8 @@ body:has(.template-minimal) {
 }
 
 .template-minimal .login__form__inputWrap {
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
 }
 
 .template-minimal .login__form .field-type {
@@ -61,7 +61,7 @@ body:has(.template-minimal) {
 .template-minimal .login__form .field-type input {
   border-radius: 0.65rem !important;
   border-color: rgb(203 213 225) !important;
-  min-height: 2.75rem;
+  min-height: 2.5rem;
   background: #fff !important;
   color: var(--tnf-admin-navy) !important;
 }
@@ -79,7 +79,7 @@ body:has(.template-minimal) {
 
 .template-minimal .login__form a {
   display: inline-block;
-  margin: 0.5rem 0 0.75rem;
+  margin: 0.35rem 0 0.5rem;
   color: var(--tnf-admin-green) !important;
   font-weight: 600;
   font-size: 0.875rem;
@@ -99,7 +99,7 @@ body:has(.template-minimal) {
   border-color: var(--tnf-admin-green) !important;
   color: #fff !important;
   font-weight: 600 !important;
-  min-height: 2.75rem;
+  min-height: 2.5rem;
   transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -142,14 +142,14 @@ html[data-theme="dark"] .template-minimal__wrap {
 .tnf-admin-logo {
   display: flex;
   justify-content: center;
-  padding: 0.15rem 0 0.35rem;
+  padding: 0 0 0.15rem;
 }
 
 .tnf-admin-logo__image {
   width: auto;
-  max-width: 200px;
+  max-width: 220px;
   height: auto;
-  max-height: 4.75rem;
+  max-height: 4rem;
   object-fit: contain;
 }
 
@@ -161,9 +161,9 @@ html[data-theme="dark"] .template-minimal__wrap {
 
 .tnf-admin-login-intro {
   text-align: center;
-  padding: 0.15rem 0 0.65rem;
+  padding: 0 0 0.5rem;
   border-bottom: 1px solid rgb(226 232 240 / 0.9);
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.5rem;
 }
 
 .tnf-admin-login-eyebrow {
@@ -176,43 +176,45 @@ html[data-theme="dark"] .template-minimal__wrap {
 }
 
 .tnf-admin-login-title {
-  margin: 0.4rem 0 0;
+  margin: 0.25rem 0 0;
   font-size: 1.375rem;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.15;
   color: var(--tnf-admin-navy) !important;
 }
 
 .tnf-admin-login-lede {
-  margin: 0.6rem 0 0;
+  margin: 0.4rem auto 0;
+  max-width: 32rem;
   font-size: 0.8125rem;
-  line-height: 1.55;
+  line-height: 1.45;
   color: rgb(71 85 105) !important;
 }
 
 .tnf-admin-login-features {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.4rem;
-  margin: 0.85rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-items: stretch;
+  gap: 0.35rem;
+  margin: 0.6rem 0 0;
   padding: 0;
   list-style: none;
 }
 
 .tnf-admin-login-features li {
-  padding: 0.3rem 0.65rem;
+  padding: 0.28rem 0.55rem;
   border-radius: 9999px;
   background: rgb(4 120 87 / 0.08);
   border: 1px solid rgb(4 120 87 / 0.16);
   font-size: 0.6875rem;
   font-weight: 600;
   color: var(--tnf-admin-navy) !important;
+  text-align: center;
 }
 
 .tnf-admin-login-footer {
-  margin-top: 1rem;
-  padding-top: 1rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
   border-top: 1px solid rgb(226 232 240 / 0.9);
   text-align: center;
 }
@@ -225,7 +227,7 @@ html[data-theme="dark"] .template-minimal__wrap {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  padding: 0.65rem 1rem;
+  padding: 0.55rem 1rem;
   border-radius: 9999px;
   border: 2px solid var(--tnf-admin-green);
   background: rgb(255 255 255);
@@ -257,8 +259,8 @@ html[data-theme="dark"] .template-minimal__wrap {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem 0.85rem;
-  margin-top: 0.85rem;
+  gap: 0.35rem 0.75rem;
+  margin-top: 0.6rem;
 }
 
 .tnf-admin-login-links a {
@@ -274,16 +276,20 @@ html[data-theme="dark"] .template-minimal__wrap {
 }
 
 .tnf-admin-login-note {
-  margin: 0.85rem 0 0;
+  margin: 0.55rem 0 0;
   font-size: 0.6875rem;
-  line-height: 1.5;
+  line-height: 1.4;
   color: rgb(100 116 139) !important;
 }
 
 @media (min-width: 640px) {
   .template-minimal__wrap {
-    max-width: 28rem !important;
-    padding: 2rem 1.75rem 1.75rem;
+    max-width: min(38rem, 100%) !important;
+    padding: 1.35rem 2.25rem 1.2rem;
+  }
+
+  .tnf-admin-login-features {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .tnf-admin-login-title {

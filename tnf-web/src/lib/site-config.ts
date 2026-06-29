@@ -120,7 +120,12 @@ export const siteConfig = {
       logo: "/partners/zimbabwes-labor-.png",
       href: "#",
     },
-    { name: "ILO", logo: "/partners/ilo.svg", href: "https://www.ilo.org" },
+    {
+      name: "Organised Business",
+      logo: "/partners/gov.svg",
+      href: "#",
+    },
+    { name: "ILO", logo: "/partners/ilo.svg", href: "https://www.ilo.org", lightLogo: true },
     { name: "NSSA", logo: "/partners/NSSA.png", href: "#" },
   ],
   galleryImages: [

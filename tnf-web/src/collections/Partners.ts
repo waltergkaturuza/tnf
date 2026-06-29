@@ -26,6 +26,14 @@ export const Partners: CollectionConfig = {
       },
     },
     {
+      name: "lightLogo",
+      type: "checkbox",
+      defaultValue: false,
+      admin: {
+        description: "Enable for white or very light logos so they show on the glass partner card.",
+      },
+    },
+    {
       name: "websiteUrl",
       type: "text",
       admin: {

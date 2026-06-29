@@ -635,6 +635,14 @@ footer label {
     box-shadow 0.35s ease;
 }
 
+.partner-card__logo-wrap--dark {
+  border-radius: 0.75rem;
+  padding: 0.55rem 0.75rem;
+  background: linear-gradient(145deg, #1e3a5f 0%, #0f2744 100%);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
+}
+
 @media (hover: none) {
   .partner-card {
     border-color: rgb(4 120 87 / 0.32);

@@ -5,7 +5,14 @@ export type PartnerItem = {
   name: string;
   logo: string;
   href?: string;
+  /** Light/white logos need a dark backing plate on glass cards */
+  lightLogo?: boolean;
 };
+
+export function partnerNeedsDarkPlate(partner: { name: string; lightLogo?: boolean }): boolean {
+  if (partner.lightLogo) return true;
+  return /^ilo$/i.test(partner.name.trim());
+}
 
 function getMediaUrl(media: unknown): string | null {
   if (!media || typeof media !== "object") return null;
@@ -19,6 +26,7 @@ export function getFallbackPartners(): PartnerItem[] {
     name: partner.name,
     logo: partner.logo,
     href: partner.href && partner.href !== "#" ? partner.href : undefined,
+    lightLogo: "lightLogo" in partner ? partner.lightLogo : undefined,
   }));
 }
 
@@ -28,6 +36,7 @@ export function payloadPartnersToItems(
     name: string;
     logo?: unknown;
     websiteUrl?: string | null;
+    lightLogo?: boolean | null;
   }>,
 ): PartnerItem[] {
   const items: PartnerItem[] = [];
@@ -41,6 +50,7 @@ export function payloadPartnersToItems(
       name: partner.name,
       logo,
       href: partner.websiteUrl?.trim() || undefined,
+      lightLogo: partner.lightLogo ?? undefined,
     });
   }
 
