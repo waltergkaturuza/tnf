@@ -13,7 +13,7 @@ export function Infographics() {
 
         <div className="mt-10 space-y-8 sm:mt-12 lg:space-y-10">
           <div className="infographics-card">
-            <h3 className="text-xl font-bold text-tnf-navy sm:text-2xl">Our Mandate</h3>
+            <h3 className="infographics-card__title text-xl font-bold sm:text-2xl">Our Mandate</h3>
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {[
                 "Consult & negotiate socio-economic issues",
@@ -36,7 +36,7 @@ export function Infographics() {
           </div>
 
           <div className="infographics-card">
-            <h3 className="text-xl font-bold text-tnf-navy sm:text-2xl">Impact</h3>
+            <h3 className="infographics-card__title text-xl font-bold sm:text-2xl">Impact</h3>
             <div className="mt-6 flex flex-wrap justify-center gap-6 sm:gap-10">
               {[
                 { value: "1998", label: "Year established" },
