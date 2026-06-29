@@ -12,7 +12,7 @@ type Props = {
   items: UpdateItem[];
 };
 
-const UPDATES_CARD = "updates-card p-5 sm:p-6";
+const UPDATES_CARD = "updates-card p-6 sm:p-7";
 
 function matchesSearch(item: UpdateItem, query: string): boolean {
   const q = query.trim().toLowerCase();
@@ -82,7 +82,7 @@ export function NewsEventsView({ items }: Props) {
     <div className="page-updates">
       {/* Header + filters */}
       <div className="page-shell-hero border-b border-emerald-800/30 py-6 sm:py-8">
-        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-10">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-12">
           <h1 className="text-center text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
             News and Events
           </h1>
@@ -109,7 +109,7 @@ export function NewsEventsView({ items }: Props) {
       <div className="updates-tone-pearl py-10 lg:py-14">
         <span id="news" className="block scroll-mt-28" aria-hidden />
         <span id="events" className="block scroll-mt-28" aria-hidden />
-        <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)] lg:gap-12 lg:px-10 xl:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
+        <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)] lg:gap-10 lg:px-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,380px)] xl:gap-12 xl:px-12">
           <div className="min-w-0 space-y-8">
             {featured ? (
               <article className={`${UPDATES_CARD} min-w-0 overflow-hidden p-0`}>
@@ -124,7 +124,7 @@ export function NewsEventsView({ items }: Props) {
                     </span>
                   </div>
                 </div>
-                <div className="min-w-0 p-4 sm:p-8">
+                <div className="min-w-0 p-5 sm:p-8 lg:p-10">
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-500">
                     <time dateTime={featured.dateISO}>{featured.dateDisplay}</time>
                     {featured.location && (
@@ -200,7 +200,7 @@ export function NewsEventsView({ items }: Props) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search updates"
-                className="mt-3 w-full rounded-lg border border-slate-200 bg-[#f9f8f6] px-4 py-2.5 text-sm text-tnf-navy placeholder-slate-400 outline-none focus:border-tnf-green focus:ring-1 focus:ring-tnf-green/30"
+                className="mt-3 w-full rounded-lg border border-white/50 bg-white/60 px-4 py-2.5 text-sm text-tnf-navy placeholder-slate-400 outline-none backdrop-blur-sm focus:border-tnf-green focus:ring-1 focus:ring-tnf-green/30"
                 aria-label="Search updates"
               />
             </div>
@@ -231,7 +231,7 @@ export function NewsEventsView({ items }: Props) {
               </ul>
             </div>
 
-            <div className={`${UPDATES_CARD} bg-[#f9f8f6]`}>
+            <div className={UPDATES_CARD}>
               <h3 className="text-sm font-semibold uppercase tracking-wide text-tnf-navy">Categories</h3>
               <ul className="mt-4 space-y-1">
                 <li>
@@ -241,7 +241,7 @@ export function NewsEventsView({ items }: Props) {
                     className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
                       activeCategory === "All"
                         ? "bg-tnf-green/15 font-semibold text-tnf-navy"
-                        : "text-slate-600 hover:bg-white hover:text-tnf-navy"
+                        : "text-slate-600 hover:bg-white/50 hover:text-tnf-navy"
                     }`}
                   >
                     All
@@ -255,7 +255,7 @@ export function NewsEventsView({ items }: Props) {
                       className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
                         activeCategory === cat
                           ? "bg-tnf-green/15 font-semibold text-tnf-navy"
-                          : "text-slate-600 hover:bg-white hover:text-tnf-navy"
+                          : "text-slate-600 hover:bg-white/50 hover:text-tnf-navy"
                       }`}
                     >
                       {cat}
