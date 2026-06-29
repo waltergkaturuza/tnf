@@ -103,7 +103,18 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     meta: {
+      title: "TNF Content Manager",
       titleSuffix: " | TNF Admin",
+      description:
+        "Tripartite Negotiating Forum content management for news, events, media, partners, and resources.",
+    },
+    components: {
+      graphics: {
+        Logo: "./components/admin/AdminLogo",
+        Icon: "./components/admin/AdminIcon",
+      },
+      beforeLogin: ["./components/admin/BeforeLogin"],
+      afterLogin: ["./components/admin/AfterLogin"],
     },
     importMap: {
       baseDir: path.resolve(dirname),
