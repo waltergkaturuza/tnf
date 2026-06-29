@@ -115,10 +115,26 @@ export const siteConfig = {
     { name: "NSSA", logo: "/partners/nssa.svg", href: "#" },
   ],
   galleryImages: [
-    { src: "", alt: "TNF dialogue session", caption: "Social dialogue in action" },
-    { src: "", alt: "Stakeholder meeting", caption: "Tripartite consultation" },
-    { src: "", alt: "Policy workshop", caption: "Policy consultation workshop" },
-    { src: "", alt: "TNF annual retreat", caption: "TNF annual retreat" },
+    {
+      src: "/TNF in Action/Social dialogue in action.jpg",
+      alt: "Social dialogue in action",
+      caption: "Social dialogue in action",
+    },
+    {
+      src: "/TNF in Action/Tripartite consultation.jpg",
+      alt: "Tripartite consultation",
+      caption: "Tripartite consultation",
+    },
+    {
+      src: "/TNF in Action/Policy consultation workshop.jpg",
+      alt: "Policy consultation workshop",
+      caption: "Policy consultation workshop",
+    },
+    {
+      src: "/TNF in Action/TNF annual retreat.jpg",
+      alt: "TNF annual retreat",
+      caption: "TNF annual retreat",
+    },
   ],
   videos: [
     { id: "chair-message", title: "Message from the Chair", description: "Hon. Edgar Moyo on TNF priorities", embedId: "", placeholder: true },
