@@ -1,13 +1,52 @@
-import Link from "next/link";
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
+import { HERO_SLIDE_INTERVAL_MS, heroSlides } from "@/lib/hero-slides";
+import { siteConfig } from "@/lib/site-config";
 
 export function Hero() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const goToSlide = useCallback((index: number) => {
+    setActiveIndex(index % heroSlides.length);
+  }, []);
+
+  const nextSlide = useCallback(() => {
+    setActiveIndex((current) => (current + 1) % heroSlides.length);
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setInterval(nextSlide, HERO_SLIDE_INTERVAL_MS);
+    return () => window.clearInterval(timer);
+  }, [nextSlide]);
+
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-tnf-navy via-tnf-navy-light to-tnf-navy">
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
-      <div className="relative py-16 sm:py-20 lg:py-24">
+    <section className="hero-slider relative overflow-hidden" aria-label="TNF homepage hero">
+      <div className="hero-slider__track" aria-hidden>
+        {heroSlides.map((slide, index) => (
+          <div
+            key={slide.src}
+            className={`hero-slide${index === activeIndex ? " hero-slide--active" : ""}`}
+          >
+            <Image
+              src={slide.src}
+              alt=""
+              fill
+              priority={index === 0}
+              sizes="100vw"
+              className="hero-slide__image object-cover"
+            />
+          </div>
+        ))}
+      </div>
+
+      <div className="hero-slider__overlay" aria-hidden />
+
+      <div className="hero-slider__content relative py-16 sm:py-20 lg:py-24">
         <div className="page-shell-inner flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-16">
-          <div className="shrink-0">
+          <div className="hero-slider__logo shrink-0">
             <Image
               src="/tnf-logo.png"
               alt="TNF Tripartite Negotiating Forum"
@@ -17,33 +56,44 @@ export function Hero() {
               priority
             />
           </div>
+
           <div className="min-w-0 max-w-2xl flex-1 text-center lg:text-left">
             <h1 className="text-2xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl xl:text-6xl">
-            Facilitating National Social Dialogue for Inclusive Economic Development
+              {siteConfig.tagline}
             </h1>
-            <p className="mt-6 text-lg text-slate-200 sm:text-xl">
-            The Tripartite Negotiating Forum brings together Government, Organised Business, and
-            Organised Labour to build consensus and shape Zimbabwe&apos;s socio-economic future.
-            </p>
+            <p className="mt-6 text-lg text-slate-100 sm:text-xl">{siteConfig.description}</p>
             <div className="mt-10 flex flex-wrap justify-center gap-3 sm:gap-4 lg:justify-start">
-            <Link
-              href="/about"
-              className="btn-tnf-primary inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold shadow-lg hover:shadow-xl"
-            >
-              About TNF
-            </Link>
-            <Link
-              href="/resources"
-              className="inline-flex items-center rounded-full border-2 border-white/50 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
-            >
-              Latest Reports
-            </Link>
-            <Link
-              href="/feedback"
-              className="inline-flex items-center rounded-full border-2 border-white/30 px-6 py-3 text-sm font-medium text-slate-200 transition-colors hover:border-white/50 hover:text-white"
-            >
-              Submit Feedback
-            </Link>
+              <Link
+                href="/about"
+                className="btn-tnf-primary inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold shadow-lg hover:shadow-xl"
+              >
+                About TNF
+              </Link>
+              <Link
+                href="/resources"
+                className="inline-flex items-center rounded-full border-2 border-white/50 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
+              >
+                Latest Reports
+              </Link>
+              <Link
+                href="/feedback"
+                className="inline-flex items-center rounded-full border-2 border-white/30 px-6 py-3 text-sm font-medium text-slate-200 transition-colors hover:border-white/50 hover:text-white"
+              >
+                Submit Feedback
+              </Link>
+            </div>
+
+            <div className="mt-8 flex justify-center gap-2 lg:justify-start">
+              {heroSlides.map((slide, index) => (
+                <button
+                  key={slide.src}
+                  type="button"
+                  className={`hero-slider__dot${index === activeIndex ? " hero-slider__dot--active" : ""}`}
+                  onClick={() => goToSlide(index)}
+                  aria-label={`Show slide ${index + 1}: ${slide.alt}`}
+                  aria-current={index === activeIndex ? "true" : undefined}
+                />
+              ))}
             </div>
           </div>
         </div>

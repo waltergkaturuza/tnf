@@ -161,6 +161,93 @@ main h3 {
   }
 }
 
+/* Homepage hero — image slider with Ken Burns fade */
+.hero-slider {
+  min-height: 28rem;
+}
+
+.hero-slider__track {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.4s ease-in-out;
+}
+
+.hero-slide--active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.hero-slide__image {
+  transform: scale(1);
+}
+
+.hero-slide--active .hero-slide__image {
+  animation: hero-ken-burns 6s ease-out forwards;
+}
+
+.hero-slider__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    115deg,
+    rgb(30 58 95 / 0.92) 0%,
+    rgb(30 58 95 / 0.78) 45%,
+    rgb(30 58 95 / 0.55) 100%
+  );
+}
+
+.hero-slider__content {
+  position: relative;
+  z-index: 3;
+}
+
+.hero-slider__logo {
+  filter: drop-shadow(0 8px 24px rgb(0 0 0 / 0.25));
+}
+
+.hero-slider__dot {
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 9999px;
+  background-color: rgb(255 255 255 / 0.35);
+  transition: width 0.25s ease, background-color 0.25s ease;
+}
+
+.hero-slider__dot:hover {
+  background-color: rgb(255 255 255 / 0.6);
+}
+
+.hero-slider__dot--active {
+  width: 1.75rem;
+  background-color: #ffffff;
+}
+
+@keyframes hero-ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide {
+    transition: none;
+  }
+
+  .hero-slide--active .hero-slide__image {
+    animation: none;
+  }
+}
+
 /* Page container — tighter padding on phones, wider margins on large screens */
 .container-wide {
   width: 100%;
