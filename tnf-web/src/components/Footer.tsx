@@ -190,24 +190,22 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="-mx-4 mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/15 px-4 py-6 sm:-mx-6 sm:px-6 sm:flex-row lg:-mx-8 lg:px-8 xl:-mx-[10mm] xl:px-[10mm]">
-          <div className="text-center text-sm text-slate-200 sm:text-left">
-            <p>
-              © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
-            </p>
-            <p className="mt-1">
-              Developed by{" "}
-              <a
-                href="https://www.quantistechnologies.co.zw/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-slate-300 underline decoration-white/30 underline-offset-2 transition-colors hover:text-white hover:decoration-white/60"
-              >
-                Quantis Technologies
-              </a>
-            </p>
-          </div>
-          <Link href="/admin" className="text-sm text-slate-300 hover:text-white">
+        <div className="-mx-4 mt-12 grid grid-cols-1 items-center gap-2 border-t border-white/15 px-4 py-4 sm:-mx-6 sm:grid-cols-3 sm:px-6 lg:-mx-8 lg:px-8 xl:-mx-[10mm] xl:px-[10mm]">
+          <p className="text-center text-sm text-slate-200 sm:text-left">
+            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+          </p>
+          <p className="text-center text-sm text-slate-200">
+            Developed by{" "}
+            <a
+              href="https://www.quantistechnologies.co.zw/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-300 underline decoration-white/30 underline-offset-2 transition-colors hover:text-white hover:decoration-white/60"
+            >
+              <span className="font-bold text-white">Quantis</span> Technologies
+            </a>
+          </p>
+          <Link href="/admin" className="text-center text-sm text-slate-300 hover:text-white sm:text-right">
             Admin
           </Link>
         </div>
