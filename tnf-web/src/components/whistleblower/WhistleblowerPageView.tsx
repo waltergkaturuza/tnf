@@ -77,7 +77,7 @@ export function WhistleblowerPageView() {
       )}
 
       {submitted ? (
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-10 text-center shadow-sm">
+        <div className="about-card p-10 text-center">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-tnf-green text-2xl text-white">
             ✓
           </div>
@@ -88,7 +88,7 @@ export function WhistleblowerPageView() {
           </p>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md">
+        <div className="about-card overflow-hidden p-0">
           <div className="border-b border-amber-200/60 bg-amber-50/90 px-6 py-5 sm:px-8">
             <p className="text-sm font-semibold text-amber-900">Confidential reporting</p>
             <p className="mt-2 text-sm leading-relaxed text-amber-950/80">

@@ -106,7 +106,7 @@ export function FeedbackPageView() {
       )}
 
       {submitted ? (
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-10 text-center shadow-sm">
+        <div className="about-card p-10 text-center">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-tnf-green text-2xl text-white">
             ✓
           </div>
@@ -117,7 +117,7 @@ export function FeedbackPageView() {
           </p>
         </div>
       ) : (
-        <div id="suggestions" className="scroll-mt-28 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md">
+        <div id="suggestions" className="about-card scroll-mt-28 overflow-hidden p-0">
           <div className="border-b border-slate-100 bg-slate-50/80 px-6 py-5 sm:px-8">
             <p className="text-sm font-semibold text-tnf-navy">What would you like to report?</p>
             <div className="mt-4 flex flex-wrap gap-2">

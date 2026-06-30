@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { SubpageLayout } from "@/components/layout/SubpageLayout";
 
+const GLASS_CARD = "about-card p-6 lg:p-8";
+
 export const metadata = {
   title: "Careers",
   description: "Join TNF and contribute to social dialogue in Zimbabwe.",
@@ -31,7 +33,7 @@ export default function CareersPage() {
 
       <div
         id="vacancies"
-        className="scroll-mt-28 mx-auto mt-16 max-w-2xl rounded-xl border border-slate-200 bg-slate-50 p-12 text-center"
+        className={`${GLASS_CARD} scroll-mt-28 mx-auto mt-16 max-w-2xl text-center`}
       >
         <h2 className="text-xl font-semibold text-tnf-navy">Vacancies</h2>
         <p className="mt-4 text-slate-600">
@@ -50,7 +52,7 @@ export default function CareersPage() {
 
       <div
         id="achievements"
-        className="scroll-mt-28 mx-auto mt-12 max-w-2xl rounded-xl border border-slate-200 bg-white p-12 text-center"
+        className={`${GLASS_CARD} scroll-mt-28 mx-auto mt-12 max-w-2xl text-center`}
       >
         <h2 className="text-xl font-semibold text-tnf-navy">Employees&apos; Achievements</h2>
         <p className="mt-4 text-slate-600">

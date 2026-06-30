@@ -6,6 +6,8 @@ import Link from "next/link";
 import { SubpageLayout } from "@/components/layout/SubpageLayout";
 import { siteConfig } from "@/lib/site-config";
 
+const GLASS_CARD = "about-card p-6 lg:p-8";
+
 const resourceCategories = [
   "All",
   "Annual Reports",
@@ -38,7 +40,7 @@ export default function ResourcesPage() {
     >
       <div id="reports-plans" className="scroll-mt-28 flex flex-col gap-6 lg:flex-row">
         <aside className="lg:w-64">
-          <div className="sticky top-24 space-y-6">
+          <div className="about-card sticky top-24 space-y-6 p-5 sm:p-6">
             <div>
               <h3 className="font-semibold text-slate-900">Category</h3>
               <div className="mt-3 space-y-1">
@@ -85,7 +87,7 @@ export default function ResourcesPage() {
               .map((resource) => (
                 <div
                   key={resource.title}
-                  className="flex overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+                  className="about-card flex overflow-hidden p-0"
                 >
                   <div className="flex h-28 w-24 shrink-0 items-center justify-center bg-slate-100">
                     <Image src={resource.thumbnail} alt="" width={48} height={48} className="opacity-60" />
@@ -132,10 +134,10 @@ export default function ResourcesPage() {
           {(siteConfig.galleryImages ?? []).map((img, i) => (
             <div
               key={i}
-              className="flex aspect-[4/3] flex-col items-center justify-center rounded-xl border border-slate-200 bg-gradient-to-br from-tnf-navy to-slate-700 p-4 text-center"
+              className="gallery-card flex aspect-[4/3] flex-col items-center justify-center bg-gradient-to-br from-slate-100/90 to-emerald-50/40 p-4 text-center"
             >
-              <span className="text-sm font-medium text-white/90">{img.caption || img.alt}</span>
-              {!img.src && <span className="mt-2 text-xs text-white/60">Photo coming soon</span>}
+              <span className="text-sm font-medium text-tnf-navy">{img.caption || img.alt}</span>
+              {!img.src && <span className="mt-2 text-xs text-slate-500">Photo coming soon</span>}
             </div>
           ))}
         </div>
@@ -146,7 +148,7 @@ export default function ResourcesPage() {
         <p className="mx-auto mt-3 max-w-2xl text-center text-slate-600">
           Additional publications, forms, and reference materials will be listed here.
         </p>
-        <div className="mx-auto mt-8 max-w-xl rounded-xl border border-slate-200 bg-slate-50 p-8 text-center">
+        <div className={`${GLASS_CARD} mx-auto mt-8 max-w-xl text-center`}>
           <p className="text-sm text-slate-600">
             Downloadable files are being prepared. For specific documents, please{" "}
             <Link href="/contact" className="font-medium text-tnf-green hover:underline">

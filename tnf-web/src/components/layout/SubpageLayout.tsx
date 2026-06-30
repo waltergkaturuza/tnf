@@ -27,7 +27,7 @@ export function SubpageLayout({
         : "max-w-6xl";
 
   return (
-    <div>
+    <div className="page-about">
       <div className="page-shell-hero py-6 sm:py-8">
         <div className="page-shell-header">
           <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">{title}</h1>

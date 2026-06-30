@@ -49,7 +49,7 @@ export default function DepartmentsPage() {
           <div
             key={dept.id}
             id={dept.id}
-            className="scroll-mt-28 flex gap-6 rounded-xl border border-slate-200 bg-white p-8 shadow-sm"
+            className="about-card scroll-mt-28 flex gap-6 p-8"
           >
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-tnf-navy text-lg font-bold text-white">
               {String(i + 1).padStart(2, "0")}

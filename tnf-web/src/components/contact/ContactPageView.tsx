@@ -221,7 +221,7 @@ export function ContactPageView() {
             </div>
           </div>
 
-          <div className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md lg:col-span-3">
+          <div className="about-card min-w-0 overflow-hidden p-0 lg:col-span-3">
             <div className="border-b border-emerald-200/60 bg-emerald-50/90 px-6 py-5 sm:px-8">
               <h2 className="text-lg font-semibold text-tnf-navy">Send a message</h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">

@@ -665,8 +665,9 @@ footer label {
     0 0 28px rgb(4 120 87 / 0.28);
 }
 
-/* About / Contact — floating glass cards with green edge glow on hover */
-.about-card {
+/* Site-wide floating glass cards with green edge glow on hover */
+.about-card,
+.updates-card {
   border-radius: 1.25rem;
   border: 1px solid rgb(255 255 255 / 0.55);
   background: rgb(255 255 255 / 0.68);
@@ -708,31 +709,9 @@ footer label {
   background-color: var(--updates-mist);
 }
 
-.updates-card {
-  border-radius: 1.25rem;
-  border: 1px solid rgb(255 255 255 / 0.55);
-  background: rgb(255 255 255 / 0.68);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow:
-    0 10px 36px rgb(30 58 95 / 0.08),
-    0 1px 0 rgb(255 255 255 / 0.65) inset;
-  transition:
-    transform 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
 @media (hover: hover) {
+  .about-card:hover,
   .updates-card:hover {
-    transform: translateY(-5px);
-    border-color: rgb(255 255 255 / 0.75);
-    box-shadow:
-      0 18px 44px rgb(30 58 95 / 0.12),
-      0 1px 0 rgb(255 255 255 / 0.75) inset;
-  }
-
-  .about-card:hover {
     transform: translateY(-6px);
     border-color: rgb(4 120 87 / 0.65);
     box-shadow:
@@ -744,7 +723,8 @@ footer label {
 }
 
 @media (hover: none) {
-  .about-card {
+  .about-card,
+  .updates-card {
     border-color: rgb(4 120 87 / 0.38);
     box-shadow:
       0 10px 36px rgb(30 58 95 / 0.08),
@@ -753,7 +733,8 @@ footer label {
   }
 }
 
-.about-card:active {
+.about-card:active,
+.updates-card:active {
   transform: translateY(-4px);
   border-color: rgb(4 120 87 / 0.75);
   box-shadow:
