@@ -144,7 +144,14 @@ export const siteConfig = {
     },
   ],
   videos: [
-    { id: "chair-message", title: "Message from the Chair", description: "Hon. Edgar Moyo on TNF priorities", embedId: "", placeholder: true },
+    {
+      id: "chair-message",
+      title: "Message from the Chair",
+      description: "Hon. Edgar Moyo on TNF priorities",
+      src: "/tnf-chair-message.mp4",
+      loop: true,
+      autoplay: true,
+    },
     {
       id: "tnf-2min",
       title: "Quick overview of the Tripartite Negotiating Forum",
