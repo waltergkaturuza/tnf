@@ -205,7 +205,10 @@ export function Footer() {
               <span className="font-bold text-white">Quantis</span> Technologies
             </a>
           </p>
-          <Link href="/admin" className="text-center text-sm text-slate-300 hover:text-white sm:text-right">
+          <Link
+            href="/admin"
+            className="text-center text-sm text-[#314a68] transition-colors hover:text-[#3a5575] sm:text-right"
+          >
             Admin
           </Link>
         </div>

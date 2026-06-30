@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Source_Serif_4, Source_Sans_3 } from "next/font/google";
 import { siteConfig } from "@/lib/site-config";
+import { AnalyticsTracker } from "@/components/analytics/AnalyticsTracker";
 import { Chatbot } from "@/components/chatbot/Chatbot";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -51,6 +53,9 @@ export default function SiteLayout({
           {children}
         </main>
         <Footer />
+        <Suspense fallback={null}>
+          <AnalyticsTracker />
+        </Suspense>
         <Chatbot />
       </body>
     </html>

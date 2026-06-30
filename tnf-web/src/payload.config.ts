@@ -26,6 +26,7 @@ import { Events } from "./collections/Events.js";
 import { Resources } from "./collections/Resources.js";
 import { Partners } from "./collections/Partners.js";
 import { FormSubmissions } from "./collections/FormSubmissions.js";
+import { AnalyticsEvents } from "./collections/AnalyticsEvents.js";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -115,12 +116,17 @@ export default buildConfig({
       },
       beforeLogin: ["./components/admin/BeforeLogin"],
       afterLogin: ["./components/admin/AfterLogin"],
+      views: {
+        dashboard: {
+          Component: "./components/admin/AnalyticsDashboard",
+        },
+      },
     },
     importMap: {
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Events, Resources, Partners, FormSubmissions],
+  collections: [Users, Media, Posts, Events, Resources, Partners, FormSubmissions, AnalyticsEvents],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "CHANGE_ME_IN_PRODUCTION",
   typescript: {

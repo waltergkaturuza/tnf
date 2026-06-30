@@ -26,6 +26,7 @@
     "payload": "^3.77.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "recharts": "^3.9.1",
     "sharp": "^0.33.2"
   },
   "devDependencies": {

@@ -72,7 +72,9 @@ export interface Config {
     posts: Post;
     events: Event;
     resources: Resource;
+    partners: Partner;
     'form-submissions': FormSubmission;
+    'analytics-events': AnalyticsEvent;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -85,7 +87,9 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     resources: ResourcesSelect<false> | ResourcesSelect<true>;
+    partners: PartnersSelect<false> | PartnersSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
+    'analytics-events': AnalyticsEventsSelect<false> | AnalyticsEventsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -248,6 +252,35 @@ export interface Resource {
   createdAt: string;
 }
 /**
+ * Partner logos shown in the Our Partners section on the homepage.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: number;
+  name: string;
+  /**
+   * Upload a PNG, JPG, or SVG logo. Recommended transparent background.
+   */
+  logo: number | Media;
+  /**
+   * Enable for white or very light logos so they show on the glass partner card.
+   */
+  lightLogo?: boolean | null;
+  /**
+   * Optional link when the logo is clicked (include https://).
+   */
+  websiteUrl?: string | null;
+  /**
+   * Lower numbers appear first.
+   */
+  sortOrder?: number | null;
+  status?: ('draft' | 'published') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Contact, feedback, and whistleblower submissions
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -300,6 +333,26 @@ export interface FormSubmission {
   createdAt: string;
 }
 /**
+ * Site page views and resource download events (auto-recorded).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics-events".
+ */
+export interface AnalyticsEvent {
+  id: number;
+  eventType: 'page_view' | 'resource_download';
+  path: string;
+  /**
+   * Document or file name for download events
+   */
+  resourceLabel?: string | null;
+  deviceType: 'desktop' | 'mobile' | 'tablet' | 'unknown';
+  sessionId: string;
+  userAgent?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -344,8 +397,16 @@ export interface PayloadLockedDocument {
         value: number | Resource;
       } | null)
     | ({
+        relationTo: 'partners';
+        value: number | Partner;
+      } | null)
+    | ({
         relationTo: 'form-submissions';
         value: number | FormSubmission;
+      } | null)
+    | ({
+        relationTo: 'analytics-events';
+        value: number | AnalyticsEvent;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -480,6 +541,20 @@ export interface ResourcesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_select".
+ */
+export interface PartnersSelect<T extends boolean = true> {
+  name?: T;
+  logo?: T;
+  lightLogo?: T;
+  websiteUrl?: T;
+  sortOrder?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions_select".
  */
 export interface FormSubmissionsSelect<T extends boolean = true> {
@@ -501,6 +576,20 @@ export interface FormSubmissionsSelect<T extends boolean = true> {
   preferredContact?: T;
   anonymous?: T;
   metadata?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics-events_select".
+ */
+export interface AnalyticsEventsSelect<T extends boolean = true> {
+  eventType?: T;
+  path?: T;
+  resourceLabel?: T;
+  deviceType?: T;
+  sessionId?: T;
+  userAgent?: T;
   updatedAt?: T;
   createdAt?: T;
 }

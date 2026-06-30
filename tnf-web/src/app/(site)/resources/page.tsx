@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { trackResourceDownload } from "@/components/analytics/AnalyticsTracker";
 import { SubpageLayout } from "@/components/layout/SubpageLayout";
 import { siteConfig } from "@/lib/site-config";
 
@@ -107,6 +108,7 @@ export default function ResourcesPage() {
                     </div>
                     <Link
                       href="#"
+                      onClick={() => trackResourceDownload("/resources", resource.title)}
                       className="mt-3 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-tnf-green hover:text-tnf-green"
                     >
                       Download
