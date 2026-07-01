@@ -1,4 +1,4 @@
-import { SubpageLayout } from "@/components/layout/SubpageLayout";
+import { DepartmentsSection } from "@/components/departments/DepartmentsSection";
 
 export const metadata = {
   title: "Departments",
@@ -32,35 +32,21 @@ const departments = [
   },
 ];
 
+const INTRO =
+  "At TNF, our departments work together to support our mission of transparent and effective social dialogue in Zimbabwe. Each department plays a vital role in programme delivery, administration, communications, and compliance.";
+
 export default function DepartmentsPage() {
   return (
-    <SubpageLayout
-      title="Departments"
-      description="Our departments work together to support transparent and effective social dialogue in Zimbabwe."
-    >
-      <p className="mb-12 text-center text-lg text-slate-600">
-        At TNF, our departments work together to support our mission of transparent and effective social dialogue in
-        Zimbabwe. Each department plays a vital role in programme delivery, administration, communications, and
-        compliance.
-      </p>
-
-      <div className="space-y-8">
-        {departments.map((dept, i) => (
-          <div
-            key={dept.id}
-            id={dept.id}
-            className="about-card scroll-mt-28 flex gap-6 p-8"
-          >
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-tnf-navy text-lg font-bold text-white">
-              {String(i + 1).padStart(2, "0")}
-            </div>
-            <div>
-              <h2 className="text-xl font-semibold text-tnf-navy">{dept.title}</h2>
-              <p className="mt-3 text-slate-600 leading-relaxed">{dept.description}</p>
-            </div>
-          </div>
-        ))}
+    <div className="page-about">
+      <div className="page-shell-hero py-6 sm:py-8">
+        <div className="page-shell-header">
+          <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">Departments</h1>
+          <p className="mx-auto mt-2 max-w-2xl text-sm text-slate-200 sm:mt-3 sm:text-base">
+            Our departments work together to support transparent and effective social dialogue in Zimbabwe.
+          </p>
+        </div>
       </div>
-    </SubpageLayout>
+      <DepartmentsSection intro={INTRO} departments={departments} />
+    </div>
   );
 }
