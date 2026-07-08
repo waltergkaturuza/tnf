@@ -27,7 +27,7 @@ import { Resources } from "./collections/Resources.js";
 import { Partners } from "./collections/Partners.js";
 import { FormSubmissions } from "./collections/FormSubmissions.js";
 import { AnalyticsEvents } from "./collections/AnalyticsEvents.js";
-import { getS3StoragePlugin } from "./lib/s3-storage.js";
+import { getMissingS3EnvVars, getS3StoragePlugin, isRunningOnVercel, isS3StorageEnabled } from "./lib/s3-storage.js";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -69,10 +69,6 @@ function isSupabaseHost(connectionString: string): boolean {
   return /supabase\.co|pooler\.supabase\.com/i.test(connectionString);
 }
 
-function isRunningOnVercel(): boolean {
-  return process.env.VERCEL === "1" || Boolean(process.env.VERCEL_ENV);
-}
-
 /**
  * Supabase + Node (Windows local, Vercel serverless) fail with
  * SELF_SIGNED_CERT_IN_CHAIN when sslmode=require is treated as verify-full.
@@ -102,6 +98,13 @@ function getPostgresPoolConfig() {
 }
 
 export default buildConfig({
+  onInit: async (payload) => {
+    if (isRunningOnVercel() && !isS3StorageEnabled()) {
+      payload.logger.error(
+        `Media uploads require Supabase Storage on Vercel. Missing env vars: ${getMissingS3EnvVars().join(", ")}. See tnf-web/docs/SUPABASE.md`,
+      );
+    }
+  },
   admin: {
     user: Users.slug,
     meta: {
