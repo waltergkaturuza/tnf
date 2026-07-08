@@ -37,9 +37,10 @@ export function getS3StoragePlugin() {
     },
     bucket: process.env.S3_BUCKET ?? "",
     clientUploads:
-      process.env.S3_CLIENT_UPLOADS === "true" ||
-      process.env.VERCEL === "1" ||
-      Boolean(process.env.VERCEL_ENV),
+      isS3StorageEnabled() &&
+      (process.env.S3_CLIENT_UPLOADS === "true" ||
+        process.env.VERCEL === "1" ||
+        Boolean(process.env.VERCEL_ENV)),
     config: {
       credentials: {
         accessKeyId: process.env.S3_ACCESS_KEY_ID ?? "",
