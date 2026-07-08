@@ -29,6 +29,13 @@ CREATE SCHEMA IF NOT EXISTS tnf;
 | `NEXT_PUBLIC_SERVER_URL` | Single site URL, e.g. `https://tnfzim.com` |
 | `DATABASE_SSL_NO_VERIFY` | Optional. `true` = force relaxed SSL. Set on Vercel if admin still fails after deploy. |
 | `DATABASE_SSL_STRICT` | Optional. `true` = strict certificate verification (default off on Vercel) |
+| `SUPABASE_URL` | Supabase project URL, e.g. `https://xxxx.supabase.co` (for public media URLs) |
+| `S3_BUCKET` | Supabase Storage bucket name (e.g. `tnf-media`) |
+| `S3_ACCESS_KEY_ID` | Supabase S3 access key |
+| `S3_SECRET_ACCESS_KEY` | Supabase S3 secret key |
+| `S3_ENDPOINT` | Supabase S3 endpoint, e.g. `https://xxxx.supabase.co/storage/v1/s3` |
+| `S3_REGION` | Supabase S3 region (often `us-east-1`) |
+| `S3_CLIENT_UPLOADS` | Optional. `true` = upload from browser (needed on Vercel for files over 4.5 MB) |
 
 **Recommended `DATABASE_URI` values:**
 
@@ -88,4 +95,40 @@ There is no automatic migration in this repo. Options:
 
 ## Optional: Supabase Storage for media
 
-Media files are still stored on the server filesystem by default. For production, consider `@payloadcms/storage-s3` pointed at Supabase Storage (S3-compatible).
+**Required on Vercel.** Serverless functions cannot write to a local `media` folder — uploads fail with `ENOENT: mkdir 'media'` without cloud storage.
+
+### 1. Create a public bucket
+
+1. Supabase → **Storage** → **New bucket**
+2. Name it e.g. `tnf-media`
+3. Enable **Public bucket**
+
+### 2. Enable S3 protocol access
+
+1. Supabase → **Project Settings** → **Storage** → **S3 connection**
+2. Enable S3 protocol access and copy **endpoint**, **region**, **access key**, and **secret key**
+
+### 3. Environment variables
+
+Add to Vercel (Production) and local `.env` when testing uploads:
+
+```env
+SUPABASE_URL=https://your-project.supabase.co
+S3_BUCKET=tnf-media
+S3_ACCESS_KEY_ID=your-access-key
+S3_SECRET_ACCESS_KEY=your-secret-key
+S3_ENDPOINT=https://your-project.supabase.co/storage/v1/s3
+S3_REGION=us-east-1
+```
+
+`clientUploads` is enabled automatically on Vercel so PDFs larger than 4.5 MB can upload from the admin browser.
+
+### 4. CORS (for admin uploads)
+
+In the bucket settings, allow your site origin(s), e.g. `https://tnfzim.com`, with methods `GET`, `PUT`, `POST`, `DELETE`.
+
+### 5. Redeploy
+
+After setting env vars on Vercel, **redeploy** the site, then retry uploading in **Admin → Media** or when adding a **Resource** document.
+
+Without these variables, local `npm run dev` still uses a `media/` folder on disk.

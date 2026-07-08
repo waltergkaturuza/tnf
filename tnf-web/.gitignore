@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# payload local uploads (use Supabase Storage in production)
+/media
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

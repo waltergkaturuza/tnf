@@ -27,6 +27,7 @@ import { Resources } from "./collections/Resources.js";
 import { Partners } from "./collections/Partners.js";
 import { FormSubmissions } from "./collections/FormSubmissions.js";
 import { AnalyticsEvents } from "./collections/AnalyticsEvents.js";
+import { getS3StoragePlugin } from "./lib/s3-storage.js";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -138,5 +139,5 @@ export default buildConfig({
     migrationDir: path.resolve(dirname, "migrations"),
   }),
   sharp,
-  plugins: [],
+  plugins: [getS3StoragePlugin()],
 });

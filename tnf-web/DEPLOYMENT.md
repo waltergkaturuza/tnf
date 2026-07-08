@@ -40,6 +40,12 @@ CMS data lives in the **`tnf`** schema in your shared Supabase database. See [do
 | `POSTGRES_SCHEMA` | Postgres schema name (default: `tnf`) |
 | `POSTGRES_URL` / `POSTGRES_URL_NON_POOLING` | Vercel Supabase integration aliases |
 | `NEXT_PUBLIC_SERVER_URL` | Single site URL – e.g. `https://tnfzim.com` (no commas) |
+| `SUPABASE_URL` | Supabase project URL (for public media file URLs) |
+| `S3_BUCKET` | Supabase Storage bucket name |
+| `S3_ACCESS_KEY_ID` | Supabase S3 access key |
+| `S3_SECRET_ACCESS_KEY` | Supabase S3 secret key |
+| `S3_ENDPOINT` | Supabase S3 endpoint (`…/storage/v1/s3`) |
+| `S3_REGION` | Supabase S3 region (e.g. `us-east-1`) |
 
 ### Generate PAYLOAD_SECRET
 
@@ -65,6 +71,7 @@ Or use any random 32+ character string (e.g. from a password generator).
    - Add `DATABASE_URI` (Supabase `POSTGRES_URL` pooler string)
    - Add `POSTGRES_SCHEMA` = `tnf`
    - Add `NEXT_PUBLIC_SERVER_URL` = one URL only (e.g. `https://tnfzim.com`)
+   - Add Supabase Storage vars: `SUPABASE_URL`, `S3_BUCKET`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, `S3_ENDPOINT`, `S3_REGION` (see [docs/SUPABASE.md](docs/SUPABASE.md))
 6. Click **Deploy**.
 
 ### Option B: Vercel CLI
@@ -123,7 +130,8 @@ vercel env add DATABASE_URI
 | Admin 500 / DB errors | Run `create-tnf-schema.sql`; check `POSTGRES_SCHEMA=tnf`; verify pooler URL. |
 | Migrations fail | Use `POSTGRES_URL_NON_POOLING` (port 5432) as `DATABASE_URI` when running `npm run payload:migrate`. |
 | `self-signed certificate in certificate chain` on Vercel | Use Supabase **pooler** URL as `DATABASE_URI`; redeploy after latest code (auto SSL for Supabase). Or set `DATABASE_SSL_NO_VERIFY=true`. |
-| Images not loading | Add `NEXT_PUBLIC_SERVER_URL` with the correct domain. |
+| Images not loading | Add `NEXT_PUBLIC_SERVER_URL` with the correct domain. Ensure `SUPABASE_URL` and S3 storage vars are set; bucket must be public. |
+| `ENOENT: mkdir 'media'` on upload | Vercel cannot use local disk. Configure Supabase Storage (S3) env vars and redeploy — see [docs/SUPABASE.md](docs/SUPABASE.md). |
 | CORS / API errors | Payload reads `NEXT_PUBLIC_SERVER_URL`; set it to your live URL. |
 
 ---
