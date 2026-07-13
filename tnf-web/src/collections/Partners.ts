@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { slugFromTitleField } from "../lib/admin-fields.js";
 
 export const Partners: CollectionConfig = {
   slug: "partners",
@@ -16,6 +17,12 @@ export const Partners: CollectionConfig = {
       type: "text",
       required: true,
     },
+    slugFromTitleField({
+      name: "slug",
+      sourceField: "name",
+      required: false,
+      unique: true,
+    }),
     {
       name: "logo",
       type: "upload",

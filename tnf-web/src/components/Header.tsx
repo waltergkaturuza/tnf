@@ -11,7 +11,7 @@ type NavItem = { href: string; label: string };
 type NavEntry = NavItem & { children?: NavItem[] };
 
 const linkClass =
-  "rounded-md px-2 py-1.5 text-sm font-bold text-slate-700 transition-colors hover:bg-tnf-navy/5 hover:text-tnf-navy xl:px-2.5 xl:text-[0.9375rem]";
+  "rounded-md px-1.5 py-1.5 text-[0.8125rem] font-bold text-slate-700 transition-colors hover:bg-tnf-navy/5 hover:text-tnf-navy lg:px-2 lg:text-sm xl:px-2.5 xl:text-[0.9375rem]";
 const dropdownClass =
   "block w-full rounded-md px-3 py-2 text-left text-sm text-slate-700 hover:bg-tnf-navy/5 hover:text-tnf-navy";
 
@@ -77,11 +77,22 @@ export function Header() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [mobileOpen]);
 
+  // Leave tablet/mobile drawer mode when the viewport becomes desktop-sized.
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => {
+      if (mq.matches) closeMobile();
+    };
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
   const mobileDrawer =
     mounted &&
     createPortal(
       <div
-        className={`fixed inset-0 z-[200] xl:hidden ${mobileOpen ? "pointer-events-auto" : "pointer-events-none"}`}
+        className={`fixed inset-0 z-[200] lg:hidden ${mobileOpen ? "pointer-events-auto" : "pointer-events-none"}`}
         aria-hidden={!mobileOpen}
       >
         <button
@@ -187,13 +198,13 @@ export function Header() {
             alt="TNF Tripartite Negotiating Forum"
             width={180}
             height={60}
-            className="h-9 w-auto max-w-[min(180px,55vw)] object-contain sm:h-11 xl:h-14"
+            className="h-9 w-auto max-w-[min(180px,55vw)] object-contain sm:h-11 lg:h-12 xl:h-14"
             priority
           />
         </Link>
 
         <nav
-          className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 overflow-visible px-1 xl:flex xl:gap-1 xl:px-2"
+          className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 overflow-visible px-1 lg:flex lg:gap-0.5 lg:px-1 xl:gap-1 xl:px-2"
           aria-label="Main navigation"
         >
           {navItems.map((item) =>
@@ -255,7 +266,7 @@ export function Header() {
           <button
             type="button"
             onClick={() => setMobileOpen(true)}
-            className="rounded-md p-2 text-slate-600 hover:bg-slate-100 xl:hidden"
+            className="rounded-md p-2 text-slate-600 hover:bg-slate-100 lg:hidden"
             aria-label="Open menu"
             aria-expanded={mobileOpen}
           >

@@ -121,8 +121,8 @@ export function postsToUpdates(
     id?: string | number;
     title: string;
     slug: string;
-    excerpt?: string;
-    publishedAt?: string;
+    excerpt?: string | null;
+    publishedAt?: string | null;
     featuredImage?: unknown;
   }>,
 ): UpdateItem[] {
@@ -144,11 +144,11 @@ export function eventsToUpdates(
     id?: string | number;
     title: string;
     slug: string;
-    description?: string;
-    startDate?: string;
-    location?: string;
+    description?: string | null;
+    startDate?: string | null;
+    location?: string | null;
     featuredImage?: unknown;
-    status?: string;
+    status?: string | null;
   }>,
   upcomingOnly = false,
 ): UpdateItem[] {
@@ -161,7 +161,7 @@ export function eventsToUpdates(
       excerpt: e.description || "",
       dateISO: e.startDate || new Date().toISOString(),
       dateDisplay: e.startDate ? formatDate(e.startDate) : "TBA",
-      location: e.location,
+      location: e.location ?? undefined,
       category: "Events" as const,
       type: "event" as const,
       imageUrl: getMediaUrl(e.featuredImage),

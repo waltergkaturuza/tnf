@@ -99,7 +99,11 @@ function getPostgresPoolConfig() {
 
 export default buildConfig({
   onInit: async (payload) => {
-    if (isRunningOnVercel() && !isS3StorageEnabled()) {
+    if (isS3StorageEnabled()) {
+      payload.logger.info(
+        `Supabase Storage enabled for media (bucket: ${process.env.S3_BUCKET}).`,
+      );
+    } else if (isRunningOnVercel()) {
       payload.logger.error(
         `Media uploads require Supabase Storage on Vercel. Missing env vars: ${getMissingS3EnvVars().join(", ")}. See tnf-web/docs/SUPABASE.md`,
       );

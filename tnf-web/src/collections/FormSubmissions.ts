@@ -3,6 +3,15 @@ import { APIError } from "payload";
 
 const FEEDBACK_TYPES = ["feedback-economic", "feedback-social", "feedback-labour"] as const;
 
+const TYPE_LABELS: Record<string, string> = {
+  contact: "Contact",
+  "feedback-economic": "Feedback (Economic)",
+  "feedback-social": "Feedback (Social)",
+  "feedback-labour": "Feedback (Labour)",
+  whistleblower: "Whistleblower",
+  newsletter: "Newsletter",
+};
+
 function isFeedbackType(type: unknown): boolean {
   return typeof type === "string" && (FEEDBACK_TYPES as readonly string[]).includes(type);
 }
@@ -15,19 +24,31 @@ function isContactType(type: unknown): boolean {
   return type === "contact";
 }
 
+function isNewsletterType(type: unknown): boolean {
+  return type === "newsletter";
+}
+
+function buildSummary(data: Record<string, unknown> | undefined): string {
+  if (!data) return "Submission";
+  const typeLabel = TYPE_LABELS[String(data.type ?? "")] || String(data.type || "Submission");
+  const who = data.anonymous
+    ? "Anonymous"
+    : String(data.name || data.email || data.subject || "Unknown").trim();
+  return `${typeLabel} — ${who}`;
+}
+
 export const FormSubmissions: CollectionConfig = {
   slug: "form-submissions",
+  labels: {
+    singular: "Form Submission",
+    plural: "Form Submissions",
+  },
   admin: {
-    useAsTitle: "name",
-    defaultColumns: [
-      "type",
-      "name",
-      "email",
-      "category",
-      "locationScope",
-      "createdAt",
-    ],
-    description: "Contact, feedback, and whistleblower submissions",
+    useAsTitle: "summary",
+    defaultColumns: ["summary", "type", "email", "category", "createdAt"],
+    listSearchableFields: ["summary", "name", "email", "subject", "message", "category"],
+    description:
+      "All public website forms appear here: Contact, Feedback, Whistleblower, and Newsletter. Use Filters → Type to view one form at a time.",
   },
   access: {
     read: ({ req }) => Boolean(req.user),
@@ -37,6 +58,20 @@ export const FormSubmissions: CollectionConfig = {
   },
   hooks: {
     beforeValidate: [
+      ({ data }) => {
+        if (!data) return data;
+        data.summary = buildSummary(data as Record<string, unknown>);
+        return data;
+      },
+      ({ data }) => {
+        if (!data || !isNewsletterType(data.type)) return data;
+
+        if (!data.email || !String(data.email).includes("@")) {
+          throw new APIError("A valid email address is required.", 400);
+        }
+
+        return data;
+      },
       ({ data }) => {
         if (!data || !isContactType(data.type)) return data;
 
@@ -112,16 +147,29 @@ export const FormSubmissions: CollectionConfig = {
   },
   fields: [
     {
+      name: "summary",
+      type: "text",
+      admin: {
+        readOnly: true,
+        description: "Auto-generated label for the admin list.",
+      },
+    },
+    {
       name: "type",
       type: "select",
       required: true,
+      index: true,
       options: [
         { label: "Contact", value: "contact" },
         { label: "Feedback (Economic)", value: "feedback-economic" },
         { label: "Feedback (Social)", value: "feedback-social" },
         { label: "Feedback (Labour)", value: "feedback-labour" },
         { label: "Whistleblower", value: "whistleblower" },
+        { label: "Newsletter", value: "newsletter" },
       ],
+      admin: {
+        description: "Which public form this submission came from.",
+      },
     },
     {
       name: "name",
@@ -157,7 +205,7 @@ export const FormSubmissions: CollectionConfig = {
       name: "category",
       type: "text",
       admin: {
-        description: "Issue category (feedback forms)",
+        description: "Issue category (feedback / contact forms)",
       },
     },
     {

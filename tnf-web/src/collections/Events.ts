@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { slugFromTitleField } from "../lib/admin-fields.js";
 
 export const Events: CollectionConfig = {
   slug: "events",
@@ -15,15 +16,7 @@ export const Events: CollectionConfig = {
       type: "text",
       required: true,
     },
-    {
-      name: "slug",
-      type: "text",
-      required: true,
-      unique: true,
-      admin: {
-        position: "sidebar",
-      },
-    },
+    slugFromTitleField({ name: "slug" }),
     {
       name: "description",
       type: "textarea",

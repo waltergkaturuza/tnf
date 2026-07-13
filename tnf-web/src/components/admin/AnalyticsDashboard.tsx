@@ -172,8 +172,8 @@ export default function AnalyticsDashboard() {
                     </linearGradient>
                   </defs>
                   <CartesianGrid stroke="rgba(148,163,184,0.15)" strokeDasharray="4 4" />
-                  <XAxis dataKey="label" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
+                  <XAxis dataKey="label" tick={{ fill: "#93c5fd", fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: "#93c5fd", fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
                   <Tooltip
                     contentStyle={{ background: "#1e293b", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8 }}
                     labelStyle={{ color: "#e2e8f0" }}
@@ -200,8 +200,8 @@ export default function AnalyticsDashboard() {
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={chartData}>
                     <CartesianGrid stroke="rgba(148,163,184,0.15)" strokeDasharray="4 4" />
-                    <XAxis dataKey="label" tick={{ fill: "#94a3b8", fontSize: 10 }} axisLine={false} tickLine={false} />
-                    <YAxis tick={{ fill: "#94a3b8", fontSize: 10 }} axisLine={false} tickLine={false} allowDecimals={false} />
+                    <XAxis dataKey="label" tick={{ fill: "#93c5fd", fontSize: 10 }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fill: "#93c5fd", fontSize: 10 }} axisLine={false} tickLine={false} allowDecimals={false} />
                     <Tooltip contentStyle={{ background: "#1e293b", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8 }} />
                     <Line type="monotone" dataKey="total" name="Total" stroke="#3b82f6" strokeWidth={2} dot={false} />
                     <Line type="monotone" dataKey="unique" name="Unique" stroke="#f59e0b" strokeWidth={2} dot={false} />

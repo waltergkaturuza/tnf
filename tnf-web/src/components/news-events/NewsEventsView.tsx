@@ -119,13 +119,13 @@ export function NewsEventsView({ items }: Props) {
                     <span className="rounded-md bg-tnf-green px-2.5 py-1 text-xs font-bold uppercase text-white">
                       {featured.category}
                     </span>
-                    <span className="rounded-md bg-white/90 px-2.5 py-1 text-xs font-semibold uppercase text-tnf-navy shadow-sm">
+                    <span className="rounded-md bg-white px-2.5 py-1 text-xs font-semibold uppercase text-tnf-navy shadow-sm">
                       {featured.type === "event" ? "Event" : "Article"}
                     </span>
                   </div>
                 </div>
                 <div className="min-w-0 p-5 sm:p-8 lg:p-10">
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-500">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-medium text-tnf-navy/70">
                     <time dateTime={featured.dateISO}>{featured.dateDisplay}</time>
                     {featured.location && (
                       <>
@@ -151,8 +151,10 @@ export function NewsEventsView({ items }: Props) {
                 </div>
               </article>
             ) : (
-              <p className={`${UPDATES_CARD} text-center text-slate-500`}>
-                No updates match your filters. Try another category or search term.
+              <p className={`${UPDATES_CARD} text-center text-slate-600`}>
+                {items.length === 0
+                  ? "No published news or events yet. Items added in the admin will appear here once published."
+                  : "No updates match your filters. Try another category or search term."}
               </p>
             )}
 
@@ -164,7 +166,7 @@ export function NewsEventsView({ items }: Props) {
                     id={item.slug}
                     className={`${UPDATES_CARD} min-w-0 scroll-mt-28`}
                   >
-                    <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-slate-500">
+                    <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-tnf-navy/70">
                       <span className="text-tnf-green">{item.category}</span>
                       <span>·</span>
                       <time dateTime={item.dateISO}>{item.dateDisplay}</time>
@@ -207,28 +209,32 @@ export function NewsEventsView({ items }: Props) {
 
             <div className={UPDATES_CARD}>
               <h3 className="text-sm font-semibold uppercase tracking-wide text-tnf-navy">Recent posts</h3>
-              <ul className="mt-4 space-y-4">
-                {recentPosts.map((post) => (
-                  <li key={post.id}>
-                    <Link
-                      href={`/news-events#${post.slug}`}
-                      className="group block"
-                      onClick={() => {
-                        setSearchQuery("");
-                        setActiveCategory("All");
-                        setActiveTab("all");
-                      }}
-                    >
-                      <p className="line-clamp-2 text-sm font-medium text-tnf-navy group-hover:text-tnf-green">
-                        {post.title}
-                      </p>
-                      <p className="mt-1 text-xs text-slate-500">
-                        {post.category} · {post.dateDisplay}
-                      </p>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              {recentPosts.length === 0 ? (
+                <p className="mt-4 text-sm text-tnf-navy/70">No posts yet.</p>
+              ) : (
+                <ul className="mt-4 space-y-4">
+                  {recentPosts.map((post) => (
+                    <li key={post.id}>
+                      <Link
+                        href={`/news-events#${post.slug}`}
+                        className="group block"
+                        onClick={() => {
+                          setSearchQuery("");
+                          setActiveCategory("All");
+                          setActiveTab("all");
+                        }}
+                      >
+                        <p className="line-clamp-2 text-sm font-medium text-tnf-navy group-hover:text-tnf-green">
+                          {post.title}
+                        </p>
+                        <p className="mt-1 text-xs font-medium text-tnf-navy/70">
+                          {post.category} · {post.dateDisplay}
+                        </p>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             <div className={UPDATES_CARD}>

@@ -29,7 +29,7 @@ async function payloadFetch(url: string) {
 
 export async function getPosts(limit = 10) {
   const data = await payloadFetch(
-    `${PAYLOAD_API_URL}/api/posts?limit=${limit}&where[status][equals]=published`
+    `${PAYLOAD_API_URL}/api/posts?limit=${limit}&where[status][equals]=published&depth=1&sort=-publishedAt`
   );
   return data ?? { docs: [] };
 }
@@ -43,15 +43,15 @@ export async function getPostBySlug(slug: string) {
 
 export async function getEvents(limit = 10, status = "published") {
   const data = await payloadFetch(
-    `${PAYLOAD_API_URL}/api/events?limit=${limit}&where[status][equals]=${status}&sort=-startDate`
+    `${PAYLOAD_API_URL}/api/events?limit=${limit}&where[status][equals]=${status}&sort=-startDate&depth=1`
   );
   return data ?? { docs: [] };
 }
 
 export async function getResources(limit = 20, category?: string) {
-  let url = `${PAYLOAD_API_URL}/api/resources?limit=${limit}&where[status][equals]=published&sort=-publishedAt`;
-  if (category && category !== "All") {
-    url += `&where[category][equals]=${category}`;
+  let url = `${PAYLOAD_API_URL}/api/resources?limit=${limit}&where[status][equals]=published&sort=-publishedAt&depth=1`;
+  if (category && category !== "All" && category !== "all") {
+    url += `&where[category][equals]=${encodeURIComponent(category)}`;
   }
   const data = await payloadFetch(url);
   return data ?? { docs: [] };

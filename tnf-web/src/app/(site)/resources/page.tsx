@@ -1,131 +1,28 @@
-"use client";
-
-import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { trackResourceDownload } from "@/components/analytics/AnalyticsTracker";
+import { ResourcesLibrary } from "@/components/resources/ResourcesLibrary";
 import { SubpageLayout } from "@/components/layout/SubpageLayout";
+import { getPublishedResources } from "@/lib/resources";
 import { siteConfig } from "@/lib/site-config";
+
+export const metadata = {
+  title: "Resources",
+  description: "Reports, plans, gallery, and downloadable documents from the Tripartite Negotiating Forum.",
+};
+
+export const dynamic = "force-dynamic";
 
 const GLASS_CARD = "about-card p-6 lg:p-8";
 
-const resourceCategories = [
-  "All",
-  "Annual Reports",
-  "Strategic Plans",
-  "Annual Performance Plans",
-  "TNF Reports and Plans",
-  "Policy Papers",
-  "Press Releases",
-];
-
-const placeholderResources = [
-  { title: "TNF Annual Report 2024", category: "Annual Reports", year: "2024", type: "PDF", size: "2.4 MB", thumbnail: "/file.svg" },
-  { title: "TNF Annual Report 2023", category: "Annual Reports", year: "2023", type: "PDF", size: "1.8 MB", thumbnail: "/file.svg" },
-  { title: "TNF Strategic Plan 2024-2028", category: "Strategic Plans", year: "2024", type: "PDF", size: "1.2 MB", thumbnail: "/file.svg" },
-  { title: "TNF Two-Year Strategic Plan 2024-2026", category: "Strategic Plans", year: "2024", type: "PDF", size: "890 KB", thumbnail: "/file.svg" },
-  { title: "Annual Performance Plan 2024", category: "Annual Performance Plans", year: "2024", type: "PDF", size: "650 KB", thumbnail: "/file.svg" },
-  { title: "TNF Reports and Plans", category: "TNF Reports and Plans", year: "2024", type: "PDF", size: "1.1 MB", thumbnail: "/file.svg" },
-  { title: "Labour Market Policy Brief", category: "Policy Papers", year: "2024", type: "PDF", size: "420 KB", thumbnail: "/file.svg" },
-  { title: "Social Contract Negotiation Update", category: "Press Releases", year: "2024", type: "PDF", size: "180 KB", thumbnail: "/file.svg" },
-];
-
-export default function ResourcesPage() {
-  const [filter, setFilter] = useState("All");
-  const [yearFilter, setYearFilter] = useState("All");
+export default async function ResourcesPage() {
+  const resources = await getPublishedResources();
+  const otherDownloads = resources.filter((r) => r.category === "other");
 
   return (
     <SubpageLayout
       title="Resources"
       description="Reports, plans, gallery, and downloadable documents from the Tripartite Negotiating Forum."
     >
-      <div id="reports-plans" className="scroll-mt-28 flex flex-col gap-6 lg:flex-row">
-        <aside className="lg:w-64">
-          <div className="about-card sticky top-24 space-y-6 p-5 sm:p-6">
-            <div>
-              <h3 className="font-semibold text-slate-900">Category</h3>
-              <div className="mt-3 space-y-1">
-                {resourceCategories.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setFilter(cat)}
-                    className={`block w-full rounded-lg px-4 py-2 text-left text-sm transition-colors ${
-                      filter === cat ? "bg-tnf-green text-white" : "text-slate-600 hover:bg-slate-100"
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900">Year</h3>
-              <select
-                value={yearFilter}
-                onChange={(e) => setYearFilter(e.target.value)}
-                className="mt-3 w-full rounded-lg border border-slate-200 px-4 py-2 text-sm"
-              >
-                <option value="All">All years</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-              </select>
-            </div>
-          </div>
-        </aside>
-
-        <div className="flex-1">
-          <div className="mb-6 flex items-center gap-4">
-            <input
-              type="search"
-              placeholder="Search resources..."
-              className="flex-1 rounded-lg border border-slate-200 px-4 py-2 text-sm"
-            />
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            {placeholderResources
-              .filter((r) => filter === "All" || r.category === filter)
-              .map((resource) => (
-                <div
-                  key={resource.title}
-                  className="about-card flex overflow-hidden p-0"
-                >
-                  <div className="flex h-28 w-24 shrink-0 items-center justify-center bg-slate-100">
-                    <Image src={resource.thumbnail} alt="" width={48} height={48} className="opacity-60" />
-                  </div>
-                  <div className="flex flex-1 flex-col justify-between p-4">
-                    <div>
-                      <h3 className="line-clamp-2 font-semibold text-tnf-navy">{resource.title}</h3>
-                      <p className="mt-1.5 flex flex-wrap gap-x-2 gap-y-0.5 text-xs text-slate-500">
-                        <span>{resource.category}</span>
-                        <span>·</span>
-                        <span>{resource.year}</span>
-                        <span>·</span>
-                        <span>{resource.type}</span>
-                        <span>·</span>
-                        <span>{resource.size}</span>
-                      </p>
-                    </div>
-                    <Link
-                      href="#"
-                      onClick={() => trackResourceDownload("/resources", resource.title)}
-                      className="mt-3 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-tnf-green hover:text-tnf-green"
-                    >
-                      Download
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                      </svg>
-                    </Link>
-                  </div>
-                </div>
-              ))}
-          </div>
-
-          <p className="mt-8 text-center text-sm text-slate-500">
-            Full document library coming soon. Contact us for specific reports.
-          </p>
-        </div>
-      </div>
+      <ResourcesLibrary resources={resources} />
 
       <section id="gallery" className="scroll-mt-28 mt-16 border-t border-slate-200 pt-16">
         <h2 className="text-center text-2xl font-bold text-tnf-navy">Gallery</h2>
@@ -148,17 +45,36 @@ export default function ResourcesPage() {
       <section id="downloads" className="scroll-mt-28 mt-16 border-t border-slate-200 pt-16">
         <h2 className="text-center text-2xl font-bold text-tnf-navy">Other Downloads</h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-slate-600">
-          Additional publications, forms, and reference materials will be listed here.
+          Additional publications, forms, and reference materials.
         </p>
-        <div className={`${GLASS_CARD} mx-auto mt-8 max-w-xl text-center`}>
-          <p className="text-sm text-slate-600">
-            Downloadable files are being prepared. For specific documents, please{" "}
-            <Link href="/contact" className="font-medium text-tnf-green hover:underline">
-              contact the Secretariat
-            </Link>
-            .
-          </p>
-        </div>
+        {otherDownloads.length > 0 ? (
+          <div className="mx-auto mt-8 grid max-w-4xl gap-4 sm:grid-cols-2">
+            {otherDownloads.map((resource) => (
+              <a
+                key={resource.id}
+                href={resource.downloadUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${GLASS_CARD} block transition hover:shadow-md`}
+              >
+                <h3 className="font-semibold text-tnf-navy">{resource.title}</h3>
+                <p className="mt-1 text-xs font-medium text-tnf-navy/70">
+                  {resource.type} · {resource.size}
+                </p>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <div className={`${GLASS_CARD} mx-auto mt-8 max-w-xl text-center`}>
+            <p className="text-sm text-slate-600">
+              Additional downloads will appear here. For specific documents, please{" "}
+              <Link href="/contact" className="font-medium text-tnf-green hover:underline">
+                contact the Secretariat
+              </Link>
+              .
+            </p>
+          </div>
+        )}
       </section>
     </SubpageLayout>
   );

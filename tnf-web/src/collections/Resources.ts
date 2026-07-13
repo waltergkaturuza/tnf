@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { slugFromTitleField } from "../lib/admin-fields.js";
 
 export const Resources: CollectionConfig = {
   slug: "resources",
@@ -15,15 +16,7 @@ export const Resources: CollectionConfig = {
       type: "text",
       required: true,
     },
-    {
-      name: "slug",
-      type: "text",
-      required: true,
-      unique: true,
-      admin: {
-        position: "sidebar",
-      },
-    },
+    slugFromTitleField({ name: "slug" }),
     {
       name: "description",
       type: "textarea",
@@ -35,6 +28,8 @@ export const Resources: CollectionConfig = {
       options: [
         { label: "Annual Report", value: "annual-report" },
         { label: "Strategic Plan", value: "strategic-plan" },
+        { label: "Annual Performance Plan", value: "annual-performance-plan" },
+        { label: "TNF Reports and Plans", value: "tnf-reports-plans" },
         { label: "Policy Paper", value: "policy-paper" },
         { label: "Press Release", value: "press-release" },
         { label: "Other", value: "other" },

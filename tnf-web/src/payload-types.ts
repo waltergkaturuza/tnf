@@ -237,7 +237,7 @@ export interface Resource {
   title: string;
   slug: string;
   description?: string | null;
-  category: 'annual-report' | 'strategic-plan' | 'policy-paper' | 'press-release' | 'other';
+  category: 'annual-report' | 'strategic-plan' | 'annual-performance-plan' | 'tnf-reports-plans' | 'policy-paper' | 'press-release' | 'other';
   /**
    * Publication year (e.g. 2024)
    */
@@ -260,6 +260,7 @@ export interface Resource {
 export interface Partner {
   id: number;
   name: string;
+  slug?: string | null;
   /**
    * Upload a PNG, JPG, or SVG logo. Recommended transparent background.
    */
@@ -288,7 +289,14 @@ export interface Partner {
  */
 export interface FormSubmission {
   id: number;
-  type: 'contact' | 'feedback-economic' | 'feedback-social' | 'feedback-labour' | 'whistleblower';
+  /**
+   * Auto-generated label for the admin list.
+   */
+  summary?: string | null;
+  /**
+   * Which public form this submission came from.
+   */
+  type: 'contact' | 'feedback-economic' | 'feedback-social' | 'feedback-labour' | 'whistleblower' | 'newsletter';
   name?: string | null;
   email?: string | null;
   /**
@@ -545,6 +553,7 @@ export interface ResourcesSelect<T extends boolean = true> {
  */
 export interface PartnersSelect<T extends boolean = true> {
   name?: T;
+  slug?: T;
   logo?: T;
   lightLogo?: T;
   websiteUrl?: T;
@@ -558,6 +567,7 @@ export interface PartnersSelect<T extends boolean = true> {
  * via the `definition` "form-submissions_select".
  */
 export interface FormSubmissionsSelect<T extends boolean = true> {
+  summary?: T;
   type?: T;
   name?: T;
   email?: T;

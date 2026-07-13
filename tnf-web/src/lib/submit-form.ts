@@ -7,7 +7,8 @@ export type FormSubmissionType =
   | "feedback-economic"
   | "feedback-social"
   | "feedback-labour"
-  | "whistleblower";
+  | "whistleblower"
+  | "newsletter";
 
 export type LocationScope = "zimbabwe" | "international";
 

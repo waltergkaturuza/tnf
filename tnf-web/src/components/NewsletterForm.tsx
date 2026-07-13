@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { submitToPayload } from "@/lib/submit-form";
 
 type NewsletterFormProps = {
   variant?: "banner" | "footer";
@@ -9,12 +10,28 @@ type NewsletterFormProps = {
 export function NewsletterForm({ variant = "banner" }: NewsletterFormProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-    // TODO: Wire to Payload form-submissions or email service
-    await new Promise((r) => setTimeout(r, 500));
+    setError(null);
+
+    const result = await submitToPayload({
+      type: "newsletter",
+      email: email.trim(),
+      name: email.trim(),
+      subject: "Newsletter subscription",
+      message: "Newsletter subscription request from the website.",
+      category: "newsletter",
+    });
+
+    if (!result.ok) {
+      setStatus("error");
+      setError(result.error || "Subscription failed. Please try again.");
+      return;
+    }
+
     setStatus("success");
     setEmail("");
   };
@@ -64,6 +81,9 @@ export function NewsletterForm({ variant = "banner" }: NewsletterFormProps) {
             {status === "loading" ? "..." : "Subscribe"}
           </button>
         </form>
+      )}
+      {status === "error" && error && (
+        <p className="mt-2 text-sm text-red-300">{error}</p>
       )}
     </div>
   );
