@@ -1,9 +1,312 @@
-/* TNF Admin — branded login and accents */
+/* TNF Admin — Summit navy + gold (matches tnf-summit admin) */
 :root {
-  --tnf-admin-green: #047857;
+  --tnf-admin-green: #33a852;
   --tnf-admin-green-dark: #065f46;
-  --tnf-admin-navy: #1e3a5f;
-  --tnf-admin-gold: #e6c04d;
+  --tnf-admin-navy: #152d4b;
+  --tnf-admin-navy-light: #1a3558;
+  --tnf-admin-navy-alt: #1e3a5f;
+  --tnf-admin-gold: #c9921a;
+  --tnf-admin-gold-light: #f5b730;
+  --tnf-admin-ink: #0a1628;
+  --tnf-admin-muted: #94a3b8;
+  --tnf-admin-border: rgb(255 255 255 / 0.12);
+
+  /* Remap Payload grayscale → navy scale so dark theme matches Summit */
+  --color-base-0: #f8fafc;
+  --color-base-50: #f1f5f9;
+  --color-base-100: #e2e8f0;
+  --color-base-150: #cbd5e1;
+  --color-base-200: #94a3b8;
+  --color-base-250: #7b8ea6;
+  --color-base-300: #64748b;
+  --color-base-350: #55657a;
+  --color-base-400: #475569;
+  --color-base-450: #3d4f66;
+  --color-base-500: #334155;
+  --color-base-550: #2c3f57;
+  --color-base-600: #243c5c;
+  --color-base-650: #213756;
+  --color-base-700: #1e3a5f;
+  --color-base-750: #1c3658;
+  --color-base-800: #1a3558;
+  --color-base-850: #17304f;
+  --color-base-900: #152d4b;
+  --color-base-950: #0f1f33;
+  --color-base-1000: #0a1628;
+
+  /* Gold-leaning warning tokens for badges / accents */
+  --color-warning-400: #f5b730;
+  --color-warning-450: #e0a520;
+  --color-warning-500: #c9921a;
+  --color-warning-550: #b07f16;
+  --color-warning-600: #9a6e12;
+
+  /* Soft green success (TNF logo green) */
+  --color-success-400: #4cbc6a;
+  --color-success-500: #33a852;
+  --color-success-600: #2a8f45;
+}
+
+html[data-theme="dark"] {
+  --theme-border-color: rgb(255 255 255 / 0.12);
+  --theme-overlay: rgb(10 22 40 / 0.72);
+  color-scheme: dark;
+}
+
+/* ── Admin chrome: nav, lists, tables, buttons ── */
+html[data-theme="dark"] {
+  .template-default,
+  .dashboard,
+  .collection-list,
+  .collection-edit,
+  .document-fields {
+    background: var(--tnf-admin-navy);
+  }
+
+  /* Sidebar */
+  .nav,
+  .template-default__nav,
+  aside.nav {
+    background: var(--tnf-admin-navy-alt) !important;
+    border-right: 1px solid var(--tnf-admin-border);
+  }
+
+  .nav__label {
+    color: #64748b !important;
+    font-size: 0.625rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+  }
+
+  .nav-group__toggle {
+    color: #64748b !important;
+    font-size: 0.625rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+  }
+
+  .nav__link {
+    width: 100%;
+    margin: 0.1rem 0;
+    padding-block: 0.55rem !important;
+    padding-inline: 0.75rem 0.75rem !important;
+    border-radius: 0.75rem !important;
+    border: 1px solid transparent;
+    color: #94a3b8 !important;
+    transition:
+      background 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .nav a.nav__link:hover,
+  .nav a.nav__link:focus-visible {
+    text-decoration: none !important;
+    background: rgb(255 255 255 / 0.05) !important;
+    color: #fff !important;
+  }
+
+  /* Active item: Payload injects .nav__link-indicator */
+  .nav__link:has(.nav__link-indicator),
+  .nav__link.active {
+    background: rgb(201 146 26 / 0.15) !important;
+    color: var(--tnf-admin-gold-light) !important;
+    border-color: rgb(201 146 26 / 0.22) !important;
+    font-weight: 700 !important;
+  }
+
+  .nav__link-indicator {
+    inset-inline-start: 0 !important;
+    width: 3px !important;
+    height: 60% !important;
+    top: 50% !important;
+    transform: translateY(-50%);
+    background: var(--tnf-admin-gold) !important;
+    border-radius: 2px !important;
+  }
+
+  .nav__link-label {
+    color: inherit !important;
+  }
+
+  /* App header / breadcrumbs */
+  .app-header,
+  .template-default__wrap .app-header {
+    background: var(--tnf-admin-navy-alt) !important;
+    border-bottom: 1px solid var(--tnf-admin-border);
+  }
+
+  /* List headers */
+  .list-header__title,
+  .collection-list .list-header h1,
+  h1.list-header__title {
+    color: #fff !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.01em;
+  }
+
+  .list-header__title-and-actions .btn--style-primary,
+  .collection-list .btn--style-primary,
+  .btn.btn--style-primary {
+    background: linear-gradient(135deg, var(--tnf-admin-gold) 0%, var(--tnf-admin-gold-light) 100%) !important;
+    border-color: transparent !important;
+    color: var(--tnf-admin-ink) !important;
+    font-weight: 700 !important;
+    border-radius: 0.65rem !important;
+    box-shadow: 0 4px 14px rgb(201 146 26 / 0.25);
+  }
+
+  .list-header__title-and-actions .btn--style-primary:hover,
+  .collection-list .btn--style-primary:hover,
+  .btn.btn--style-primary:hover {
+    background: linear-gradient(135deg, var(--tnf-admin-gold-light) 0%, var(--tnf-admin-gold) 100%) !important;
+    color: var(--tnf-admin-ink) !important;
+  }
+
+  .btn--style-secondary,
+  .btn.btn--style-secondary {
+    border-radius: 0.65rem !important;
+    border-color: var(--tnf-admin-border) !important;
+    background: rgb(255 255 255 / 0.04) !important;
+  }
+
+  /* Search + filters */
+  .list-controls,
+  .list-controls__wrap {
+    gap: 0.75rem;
+  }
+
+  .search-filter,
+  .search-filter__input,
+  .search-filter input,
+  input.search-filter__input,
+  .list-controls input[type="search"],
+  .list-controls input[type="text"] {
+    background: rgb(255 255 255 / 0.05) !important;
+    border: 1px solid var(--tnf-admin-border) !important;
+    border-radius: 0.65rem !important;
+    color: #f8fafc !important;
+  }
+
+  .search-filter input:focus,
+  .search-filter__input:focus,
+  .list-controls input:focus {
+    border-color: rgb(201 146 26 / 0.6) !important;
+    box-shadow: 0 0 0 3px rgb(201 146 26 / 0.15) !important;
+    outline: none !important;
+  }
+
+  .pill,
+  .pill--style-light,
+  .where-builder .pill {
+    border-radius: 999px !important;
+    border-color: var(--tnf-admin-border) !important;
+  }
+
+  /* Tables — Summit density + uppercase muted headers */
+  .table {
+    border-radius: 0.85rem;
+    overflow: hidden;
+    border: 1px solid var(--tnf-admin-border);
+    background: rgb(255 255 255 / 0.03);
+  }
+
+  .table table {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .table thead {
+    color: var(--tnf-admin-muted) !important;
+    background: rgb(0 0 0 / 0.15);
+  }
+
+  .table thead th {
+    font-size: 0.6875rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.07em !important;
+    text-transform: uppercase !important;
+    color: #64748b !important;
+    border-bottom: 1px solid var(--tnf-admin-border) !important;
+    padding-top: 0.85rem !important;
+    padding-bottom: 0.85rem !important;
+  }
+
+  .table tbody td {
+    border-bottom: 1px solid rgb(255 255 255 / 0.05) !important;
+    color: #e2e8f0 !important;
+    vertical-align: middle !important;
+  }
+
+  .table tbody tr {
+    transition: background 0.12s ease;
+  }
+
+  .table tbody tr:hover td {
+    background: rgb(255 255 255 / 0.03) !important;
+  }
+
+  .table tbody tr:last-child td {
+    border-bottom: 0 !important;
+  }
+
+  /* First data column / ID-like emphasis */
+  .table tbody td:nth-child(2) a,
+  .table tbody td.cell-id a,
+  .table .cell-id,
+  .table td a {
+    color: #fff !important;
+    font-weight: 600;
+  }
+
+  .table td a:hover {
+    color: var(--tnf-admin-gold-light) !important;
+  }
+
+  /* Pagination / per-page */
+  .table-pagination,
+  .paginator,
+  .per-page {
+    color: var(--tnf-admin-muted);
+  }
+
+  /* Form fields in edit views */
+  .field-type input:not([type="checkbox"]):not([type="radio"]),
+  .field-type textarea,
+  .field-type .rs__control,
+  .react-select .rs__control {
+    background: var(--tnf-admin-navy-light) !important;
+    border-color: var(--tnf-admin-border) !important;
+    border-radius: 0.55rem !important;
+  }
+
+  .field-type input:focus,
+  .field-type textarea:focus {
+    border-color: rgb(201 146 26 / 0.55) !important;
+    box-shadow: 0 0 0 3px rgb(201 146 26 / 0.12) !important;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--tnf-admin-navy);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--tnf-admin-green), var(--tnf-admin-gold));
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: rgb(201 146 26 / 0.35);
+    color: #fff;
+  }
 }
 
 /* Login page background (Payload 3 uses .template-minimal, not .login) */
@@ -309,9 +612,9 @@ html[data-theme="dark"] .template-minimal__wrap {
   }
 }
 
-/* Analytics dashboard (admin home) */
+/* Analytics dashboard (admin home) — Summit surfaces */
 .dashboard {
-  background: #0f172a !important;
+  background: var(--tnf-admin-navy) !important;
 }
 
 .tnf-analytics {
@@ -333,14 +636,14 @@ html[data-theme="dark"] .template-minimal__wrap {
 .tnf-analytics__title {
   margin: 0;
   font-size: 1.75rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #fff;
 }
 
 .tnf-analytics__subtitle {
   margin: 0.25rem 0 0;
   font-size: 0.875rem;
-  color: #93c5fd;
+  color: var(--tnf-admin-muted);
 }
 
 .tnf-analytics__controls {
@@ -351,10 +654,10 @@ html[data-theme="dark"] .template-minimal__wrap {
 
 .tnf-analytics__select,
 .tnf-analytics__refresh {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid var(--tnf-admin-border);
+  background: rgb(255 255 255 / 0.05);
   color: #e2e8f0;
-  border-radius: 0.5rem;
+  border-radius: 0.65rem;
   padding: 0.45rem 0.75rem;
   font-size: 0.8125rem;
 }
@@ -366,9 +669,14 @@ html[data-theme="dark"] .template-minimal__wrap {
   cursor: pointer;
 }
 
+.tnf-analytics__refresh:hover {
+  border-color: rgb(201 146 26 / 0.45);
+  color: var(--tnf-admin-gold-light);
+}
+
 .tnf-analytics__error,
 .tnf-analytics__loading {
-  color: #93c5fd;
+  color: var(--tnf-admin-muted);
   font-size: 0.875rem;
 }
 
@@ -386,9 +694,9 @@ html[data-theme="dark"] .template-minimal__wrap {
 }
 
 .tnf-analytics-kpi {
-  border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(30, 41, 59, 0.72);
+  border-radius: 0.85rem;
+  border: 1px solid var(--tnf-admin-border);
+  background: rgb(255 255 255 / 0.05);
   padding: 0.85rem 0.9rem;
 }
 
@@ -414,13 +722,13 @@ html[data-theme="dark"] .template-minimal__wrap {
 .tnf-analytics-kpi__hint {
   margin: 0.1rem 0 0;
   font-size: 0.6875rem;
-  color: #93c5fd;
+  color: var(--tnf-admin-muted);
 }
 
 .tnf-analytics-panel {
-  border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(30, 41, 59, 0.72);
+  border-radius: 0.85rem;
+  border: 1px solid var(--tnf-admin-border);
+  background: rgb(255 255 255 / 0.05);
   padding: 1rem 1.1rem 1.1rem;
   margin-bottom: 1rem;
 }
@@ -447,14 +755,14 @@ html[data-theme="dark"] .template-minimal__wrap {
 .tnf-analytics-panel__head p {
   margin: 0.2rem 0 0;
   font-size: 0.75rem;
-  color: #93c5fd;
+  color: var(--tnf-admin-muted);
 }
 
 .tnf-analytics-panel__meta {
   font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: #60a5fa;
+  color: var(--tnf-admin-gold);
   white-space: nowrap;
 }
 
@@ -483,7 +791,7 @@ html[data-theme="dark"] .template-minimal__wrap {
   gap: 0.65rem;
   align-items: center;
   font-size: 0.6875rem;
-  color: #93c5fd;
+  color: var(--tnf-admin-muted);
 }
 
 .tnf-analytics-legend__dot {
@@ -495,11 +803,11 @@ html[data-theme="dark"] .template-minimal__wrap {
 }
 
 .tnf-analytics-legend__dot--blue {
-  background: #3b82f6;
+  background: #33a852;
 }
 
 .tnf-analytics-legend__dot--amber {
-  background: #f59e0b;
+  background: var(--tnf-admin-gold);
 }
 
 .tnf-analytics-list {
@@ -523,7 +831,7 @@ html[data-theme="dark"] .template-minimal__wrap {
 
 .tnf-analytics-list__rank {
   font-size: 0.75rem;
-  color: #60a5fa;
+  color: var(--tnf-admin-gold);
   width: 1rem;
 }
 
@@ -555,7 +863,7 @@ html[data-theme="dark"] .template-minimal__wrap {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: #3b82f6;
+  background: linear-gradient(90deg, var(--tnf-admin-gold), var(--tnf-admin-gold-light));
 }
 
 .tnf-analytics-list__count {
@@ -566,7 +874,7 @@ html[data-theme="dark"] .template-minimal__wrap {
 
 .tnf-analytics-list__empty {
   font-size: 0.8125rem;
-  color: #93c5fd;
+  color: var(--tnf-admin-muted);
   padding: 0.5rem 0;
 }
 
@@ -616,5 +924,5 @@ html[data-theme="dark"] .template-minimal__wrap {
 
 .tnf-analytics-devices__raw {
   font-size: 0.75rem;
-  color: #93c5fd;
+  color: var(--tnf-admin-muted);
 }

@@ -111,6 +111,7 @@ export default buildConfig({
   },
   admin: {
     user: Users.slug,
+    theme: "dark",
     meta: {
       title: "TNF Content Manager",
       titleSuffix: " | TNF Admin",
