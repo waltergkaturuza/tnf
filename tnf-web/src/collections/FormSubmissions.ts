@@ -48,7 +48,14 @@ export const FormSubmissions: CollectionConfig = {
     defaultColumns: ["summary", "type", "email", "category", "createdAt"],
     listSearchableFields: ["summary", "name", "email", "subject", "message", "category"],
     description:
-      "All public website forms appear here: Contact, Feedback, Whistleblower, and Newsletter. Use Filters → Type to view one form at a time.",
+      "Standalone inboxes for Contact, Feedback, Whistleblower, and Newsletter. Use View or Delete on each entry.",
+    components: {
+      views: {
+        list: {
+          Component: "./components/admin/FormSubmissionsList",
+        },
+      },
+    },
   },
   access: {
     read: ({ req }) => Boolean(req.user),
