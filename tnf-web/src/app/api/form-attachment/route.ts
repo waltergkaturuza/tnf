@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
 import { getPayload } from "payload";
 import config from "@payload-config";
+import type { Media } from "@/payload-types";
 import { getMissingS3EnvVars, isRunningOnVercel, isS3StorageEnabled } from "@/lib/s3-storage";
 import {
   buildStoragePrefix,
   datedStorageFilename,
   mapFormTypeToFolder,
   slugifyStorageSegment,
+  type StorageFolder,
 } from "@/lib/storage-paths";
 
 export const runtime = "nodejs";
@@ -14,9 +16,25 @@ export const runtime = "nodejs";
 const MAX_BYTES = 4.5 * 1024 * 1024; // under Vercel request body limit
 const ALLOWED_PREFIXES = ["image/", "application/pdf", "application/msword", "application/vnd."];
 
+const FOLDER_VALUES = new Set<StorageFolder>([
+  "media",
+  "resources",
+  "feedback",
+  "whistleblower",
+  "contact",
+  "partners",
+  "news",
+  "events",
+]);
+
 function isAllowedType(type: string): boolean {
   if (!type) return false;
   return ALLOWED_PREFIXES.some((prefix) => type.startsWith(prefix));
+}
+
+function resolveFolder(raw: string, formType: string): StorageFolder {
+  if (FOLDER_VALUES.has(raw as StorageFolder)) return raw as StorageFolder;
+  return mapFormTypeToFolder(formType);
 }
 
 export async function POST(request: Request) {
@@ -34,8 +52,7 @@ export async function POST(request: Request) {
     const file = formData.get("file");
     const formType = String(formData.get("formType") || "");
     const categoryRaw = String(formData.get("category") || "").trim();
-    const folder =
-      String(formData.get("folder") || "").trim() || mapFormTypeToFolder(formType);
+    const folder = resolveFolder(String(formData.get("folder") || "").trim(), formType);
     const storageCategory = categoryRaw || "general";
 
     if (!(file instanceof File) || file.size === 0) {
@@ -61,14 +78,16 @@ export async function POST(request: Request) {
     const buffer = Buffer.from(await file.arrayBuffer());
     const payload = await getPayload({ config });
 
+    const mediaData: Partial<Media> & Pick<Media, "alt" | "folder"> = {
+      alt: file.name.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ").trim() || file.name,
+      folder,
+      storageCategory: slugifyStorageSegment(storageCategory),
+      prefix,
+    };
+
     const doc = await payload.create({
       collection: "media",
-      data: {
-        alt: file.name.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ").trim() || file.name,
-        folder,
-        storageCategory: slugifyStorageSegment(storageCategory),
-        prefix,
-      } as Record<string, unknown>,
+      data: mediaData,
       file: {
         data: buffer,
         mimetype: file.type || "application/octet-stream",
@@ -84,7 +103,7 @@ export async function POST(request: Request) {
       filename: doc.filename,
       mimeType: doc.mimeType,
       filesize: doc.filesize,
-      prefix: (doc as { prefix?: string | null }).prefix ?? prefix,
+      prefix: doc.prefix ?? prefix,
       folder,
       storageCategory: slugifyStorageSegment(storageCategory),
     });

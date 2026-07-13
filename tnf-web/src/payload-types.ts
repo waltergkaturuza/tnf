@@ -157,8 +157,17 @@ export interface User {
  */
 export interface Media {
   id: number;
+  /**
+   * Top-level bucket folder (resources, media, feedback, …).
+   */
+  folder: 'media' | 'resources' | 'feedback' | 'whistleblower' | 'contact' | 'partners' | 'news' | 'events';
+  /**
+   * Subfolder under the chosen folder (e.g. annual-report, Informalisation). Leave blank for a general folder.
+   */
+  storageCategory?: string | null;
   alt: string;
   caption?: string | null;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -485,8 +494,11 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  folder?: T;
+  storageCategory?: T;
   alt?: T;
   caption?: T;
+  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
