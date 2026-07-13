@@ -109,7 +109,9 @@ There is no automatic migration in this repo. Options:
 
 1. Supabase → **Storage** → **New bucket**
 2. Name it e.g. `tnf-media`
-3. Enable **Public bucket**
+3. Enable **Public bucket** (required for site downloads)
+
+If files upload successfully but browser downloads return `{"error":"Bucket not found"}` on a `/storage/v1/object/public/...` URL, the bucket is **private**. In Storage → `tnf-media` → **Edit bucket** (or the ⋮ menu), set **Public bucket** to on. Public media URLs only work on public buckets.
 
 ### 2. Enable S3 protocol access
 

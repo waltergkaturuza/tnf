@@ -69,6 +69,20 @@ export const Media: CollectionConfig = {
         return data;
       },
     ],
+    // Cloud storage uploads in afterChange using `doc.prefix`. Recompute here so the
+    // S3 key always includes folder/category even if the hidden prefix field was blank.
+    afterChange: [
+      ({ doc }) => {
+        if (!doc) return doc;
+        const folder =
+          typeof doc.folder === "string" && doc.folder ? doc.folder : "media";
+        const category =
+          typeof doc.storageCategory === "string" ? doc.storageCategory : null;
+        const prefix = buildStoragePrefix(folder, category);
+        if (doc.prefix === prefix) return doc;
+        return { ...doc, prefix };
+      },
+    ],
   },
   fields: [
     {
@@ -87,6 +101,15 @@ export const Media: CollectionConfig = {
       admin: {
         description:
           "Subfolder under the chosen folder (e.g. annual-report, Informalisation). Leave blank for a general folder.",
+      },
+    },
+    // Writable prefix so folder paths survive into the S3 upload hook (plugin marks its copy read-only).
+    {
+      name: "prefix",
+      type: "text",
+      admin: {
+        hidden: true,
+        readOnly: false,
       },
     },
     altFromFilenameField({ name: "alt" }),

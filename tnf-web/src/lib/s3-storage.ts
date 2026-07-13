@@ -74,7 +74,10 @@ export function getMissingS3EnvVars(): string[] {
 function getPublicMediaUrl(filename: string, prefix?: string): string {
   const base = getSupabaseUrl();
   const bucket = getS3Bucket();
-  const key = prefix ? `${prefix}/${filename}` : filename;
+  // Strip leading/trailing slashes so we never produce `.../public/tnf-media//file`.
+  const safePrefix = (prefix || "").replace(/^\/+|\/+$/g, "");
+  const safeName = filename.replace(/^\/+/, "");
+  const key = safePrefix ? `${safePrefix}/${safeName}` : safeName;
   return `${base}/storage/v1/object/public/${bucket}/${key}`;
 }
 
