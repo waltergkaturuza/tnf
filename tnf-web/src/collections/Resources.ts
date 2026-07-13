@@ -48,7 +48,8 @@ export const Resources: CollectionConfig = {
       relationTo: "media",
       required: true,
       admin: {
-        description: "PDF or document file",
+        description:
+          "PDF or document. In Media, set Folder to Resources and Category to match this resource (e.g. annual-report). Files land in resources/{category}/YYYY-MM-DD_filename.",
       },
     },
     {

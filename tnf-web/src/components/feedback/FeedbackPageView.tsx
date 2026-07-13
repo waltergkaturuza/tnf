@@ -75,7 +75,12 @@ export function FeedbackPageView() {
       | undefined;
 
     if (attachment instanceof File && attachment.size > 0) {
-      const uploaded = await uploadFormAttachment(attachment);
+      const category = String(fd.get("category") || "").trim();
+      const uploaded = await uploadFormAttachment(attachment, {
+        formType: `feedback-${issueType}`,
+        folder: "feedback",
+        category: category || issueType,
+      });
       if (!uploaded.ok) {
         setSubmitting(false);
         setError(uploaded.error);

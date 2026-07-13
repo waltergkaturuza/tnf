@@ -87,6 +87,8 @@ export function getS3StoragePlugin() {
 
   return s3Storage({
     enabled,
+    // Ensure `prefix` exists on media so organized folder keys work in all environments.
+    alwaysInsertFields: true,
     collections: {
       media: {
         disablePayloadAccessControl: true,
@@ -100,11 +102,9 @@ export function getS3StoragePlugin() {
       },
     },
     bucket,
-    clientUploads:
-      enabled &&
-      (process.env.S3_CLIENT_UPLOADS === "true" ||
-        process.env.VERCEL === "1" ||
-        Boolean(process.env.VERCEL_ENV)),
+    // Client uploads use a static key path and skip per-doc folders.
+    // Keep them opt-in so organized folder/category/date layout works by default.
+    clientUploads: enabled && process.env.S3_CLIENT_UPLOADS === "true",
     config: {
       credentials,
       region: process.env.S3_REGION || "us-east-1",

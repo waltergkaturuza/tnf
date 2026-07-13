@@ -935,6 +935,15 @@ html[data-theme="dark"] .template-minimal__wrap {
   color: #e2e8f0;
 }
 
+.tnf-forms__nav-row {
+  margin-bottom: 0.85rem;
+}
+
+.tnf-forms-back {
+  padding-left: 0.55rem !important;
+  padding-right: 0.75rem !important;
+}
+
 .tnf-forms__header {
   display: flex;
   flex-wrap: wrap;
@@ -942,6 +951,13 @@ html[data-theme="dark"] .template-minimal__wrap {
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 1rem;
+}
+
+.tnf-forms__header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 .tnf-forms__header h1 {

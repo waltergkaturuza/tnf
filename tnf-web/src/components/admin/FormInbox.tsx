@@ -268,6 +268,18 @@ export default function FormInbox({ formKey }: { formKey: FormInboxKey }) {
 
   return (
     <div className="tnf-forms">
+      <div className="tnf-forms__nav-row">
+        <button
+          type="button"
+          className="tnf-forms-btn tnf-forms-btn--ghost tnf-forms-back"
+          onClick={() => {
+            window.location.assign("/admin");
+          }}
+        >
+          ← Back to dashboard
+        </button>
+      </div>
+
       <div className="tnf-forms__header">
         <div>
           <p className="tnf-forms__eyebrow">Form Submissions</p>
@@ -276,9 +288,11 @@ export default function FormInbox({ formKey }: { formKey: FormInboxKey }) {
             {filtered.length} {filtered.length === 1 ? "entry" : "entries"} · {inbox.description}
           </p>
         </div>
-        <button type="button" className="tnf-forms-btn tnf-forms-btn--secondary" onClick={() => void load()}>
-          Refresh
-        </button>
+        <div className="tnf-forms__header-actions">
+          <button type="button" className="tnf-forms-btn tnf-forms-btn--secondary" onClick={() => void load()}>
+            Refresh
+          </button>
+        </div>
       </div>
 
       <nav className="tnf-forms-tabs" aria-label="Form submission types">

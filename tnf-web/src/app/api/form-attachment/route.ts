@@ -2,6 +2,12 @@ import { NextResponse } from "next/server";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import { getMissingS3EnvVars, isRunningOnVercel, isS3StorageEnabled } from "@/lib/s3-storage";
+import {
+  buildStoragePrefix,
+  datedStorageFilename,
+  mapFormTypeToFolder,
+  slugifyStorageSegment,
+} from "@/lib/storage-paths";
 
 export const runtime = "nodejs";
 
@@ -26,6 +32,11 @@ export async function POST(request: Request) {
 
     const formData = await request.formData();
     const file = formData.get("file");
+    const formType = String(formData.get("formType") || "");
+    const categoryRaw = String(formData.get("category") || "").trim();
+    const folder =
+      String(formData.get("folder") || "").trim() || mapFormTypeToFolder(formType);
+    const storageCategory = categoryRaw || "general";
 
     if (!(file instanceof File) || file.size === 0) {
       return NextResponse.json({ error: "No file provided." }, { status: 400 });
@@ -45,6 +56,8 @@ export async function POST(request: Request) {
       );
     }
 
+    const datedName = datedStorageFilename(file.name);
+    const prefix = buildStoragePrefix(folder, storageCategory);
     const buffer = Buffer.from(await file.arrayBuffer());
     const payload = await getPayload({ config });
 
@@ -52,11 +65,14 @@ export async function POST(request: Request) {
       collection: "media",
       data: {
         alt: file.name.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ").trim() || file.name,
-      },
+        folder,
+        storageCategory: slugifyStorageSegment(storageCategory),
+        prefix,
+      } as Record<string, unknown>,
       file: {
         data: buffer,
         mimetype: file.type || "application/octet-stream",
-        name: file.name,
+        name: datedName,
         size: file.size,
       },
       overrideAccess: true,
@@ -68,6 +84,9 @@ export async function POST(request: Request) {
       filename: doc.filename,
       mimeType: doc.mimeType,
       filesize: doc.filesize,
+      prefix: (doc as { prefix?: string | null }).prefix ?? prefix,
+      folder,
+      storageCategory: slugifyStorageSegment(storageCategory),
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Upload failed";

@@ -44,10 +44,14 @@ export type UploadedAttachment = {
 /** Upload a form attachment to Supabase Storage via Payload Media. */
 export async function uploadFormAttachment(
   file: File,
+  options?: { formType?: FormSubmissionType | string; category?: string; folder?: string },
 ): Promise<{ ok: true; file: UploadedAttachment } | { ok: false; error: string }> {
   try {
     const body = new FormData();
     body.append("file", file);
+    if (options?.formType) body.append("formType", options.formType);
+    if (options?.category) body.append("category", options.category);
+    if (options?.folder) body.append("folder", options.folder);
 
     const res = await fetch("/api/form-attachment", {
       method: "POST",
@@ -61,6 +65,7 @@ export async function uploadFormAttachment(
       filename?: string | null;
       mimeType?: string | null;
       filesize?: number | null;
+      prefix?: string | null;
     };
 
     if (!res.ok || data.id == null) {

@@ -6,13 +6,31 @@ import {
   isRunningOnVercel,
   isS3StorageEnabled,
 } from "../lib/s3-storage.js";
+import {
+  STORAGE_FOLDERS,
+  buildStoragePrefix,
+  datedStorageFilename,
+} from "../lib/storage-paths.js";
 
 export const Media: CollectionConfig = {
   slug: "media",
+  admin: {
+    useAsTitle: "filename",
+    defaultColumns: ["filename", "folder", "storageCategory", "updatedAt"],
+    description:
+      "Files are stored in the bucket as folder/category/YYYY-MM-DD_filename. Pick Folder (and Category for Resources / forms) before uploading.",
+  },
   access: {
     read: () => true,
   },
   hooks: {
+    beforeOperation: [
+      async ({ operation, req }) => {
+        if (operation !== "create" && operation !== "update") return;
+        if (!req.file?.name) return;
+        req.file.name = datedStorageFilename(req.file.name);
+      },
+    ],
     beforeValidate: [
       ({ operation, req }) => {
         // On Vercel, refuse creates/updates that include a file unless S3 is configured.
@@ -26,9 +44,51 @@ export const Media: CollectionConfig = {
           `File uploads require Supabase Storage. Missing env vars on Vercel: ${getMissingS3EnvVars().join(", ")}. See tnf-web/docs/SUPABASE.md`,
         );
       },
+      ({ data }) => {
+        if (!data) return data;
+        if (!data.folder) data.folder = "media";
+        data.prefix = buildStoragePrefix(
+          String(data.folder),
+          typeof data.storageCategory === "string" ? data.storageCategory : null,
+        );
+        return data;
+      },
+    ],
+    beforeChange: [
+      ({ data, req }) => {
+        if (!data) return data;
+        if (!data.folder) data.folder = "media";
+        data.prefix = buildStoragePrefix(
+          String(data.folder),
+          typeof data.storageCategory === "string" ? data.storageCategory : null,
+        );
+        // Only rewrite filename when a new file is being uploaded.
+        if (req.file?.name) {
+          data.filename = datedStorageFilename(req.file.name);
+        }
+        return data;
+      },
     ],
   },
   fields: [
+    {
+      name: "folder",
+      type: "select",
+      required: true,
+      defaultValue: "media",
+      options: [...STORAGE_FOLDERS],
+      admin: {
+        description: "Top-level bucket folder (resources, media, feedback, …).",
+      },
+    },
+    {
+      name: "storageCategory",
+      type: "text",
+      admin: {
+        description:
+          "Subfolder under the chosen folder (e.g. annual-report, Informalisation). Leave blank for a general folder.",
+      },
+    },
     altFromFilenameField({ name: "alt" }),
     {
       name: "caption",

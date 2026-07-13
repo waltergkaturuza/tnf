@@ -129,7 +129,26 @@ S3_REGION=us-east-1
 
 `SUPABASE_URL`, `S3_ENDPOINT`, and `NEXT_PUBLIC_SUPABASE_URL` are auto-detected when present. Endpoint format: `https://<project-ref>.storage.supabase.co/storage/v1/s3`.
 
-`clientUploads` is enabled automatically on Vercel so PDFs larger than 4.5 MB can upload from the admin browser.
+`clientUploads` is **opt-in** via `S3_CLIENT_UPLOADS=true`. Leave it off so files keep organized folder paths (Payload client uploads cannot use per-file folders). Server uploads support up to ~4.5 MB on Vercel.
+
+### Bucket folder layout
+
+New uploads are stored as:
+
+```text
+{folder}/{category}/YYYY-MM-DD_original-name.ext
+```
+
+Examples:
+
+- `resources/annual-report/2026-07-13_tnf-annual-report.pdf`
+- `feedback/informalisation/2026-07-13_supporting.jpg`
+- `whistleblower/fraud/2026-07-13_evidence.pdf`
+- `media/general/2026-07-13_hero.jpg`
+
+In **Admin → Media**, set **Folder** (resources, media, feedback, …) and optional **Category** before uploading. Form attachments set folder/category automatically.
+
+Run SQL if needed: `scripts/media-storage-folders.sql`.
 
 ### 4. CORS (for admin uploads)
 

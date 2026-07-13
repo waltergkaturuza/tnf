@@ -41,7 +41,12 @@ export function WhistleblowerPageView() {
       | undefined;
 
     if (evidence instanceof File && evidence.size > 0) {
-      const uploaded = await uploadFormAttachment(evidence);
+      const incidentType = String(fd.get("incidentType") || "").trim();
+      const uploaded = await uploadFormAttachment(evidence, {
+        formType: "whistleblower",
+        folder: "whistleblower",
+        category: incidentType || "general",
+      });
       if (!uploaded.ok) {
         setSubmitting(false);
         setError(uploaded.error);
