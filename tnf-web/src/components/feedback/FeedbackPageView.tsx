@@ -6,7 +6,7 @@ import { Field } from "@/components/forms/Field";
 import { AGE_RANGES, GENDER_OPTIONS, ZIM_PROVINCES } from "@/components/forms/location-constants";
 import { formInputClass } from "@/components/forms/form-styles";
 import { SubpageLayout } from "@/components/layout/SubpageLayout";
-import { submitToPayload, type FormSubmissionType } from "@/lib/submit-form";
+import { submitToPayload, uploadFormAttachment, type FormSubmissionType } from "@/lib/submit-form";
 
 const economicCategories = [
   "Informalisation",
@@ -64,10 +64,31 @@ export function FeedbackPageView() {
     const fd = new FormData(form);
 
     const attachment = fd.get("attachment");
-    const attachmentMeta =
-      attachment instanceof File && attachment.size > 0
-        ? { fileName: attachment.name, fileSize: attachment.size, fileType: attachment.type }
-        : undefined;
+    let attachmentMeta:
+      | {
+          fileName: string;
+          fileSize: number;
+          fileType: string;
+          mediaId?: number | string;
+          url?: string | null;
+        }
+      | undefined;
+
+    if (attachment instanceof File && attachment.size > 0) {
+      const uploaded = await uploadFormAttachment(attachment);
+      if (!uploaded.ok) {
+        setSubmitting(false);
+        setError(uploaded.error);
+        return;
+      }
+      attachmentMeta = {
+        fileName: uploaded.file.filename || attachment.name,
+        fileSize: uploaded.file.filesize || attachment.size,
+        fileType: uploaded.file.mimeType || attachment.type,
+        mediaId: uploaded.file.id,
+        url: uploaded.file.url,
+      };
+    }
 
     const result = await submitToPayload({
       type: `feedback-${issueType}` as FormSubmissionType,
@@ -272,7 +293,7 @@ export function FeedbackPageView() {
                     <option value="Either">Email or phone</option>
                   </select>
                 </Field>
-                <Field label="Supporting documents" htmlFor="attachment" hint="PDF, Word, or images (optional)" className="sm:col-span-2">
+                <Field label="Supporting documents" htmlFor="attachment" hint="PDF, Word, or images up to 4.5 MB (optional)" className="sm:col-span-2">
                   <input
                     id="attachment"
                     name="attachment"

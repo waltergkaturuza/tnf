@@ -951,10 +951,66 @@ html[data-theme="dark"] .template-minimal__wrap {
   color: #fff;
 }
 
+.tnf-forms__eyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tnf-admin-gold);
+}
+
 .tnf-forms__header p {
   margin: 0.35rem 0 0;
   font-size: 0.875rem;
   color: var(--tnf-admin-muted);
+}
+
+.tnf-forms-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+  padding: 0.35rem;
+  border-radius: 0.85rem;
+  border: 1px solid var(--tnf-admin-border);
+  background: rgb(255 255 255 / 0.03);
+}
+
+.tnf-forms-tabs__link {
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.55rem;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.tnf-forms-tabs__link:hover {
+  color: #fff;
+  background: rgb(255 255 255 / 0.05);
+}
+
+.tnf-forms-tabs__link.is-active {
+  color: var(--tnf-admin-gold-light);
+  background: rgb(201 146 26 / 0.15);
+  border-color: rgb(201 146 26 / 0.25);
+}
+
+.tnf-forms-nav {
+  margin-top: 0.75rem;
+}
+
+.tnf-forms-nav .nav-group__toggle {
+  pointer-events: none;
+}
+
+.tnf-forms-nav__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  width: 100%;
 }
 
 .tnf-forms__toolbar {
@@ -1174,6 +1230,7 @@ html[data-theme="dark"] .template-minimal__wrap {
 
 .tnf-forms-modal__panel {
   position: relative;
+  z-index: 1;
   width: min(40rem, 100%);
   max-height: min(90vh, 52rem);
   overflow: auto;

@@ -23,13 +23,17 @@ import { StrikethroughFeatureClient as StrikethroughFeatureClient_e70f5e05f09f93
 import { UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
-import { default as default_4e430091850fdeda0e61776b8a41c267 } from '../../../components/admin/FormSubmissionsList'
 import { default as default_a9476a6fd6a5c40a275ff80f24127c7c } from '../../../components/admin/AdminIcon'
 import { default as default_56b58cfdfd9d12efeac26d6201d62c94 } from '../../../components/admin/AdminLogo'
 import { default as default_00d78db86d196e875e29434d831d1250 } from '../../../components/admin/AfterLogin'
+import { default as default_ad0f20c47c816bd5422706b7ca378e42 } from '../../../components/admin/FormSubmissionsNav'
 import { default as default_437b3ecbde60fc8598a1c9679e03fce3 } from '../../../components/admin/BeforeLogin'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { default as default_6009e629f9e3d6c1c52138fb20bc70c7 } from '../../../components/admin/AnalyticsDashboard'
+import { default as default_e2c1cb19928c637a9825c639e1e45d1a } from '../../../components/admin/FormInboxContact'
+import { default as default_d7177189f7d9037e9805b4d1082fe0f6 } from '../../../components/admin/FormInboxFeedback'
+import { default as default_9b58d1e160ecdd8c7421eee1ea408476 } from '../../../components/admin/FormInboxWhistleblower'
+import { default as default_4ff86586833118b8e7472d27092d3041 } from '../../../components/admin/FormInboxNewsletter'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 export const importMap = {
@@ -58,12 +62,16 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UnderlineFeatureClient": UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  "./components/admin/FormSubmissionsList#default": default_4e430091850fdeda0e61776b8a41c267,
   "./components/admin/AdminIcon#default": default_a9476a6fd6a5c40a275ff80f24127c7c,
   "./components/admin/AdminLogo#default": default_56b58cfdfd9d12efeac26d6201d62c94,
   "./components/admin/AfterLogin#default": default_00d78db86d196e875e29434d831d1250,
+  "./components/admin/FormSubmissionsNav#default": default_ad0f20c47c816bd5422706b7ca378e42,
   "./components/admin/BeforeLogin#default": default_437b3ecbde60fc8598a1c9679e03fce3,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
   "./components/admin/AnalyticsDashboard#default": default_6009e629f9e3d6c1c52138fb20bc70c7,
+  "./components/admin/FormInboxContact#default": default_e2c1cb19928c637a9825c639e1e45d1a,
+  "./components/admin/FormInboxFeedback#default": default_d7177189f7d9037e9805b4d1082fe0f6,
+  "./components/admin/FormInboxWhistleblower#default": default_9b58d1e160ecdd8c7421eee1ea408476,
+  "./components/admin/FormInboxNewsletter#default": default_4ff86586833118b8e7472d27092d3041,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

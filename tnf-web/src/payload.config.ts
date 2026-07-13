@@ -27,7 +27,7 @@ import { Resources } from "./collections/Resources.js";
 import { Partners } from "./collections/Partners.js";
 import { FormSubmissions } from "./collections/FormSubmissions.js";
 import { AnalyticsEvents } from "./collections/AnalyticsEvents.js";
-import { getMissingS3EnvVars, getS3StoragePlugin, isRunningOnVercel, isS3StorageEnabled } from "./lib/s3-storage.js";
+import { getMissingS3EnvVars, getS3Bucket, getS3StoragePlugin, isRunningOnVercel, isS3StorageEnabled } from "./lib/s3-storage.js";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -101,7 +101,7 @@ export default buildConfig({
   onInit: async (payload) => {
     if (isS3StorageEnabled()) {
       payload.logger.info(
-        `Supabase Storage enabled for media (bucket: ${process.env.S3_BUCKET}).`,
+        `Supabase Storage enabled for media (bucket: ${getS3Bucket()}).`,
       );
     } else if (isRunningOnVercel()) {
       payload.logger.error(
@@ -125,9 +125,30 @@ export default buildConfig({
       },
       beforeLogin: ["./components/admin/BeforeLogin"],
       afterLogin: ["./components/admin/AfterLogin"],
+      afterNavLinks: ["./components/admin/FormSubmissionsNav"],
       views: {
         dashboard: {
           Component: "./components/admin/AnalyticsDashboard",
+        },
+        formContact: {
+          Component: "./components/admin/FormInboxContact",
+          path: "/forms/contact",
+          meta: { title: "Contact" },
+        },
+        formFeedback: {
+          Component: "./components/admin/FormInboxFeedback",
+          path: "/forms/feedback",
+          meta: { title: "Feedback" },
+        },
+        formWhistleblower: {
+          Component: "./components/admin/FormInboxWhistleblower",
+          path: "/forms/whistleblower",
+          meta: { title: "Whistleblower" },
+        },
+        formNewsletter: {
+          Component: "./components/admin/FormInboxNewsletter",
+          path: "/forms/newsletter",
+          meta: { title: "Newsletter" },
         },
       },
     },

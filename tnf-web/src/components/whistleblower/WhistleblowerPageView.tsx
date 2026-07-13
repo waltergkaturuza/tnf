@@ -12,7 +12,7 @@ import {
 } from "@/components/forms/location-constants";
 import { formInputClass } from "@/components/forms/form-styles";
 import { SubpageLayout } from "@/components/layout/SubpageLayout";
-import { submitToPayload } from "@/lib/submit-form";
+import { submitToPayload, uploadFormAttachment } from "@/lib/submit-form";
 
 export function WhistleblowerPageView() {
   const [locationScope, setLocationScope] = useState<"zimbabwe" | "international">("zimbabwe");
@@ -30,10 +30,31 @@ export function WhistleblowerPageView() {
     const fd = new FormData(form);
 
     const evidence = fd.get("evidence");
-    const evidenceMeta =
-      evidence instanceof File && evidence.size > 0
-        ? { fileName: evidence.name, fileSize: evidence.size, fileType: evidence.type }
-        : undefined;
+    let evidenceMeta:
+      | {
+          fileName: string;
+          fileSize: number;
+          fileType: string;
+          mediaId?: number | string;
+          url?: string | null;
+        }
+      | undefined;
+
+    if (evidence instanceof File && evidence.size > 0) {
+      const uploaded = await uploadFormAttachment(evidence);
+      if (!uploaded.ok) {
+        setSubmitting(false);
+        setError(uploaded.error);
+        return;
+      }
+      evidenceMeta = {
+        fileName: uploaded.file.filename || evidence.name,
+        fileSize: uploaded.file.filesize || evidence.size,
+        fileType: uploaded.file.mimeType || evidence.type,
+        mediaId: uploaded.file.id,
+        url: uploaded.file.url,
+      };
+    }
 
     const result = await submitToPayload({
       type: "whistleblower",
@@ -284,7 +305,7 @@ export function WhistleblowerPageView() {
                 <Field
                   label="Supporting evidence"
                   htmlFor="evidence"
-                  hint="PDF, Word, or images (optional)"
+                  hint="PDF, Word, or images up to 4.5 MB (optional)"
                   className="sm:col-span-2"
                 >
                   <input

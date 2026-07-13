@@ -51,14 +51,19 @@ function getS3Credentials() {
   };
 }
 
+/** Bucket name — defaults to tnf-media when other S3 credentials are present. */
+export function getS3Bucket(): string {
+  return process.env.S3_BUCKET?.trim() || "tnf-media";
+}
+
 export function isS3StorageEnabled(): boolean {
   const { accessKeyId, secretAccessKey } = getS3Credentials();
-  return Boolean(process.env.S3_BUCKET && accessKeyId && secretAccessKey && getS3Endpoint());
+  return Boolean(getS3Bucket() && accessKeyId && secretAccessKey && getS3Endpoint());
 }
 
 export function getMissingS3EnvVars(): string[] {
   const missing: string[] = [];
-  if (!process.env.S3_BUCKET) missing.push("S3_BUCKET");
+  if (!getS3Bucket()) missing.push("S3_BUCKET");
   const { accessKeyId, secretAccessKey } = getS3Credentials();
   if (!accessKeyId) missing.push("S3_ACCESS_KEY_ID");
   if (!secretAccessKey) missing.push("S3_SECRET_ACCESS_KEY");
@@ -68,7 +73,7 @@ export function getMissingS3EnvVars(): string[] {
 
 function getPublicMediaUrl(filename: string, prefix?: string): string {
   const base = getSupabaseUrl();
-  const bucket = process.env.S3_BUCKET ?? "";
+  const bucket = getS3Bucket();
   const key = prefix ? `${prefix}/${filename}` : filename;
   return `${base}/storage/v1/object/public/${bucket}/${key}`;
 }
@@ -78,6 +83,7 @@ export function getS3StoragePlugin() {
   const endpoint = getS3Endpoint();
   const credentials = getS3Credentials();
   const enabled = isS3StorageEnabled();
+  const bucket = getS3Bucket();
 
   return s3Storage({
     enabled,
@@ -93,7 +99,7 @@ export function getS3StoragePlugin() {
         }) => getPublicMediaUrl(filename, prefix ?? undefined),
       },
     },
-    bucket: process.env.S3_BUCKET ?? "",
+    bucket,
     clientUploads:
       enabled &&
       (process.env.S3_CLIENT_UPLOADS === "true" ||

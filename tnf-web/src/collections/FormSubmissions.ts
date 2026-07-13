@@ -47,15 +47,10 @@ export const FormSubmissions: CollectionConfig = {
     useAsTitle: "summary",
     defaultColumns: ["summary", "type", "email", "category", "createdAt"],
     listSearchableFields: ["summary", "name", "email", "subject", "message", "category"],
+    // Keep reachable for "Open full record", but park it under System (inboxes live in Form Submissions nav).
+    group: "System",
     description:
-      "Standalone inboxes for Contact, Feedback, Whistleblower, and Newsletter. Use View or Delete on each entry.",
-    components: {
-      views: {
-        list: {
-          Component: "./components/admin/FormSubmissionsList",
-        },
-      },
-    },
+      "All website form entries (Contact, Feedback, Whistleblower, Newsletter). Prefer the Form Submissions inboxes in the sidebar for day-to-day use.",
   },
   access: {
     read: ({ req }) => Boolean(req.user),

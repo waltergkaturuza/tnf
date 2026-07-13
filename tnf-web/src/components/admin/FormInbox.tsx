@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import Link from "next/link";
 
+export type FormInboxKey = "contact" | "feedback" | "whistleblower" | "newsletter";
+
 type Submission = {
   id: number | string;
   type?: string;
@@ -23,40 +25,43 @@ type Submission = {
   dateOfIncident?: string | null;
   preferredContact?: string | null;
   anonymous?: boolean | null;
+  metadata?: Record<string, unknown> | null;
   createdAt?: string;
-  updatedAt?: string;
 };
 
-type FormGroup = "contact" | "feedback" | "whistleblower" | "newsletter";
-
-const GROUPS: {
-  key: FormGroup;
+export const FORM_INBOXES: {
+  key: FormInboxKey;
   title: string;
   description: string;
+  href: string;
   match: (type: string | undefined) => boolean;
 }[] = [
   {
     key: "contact",
     title: "Contact",
     description: "General enquiries from the public contact form.",
+    href: "/admin/forms/contact",
     match: (type) => type === "contact",
   },
   {
     key: "feedback",
     title: "Feedback",
     description: "Economic, social, and labour feedback submissions.",
+    href: "/admin/forms/feedback",
     match: (type) => Boolean(type?.startsWith("feedback-")),
   },
   {
     key: "whistleblower",
     title: "Whistleblower",
     description: "Confidential incident reports.",
+    href: "/admin/forms/whistleblower",
     match: (type) => type === "whistleblower",
   },
   {
     key: "newsletter",
     title: "Newsletter",
     description: "Email subscriptions from the website footer.",
+    href: "/admin/forms/newsletter",
     match: (type) => type === "newsletter",
   },
 ];
@@ -104,13 +109,31 @@ function DetailRow({ label, value }: { label: string; value?: ReactNode }) {
   );
 }
 
-function ViewModal({
-  row,
-  onClose,
-}: {
-  row: Submission;
-  onClose: () => void;
-}) {
+function getAttachmentInfo(row: Submission): { label: string; url?: string } | null {
+  const meta = row.metadata;
+  if (!meta || typeof meta !== "object") return null;
+  const attachment = (meta.attachment || meta.evidence) as
+    | { fileName?: string; url?: string; mediaId?: string | number }
+    | undefined;
+  if (!attachment) return null;
+  const label = attachment.fileName || "Attached file";
+  if (attachment.url) return { label, url: attachment.url };
+  if (attachment.mediaId != null) {
+    return { label, url: `/admin/collections/media/${attachment.mediaId}` };
+  }
+  return { label };
+}
+
+function ViewModal({ row, onClose }: { row: Submission; onClose: () => void }) {
+  const recordHref = `/admin/collections/form-submissions/${row.id}`;
+  const attachment = getAttachmentInfo(row);
+
+  const openFullRecord = () => {
+    onClose();
+    // Hard navigation — Next Link soft-routing often no-ops inside Payload custom views.
+    window.location.assign(recordHref);
+  };
+
   return (
     <div className="tnf-forms-modal" role="dialog" aria-modal="true">
       <button type="button" className="tnf-forms-modal__backdrop" aria-label="Close" onClick={onClose} />
@@ -136,9 +159,26 @@ function ViewModal({
           <DetailRow label="Age range" value={row.ageRange} />
           <DetailRow label="Gender" value={row.gender} />
           <DetailRow label="Location" value={displayLocation(row)} />
-          <DetailRow label="Date of incident" value={row.dateOfIncident ? formatDate(row.dateOfIncident) : undefined} />
+          <DetailRow
+            label="Date of incident"
+            value={row.dateOfIncident ? formatDate(row.dateOfIncident) : undefined}
+          />
           <DetailRow label="Preferred contact" value={row.preferredContact} />
           <DetailRow label="Submitted" value={formatDate(row.createdAt)} />
+          <DetailRow
+            label="Attachment"
+            value={
+              attachment ? (
+                attachment.url ? (
+                  <a href={attachment.url} target="_blank" rel="noreferrer">
+                    {attachment.label}
+                  </a>
+                ) : (
+                  attachment.label
+                )
+              ) : undefined
+            }
+          />
           <DetailRow
             label="Message"
             value={row.message ? <div className="tnf-forms-detail__message">{row.message}</div> : undefined}
@@ -146,12 +186,9 @@ function ViewModal({
         </dl>
 
         <div className="tnf-forms-modal__actions">
-          <Link
-            className="tnf-forms-btn tnf-forms-btn--secondary"
-            href={`/admin/collections/form-submissions/${row.id}`}
-          >
+          <button type="button" className="tnf-forms-btn tnf-forms-btn--secondary" onClick={openFullRecord}>
             Open full record
-          </Link>
+          </button>
           <button type="button" className="tnf-forms-btn tnf-forms-btn--gold" onClick={onClose}>
             Done
           </button>
@@ -161,102 +198,19 @@ function ViewModal({
   );
 }
 
-function SubmissionTable({
-  group,
-  rows,
-  onView,
-  onDelete,
-  deletingId,
-}: {
-  group: (typeof GROUPS)[number];
-  rows: Submission[];
-  onView: (row: Submission) => void;
-  onDelete: (row: Submission) => void;
-  deletingId: string | number | null;
-}) {
-  const isNewsletter = group.key === "newsletter";
-  const isFeedback = group.key === "feedback";
-  const isWhistleblower = group.key === "whistleblower";
-
-  return (
-    <section className="tnf-forms-panel">
-      <div className="tnf-forms-panel__head">
-        <div>
-          <h2>{group.title}</h2>
-          <p>{group.description}</p>
-        </div>
-        <span className="tnf-forms-panel__count">{rows.length}</span>
-      </div>
-
-      {rows.length === 0 ? (
-        <p className="tnf-forms-empty">No {group.title.toLowerCase()} submissions yet.</p>
-      ) : (
-        <div className="tnf-forms-table-wrap">
-          <table className="tnf-forms-table">
-            <thead>
-              <tr>
-                {!isNewsletter && <th>Name</th>}
-                <th>Email</th>
-                {isFeedback && <th>Type</th>}
-                {!isNewsletter && <th>Category</th>}
-                {isWhistleblower && <th>Location</th>}
-                {group.key === "contact" && <th>Subject</th>}
-                <th>Submitted</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.id}>
-                  {!isNewsletter && <td>{displayName(row)}</td>}
-                  <td className="tnf-forms-table__email">{row.email || "—"}</td>
-                  {isFeedback && (
-                    <td>
-                      <span className="tnf-forms-badge">
-                        {TYPE_LABELS[row.type || ""] || row.type}
-                      </span>
-                    </td>
-                  )}
-                  {!isNewsletter && <td>{row.category || "—"}</td>}
-                  {isWhistleblower && <td>{displayLocation(row)}</td>}
-                  {group.key === "contact" && <td>{row.subject || "—"}</td>}
-                  <td>{formatDate(row.createdAt)}</td>
-                  <td>
-                    <div className="tnf-forms-actions">
-                      <button
-                        type="button"
-                        className="tnf-forms-btn tnf-forms-btn--secondary"
-                        onClick={() => onView(row)}
-                      >
-                        View
-                      </button>
-                      <button
-                        type="button"
-                        className="tnf-forms-btn tnf-forms-btn--danger"
-                        disabled={deletingId === row.id}
-                        onClick={() => onDelete(row)}
-                      >
-                        {deletingId === row.id ? "…" : "Delete"}
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </section>
-  );
-}
-
-export default function FormSubmissionsList() {
+export default function FormInbox({ formKey }: { formKey: FormInboxKey }) {
+  const inbox = FORM_INBOXES.find((item) => item.key === formKey)!;
   const [rows, setRows] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<Submission | null>(null);
   const [deletingId, setDeletingId] = useState<string | number | null>(null);
   const [search, setSearch] = useState("");
+
+  const isNewsletter = formKey === "newsletter";
+  const isFeedback = formKey === "feedback";
+  const isWhistleblower = formKey === "whistleblower";
+  const isContact = formKey === "contact";
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -267,13 +221,13 @@ export default function FormSubmissionsList() {
       });
       if (!res.ok) throw new Error("Failed to load submissions");
       const data = (await res.json()) as { docs?: Submission[] };
-      setRows(data.docs ?? []);
+      setRows((data.docs ?? []).filter((row) => inbox.match(row.type)));
     } catch {
-      setError("Could not load form submissions. Refresh and try again.");
+      setError("Could not load submissions. Refresh and try again.");
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [inbox]);
 
   useEffect(() => {
     void load();
@@ -291,16 +245,9 @@ export default function FormSubmissionsList() {
     );
   }, [rows, search]);
 
-  const grouped = useMemo(() => {
-    return GROUPS.map((group) => ({
-      group,
-      rows: filtered.filter((row) => group.match(row.type)),
-    }));
-  }, [filtered]);
-
   const handleDelete = async (row: Submission) => {
     const label = displayName(row);
-    if (!window.confirm(`Delete this ${TYPE_LABELS[row.type || ""] || "submission"} entry for ${label}?`)) {
+    if (!window.confirm(`Delete this ${inbox.title.toLowerCase()} entry for ${label}?`)) {
       return;
     }
     setDeletingId(row.id);
@@ -323,9 +270,10 @@ export default function FormSubmissionsList() {
     <div className="tnf-forms">
       <div className="tnf-forms__header">
         <div>
-          <h1>Form Submissions</h1>
+          <p className="tnf-forms__eyebrow">Form Submissions</p>
+          <h1>{inbox.title}</h1>
           <p>
-            {rows.length} total · separate inboxes for Contact, Feedback, Whistleblower, and Newsletter
+            {filtered.length} {filtered.length === 1 ? "entry" : "entries"} · {inbox.description}
           </p>
         </div>
         <button type="button" className="tnf-forms-btn tnf-forms-btn--secondary" onClick={() => void load()}>
@@ -333,11 +281,26 @@ export default function FormSubmissionsList() {
         </button>
       </div>
 
+      <nav className="tnf-forms-tabs" aria-label="Form submission types">
+        {FORM_INBOXES.map((item) => {
+          const active = item.key === formKey;
+          return (
+            <Link
+              key={item.key}
+              href={item.href}
+              className={`tnf-forms-tabs__link${active ? " is-active" : ""}`}
+            >
+              {item.title}
+            </Link>
+          );
+        })}
+      </nav>
+
       <div className="tnf-forms__toolbar">
         <input
           className="tnf-forms__search"
           type="search"
-          placeholder="Search by name, email, subject, message, or category…"
+          placeholder={`Search ${inbox.title.toLowerCase()} submissions…`}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -347,18 +310,74 @@ export default function FormSubmissionsList() {
       {error && <p className="tnf-forms-error">{error}</p>}
 
       {!loading && !error && (
-        <div className="tnf-forms__stack">
-          {grouped.map(({ group, rows: groupRows }) => (
-            <SubmissionTable
-              key={group.key}
-              group={group}
-              rows={groupRows}
-              onView={setSelected}
-              onDelete={handleDelete}
-              deletingId={deletingId}
-            />
-          ))}
-        </div>
+        <section className="tnf-forms-panel">
+          <div className="tnf-forms-panel__head">
+            <div>
+              <h2>{inbox.title}</h2>
+              <p>{inbox.description}</p>
+            </div>
+            <span className="tnf-forms-panel__count">{filtered.length}</span>
+          </div>
+
+          {filtered.length === 0 ? (
+            <p className="tnf-forms-empty">No {inbox.title.toLowerCase()} submissions yet.</p>
+          ) : (
+            <div className="tnf-forms-table-wrap">
+              <table className="tnf-forms-table">
+                <thead>
+                  <tr>
+                    {!isNewsletter && <th>Name</th>}
+                    <th>Email</th>
+                    {isFeedback && <th>Type</th>}
+                    {!isNewsletter && <th>Category</th>}
+                    {isWhistleblower && <th>Location</th>}
+                    {isContact && <th>Subject</th>}
+                    <th>Submitted</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filtered.map((row) => (
+                    <tr key={row.id}>
+                      {!isNewsletter && <td>{displayName(row)}</td>}
+                      <td className="tnf-forms-table__email">{row.email || "—"}</td>
+                      {isFeedback && (
+                        <td>
+                          <span className="tnf-forms-badge">
+                            {TYPE_LABELS[row.type || ""] || row.type}
+                          </span>
+                        </td>
+                      )}
+                      {!isNewsletter && <td>{row.category || "—"}</td>}
+                      {isWhistleblower && <td>{displayLocation(row)}</td>}
+                      {isContact && <td>{row.subject || "—"}</td>}
+                      <td>{formatDate(row.createdAt)}</td>
+                      <td>
+                        <div className="tnf-forms-actions">
+                          <button
+                            type="button"
+                            className="tnf-forms-btn tnf-forms-btn--secondary"
+                            onClick={() => setSelected(row)}
+                          >
+                            View
+                          </button>
+                          <button
+                            type="button"
+                            className="tnf-forms-btn tnf-forms-btn--danger"
+                            disabled={deletingId === row.id}
+                            onClick={() => void handleDelete(row)}
+                          >
+                            {deletingId === row.id ? "…" : "Delete"}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
       )}
 
       {selected && <ViewModal row={selected} onClose={() => setSelected(null)} />}

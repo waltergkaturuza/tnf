@@ -33,6 +33,55 @@ export type FormSubmissionPayload = {
   metadata?: Record<string, unknown>;
 };
 
+export type UploadedAttachment = {
+  id: number | string;
+  url?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+};
+
+/** Upload a form attachment to Supabase Storage via Payload Media. */
+export async function uploadFormAttachment(
+  file: File,
+): Promise<{ ok: true; file: UploadedAttachment } | { ok: false; error: string }> {
+  try {
+    const body = new FormData();
+    body.append("file", file);
+
+    const res = await fetch("/api/form-attachment", {
+      method: "POST",
+      body,
+    });
+
+    const data = (await res.json().catch(() => ({}))) as {
+      error?: string;
+      id?: number | string;
+      url?: string | null;
+      filename?: string | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+    };
+
+    if (!res.ok || data.id == null) {
+      return { ok: false, error: data.error || "File upload failed" };
+    }
+
+    return {
+      ok: true,
+      file: {
+        id: data.id,
+        url: data.url,
+        filename: data.filename,
+        mimeType: data.mimeType,
+        filesize: data.filesize,
+      },
+    };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : "Network error" };
+  }
+}
+
 export async function submitToPayload(
   data: FormSubmissionPayload,
 ): Promise<{ ok: boolean; error?: string }> {
