@@ -6,7 +6,7 @@ import { trackResourceDownload } from "@/components/analytics/AnalyticsTracker";
 import {
   RESOURCE_CATEGORY_OPTIONS,
   type ResourceListItem,
-} from "@/lib/resources";
+} from "@/lib/resources-shared";
 
 type Props = {
   resources: ResourceListItem[];

@@ -1,43 +1,16 @@
+import "server-only";
+
 import { getPayload } from "payload";
 import config from "@payload-config";
 import type { Media, Resource } from "@/payload-types";
+import {
+  RESOURCE_CATEGORY_LABELS,
+  type ResourceCategoryValue,
+  type ResourceListItem,
+} from "@/lib/resources-shared";
 
-export const RESOURCE_CATEGORY_OPTIONS = [
-  { value: "all", label: "All" },
-  { value: "annual-report", label: "Annual Reports" },
-  { value: "strategic-plan", label: "Strategic Plans" },
-  { value: "annual-performance-plan", label: "Annual Performance Plans" },
-  { value: "tnf-reports-plans", label: "TNF Reports and Plans" },
-  { value: "policy-paper", label: "Policy Papers" },
-  { value: "press-release", label: "Press Releases" },
-  { value: "other", label: "Other" },
-] as const;
-
-export type ResourceCategoryValue =
-  | "annual-report"
-  | "strategic-plan"
-  | "annual-performance-plan"
-  | "tnf-reports-plans"
-  | "policy-paper"
-  | "press-release"
-  | "other";
-
-export type ResourceListItem = {
-  id: string;
-  title: string;
-  slug: string;
-  description?: string;
-  category: ResourceCategoryValue;
-  categoryLabel: string;
-  year: string;
-  type: string;
-  size: string;
-  downloadUrl: string;
-};
-
-const CATEGORY_LABELS: Record<string, string> = Object.fromEntries(
-  RESOURCE_CATEGORY_OPTIONS.filter((o) => o.value !== "all").map((o) => [o.value, o.label]),
-);
+export type { ResourceCategoryValue, ResourceListItem };
+export { RESOURCE_CATEGORY_OPTIONS } from "@/lib/resources-shared";
 
 function formatFileSize(bytes?: number | null): string {
   if (!bytes || bytes <= 0) return "—";
@@ -74,7 +47,7 @@ export function mapResourceDoc(doc: Resource): ResourceListItem | null {
     slug: doc.slug,
     description: doc.description ?? undefined,
     category,
-    categoryLabel: CATEGORY_LABELS[category] ?? doc.category,
+    categoryLabel: RESOURCE_CATEGORY_LABELS[category] ?? doc.category,
     year: doc.year?.trim() || "—",
     type: fileTypeFromMime(document.mimeType, document.filename),
     size: formatFileSize(document.filesize),
