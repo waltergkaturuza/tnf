@@ -11,9 +11,21 @@ export type UpdateItem = {
   category: UpdateCategory;
   type: "news" | "event";
   imageUrl?: string | null;
+  /** Event registration / external CTA (from Events.registrationUrl). */
+  registrationUrl?: string | null;
 };
 
 export const UPDATE_CATEGORIES: UpdateCategory[] = ["News", "Events"];
+
+/** Ensure absolute http(s) links for external registration URLs. */
+export function normalizeExternalUrl(url: string | null | undefined): string | null {
+  if (!url) return null;
+  const trimmed = url.trim();
+  if (!trimmed) return null;
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  if (/^\/\//.test(trimmed)) return `https:${trimmed}`;
+  return `https://${trimmed}`;
+}
 
 function formatDate(iso: string): string {
   try {
@@ -149,6 +161,7 @@ export function eventsToUpdates(
     location?: string | null;
     featuredImage?: unknown;
     status?: string | null;
+    registrationUrl?: string | null;
   }>,
   upcomingOnly = false,
 ): UpdateItem[] {
@@ -165,5 +178,6 @@ export function eventsToUpdates(
       category: "Events" as const,
       type: "event" as const,
       imageUrl: getMediaUrl(e.featuredImage),
+      registrationUrl: normalizeExternalUrl(e.registrationUrl),
     }));
 }

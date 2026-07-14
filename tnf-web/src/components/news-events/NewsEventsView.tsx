@@ -50,10 +50,46 @@ function FeaturedImage({ item }: { item: UpdateItem }) {
   );
 }
 
+function ItemActions({
+  item,
+  expanded,
+  onToggleExpand,
+}: {
+  item: UpdateItem;
+  expanded: boolean;
+  onToggleExpand: () => void;
+}) {
+  const canExpand = item.excerpt.trim().length > 180;
+  return (
+    <div className="mt-6 flex flex-wrap items-center gap-3">
+      {item.registrationUrl && (
+        <a
+          href={item.registrationUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center rounded-lg bg-tnf-green px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-tnf-green/90"
+        >
+          Register →
+        </a>
+      )}
+      {canExpand && (
+        <button
+          type="button"
+          onClick={onToggleExpand}
+          className="inline-flex items-center gap-1 text-sm font-semibold text-tnf-green hover:underline"
+        >
+          {expanded ? "Show less" : "Read more →"}
+        </button>
+      )}
+    </div>
+  );
+}
+
 export function NewsEventsView({ items }: Props) {
   const [activeTab, setActiveTab] = useState<FilterTab>("all");
   const [activeCategory, setActiveCategory] = useState<UpdateCategory | "All">("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     return items.filter((item) => {
@@ -78,7 +114,19 @@ export function NewsEventsView({ items }: Props) {
     const hash = window.location.hash.replace("#", "");
     if (hash === "news") setActiveTab("news");
     else if (hash === "events") setActiveTab("events");
-  }, []);
+    else if (hash) {
+      const match = items.find((item) => item.slug === hash);
+      if (match) {
+        setActiveTab("all");
+        setActiveCategory("All");
+        setSearchQuery("");
+        setExpandedSlug(hash);
+        requestAnimationFrame(() => {
+          document.getElementById(hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    }
+  }, [items]);
 
   return (
     <div className="page-updates">
@@ -114,7 +162,10 @@ export function NewsEventsView({ items }: Props) {
         <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)] lg:gap-10 lg:px-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,380px)] xl:gap-12 xl:px-12">
           <div className="min-w-0 space-y-8">
             {featured ? (
-              <article className={`${UPDATES_CARD} min-w-0 overflow-hidden p-0`}>
+              <article
+                id={featured.slug}
+                className={`${UPDATES_CARD} min-w-0 scroll-mt-28 overflow-hidden p-0`}
+              >
                 <div className="relative">
                   <FeaturedImage item={featured} />
                   <div className="absolute left-4 top-4 flex flex-wrap gap-2">
@@ -141,15 +192,20 @@ export function NewsEventsView({ items }: Props) {
                   <h2 className="mt-4 text-xl font-bold leading-snug text-tnf-navy sm:text-2xl lg:text-3xl">
                     {featured.title}
                   </h2>
-                  <p className="about-text-justify mt-4 line-clamp-4 leading-relaxed text-slate-600">
+                  <p
+                    className={`about-text-justify mt-4 leading-relaxed text-slate-600 ${
+                      expandedSlug === featured.slug ? "" : "line-clamp-4"
+                    }`}
+                  >
                     {featured.excerpt}
                   </p>
-                  <Link
-                    href={`/news-events#${featured.slug}`}
-                    className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-tnf-green hover:text-tnf-green"
-                  >
-                    Read more →
-                  </Link>
+                  <ItemActions
+                    item={featured}
+                    expanded={expandedSlug === featured.slug}
+                    onToggleExpand={() =>
+                      setExpandedSlug((prev) => (prev === featured.slug ? null : featured.slug))
+                    }
+                  />
                 </div>
               </article>
             ) : (
@@ -162,31 +218,45 @@ export function NewsEventsView({ items }: Props) {
 
             {rest.length > 0 && (
               <div className="space-y-5">
-                {rest.map((item) => (
-                  <article
-                    key={item.id}
-                    id={item.slug}
-                    className={`${UPDATES_CARD} min-w-0 scroll-mt-28`}
-                  >
-                    <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-tnf-navy/70">
-                      <span className="text-tnf-green">{item.category}</span>
-                      <span>·</span>
-                      <time dateTime={item.dateISO}>{item.dateDisplay}</time>
-                      {item.location && (
-                        <>
-                          <span>·</span>
-                          <span className="normal-case text-tnf-green">{item.location}</span>
-                        </>
-                      )}
-                    </div>
-                    <h3 className="mt-2 text-lg font-bold leading-snug text-tnf-navy sm:text-xl">
-                      {item.title}
-                    </h3>
-                    <p className="about-text-justify mt-2 line-clamp-2 text-sm text-slate-600">
-                      {item.excerpt}
-                    </p>
-                  </article>
-                ))}
+                {rest.map((item) => {
+                  const expanded = expandedSlug === item.slug;
+                  return (
+                    <article
+                      key={item.id}
+                      id={item.slug}
+                      className={`${UPDATES_CARD} min-w-0 scroll-mt-28`}
+                    >
+                      <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-tnf-navy/70">
+                        <span className="text-tnf-green">{item.category}</span>
+                        <span>·</span>
+                        <time dateTime={item.dateISO}>{item.dateDisplay}</time>
+                        {item.location && (
+                          <>
+                            <span>·</span>
+                            <span className="normal-case text-tnf-green">{item.location}</span>
+                          </>
+                        )}
+                      </div>
+                      <h3 className="mt-2 text-lg font-bold leading-snug text-tnf-navy sm:text-xl">
+                        {item.title}
+                      </h3>
+                      <p
+                        className={`about-text-justify mt-2 text-sm text-slate-600 ${
+                          expanded ? "" : "line-clamp-2"
+                        }`}
+                      >
+                        {item.excerpt}
+                      </p>
+                      <ItemActions
+                        item={item}
+                        expanded={expanded}
+                        onToggleExpand={() =>
+                          setExpandedSlug((prev) => (prev === item.slug ? null : item.slug))
+                        }
+                      />
+                    </article>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -224,6 +294,7 @@ export function NewsEventsView({ items }: Props) {
                           setSearchQuery("");
                           setActiveCategory("All");
                           setActiveTab("all");
+                          setExpandedSlug(post.slug);
                         }}
                       >
                         <p className="line-clamp-2 text-sm font-medium text-tnf-navy group-hover:text-tnf-green">
