@@ -26,6 +26,8 @@ function matchesSearch(item: UpdateItem, query: string): boolean {
 
 function FeaturedImage({ item }: { item: UpdateItem }) {
   if (item.imageUrl) {
+    const external =
+      item.imageUrl.startsWith("http://") || item.imageUrl.startsWith("https://");
     return (
       <div className="relative aspect-[16/9] w-full overflow-hidden">
         <Image
@@ -34,7 +36,7 @@ function FeaturedImage({ item }: { item: UpdateItem }) {
           fill
           className="object-cover"
           sizes="(max-width: 1024px) 100vw, 66vw"
-          unoptimized={item.imageUrl.startsWith("http://localhost")}
+          unoptimized={external}
         />
       </div>
     );

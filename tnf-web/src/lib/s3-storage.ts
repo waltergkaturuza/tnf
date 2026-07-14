@@ -71,10 +71,20 @@ export function getMissingS3EnvVars(): string[] {
   return missing;
 }
 
-function getPublicMediaUrl(filename: string, prefix?: string): string {
+/**
+ * Media URLs point at Payload's file route. Payload streams from S3 with credentials,
+ * so images/docs work even when the Supabase bucket is private.
+ */
+function getPayloadMediaFileUrl(filename: string): string {
+  const path = `/api/media/file/${encodeURIComponent(filename)}`;
+  const base = (process.env.NEXT_PUBLIC_SERVER_URL || "").replace(/\/$/, "");
+  return base ? `${base}${path}` : path;
+}
+
+/** Optional public Storage URL (downloads only work if the bucket itself is public). */
+export function getPublicMediaUrl(filename: string, prefix?: string): string {
   const base = getSupabaseUrl();
   const bucket = getS3Bucket();
-  // Strip leading/trailing slashes so we never produce `.../public/tnf-media//file`.
   const safePrefix = (prefix || "").replace(/^\/+|\/+$/g, "");
   const safeName = filename.replace(/^\/+/, "");
   const key = safePrefix ? `${safePrefix}/${safeName}` : safeName;
@@ -94,14 +104,9 @@ export function getS3StoragePlugin() {
     alwaysInsertFields: true,
     collections: {
       media: {
-        disablePayloadAccessControl: true,
-        generateFileURL: ({
-          filename,
-          prefix,
-        }: {
-          filename: string;
-          prefix?: string | null;
-        }) => getPublicMediaUrl(filename, prefix ?? undefined),
+        // Stream via /api/media/file/... (private buckets OK). Avoid /object/public/ URLs.
+        generateFileURL: ({ filename }: { filename: string }) =>
+          getPayloadMediaFileUrl(filename),
       },
     },
     bucket,

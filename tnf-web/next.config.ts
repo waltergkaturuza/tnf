@@ -1,10 +1,39 @@
 import type { NextConfig } from "next";
 import { withPayload } from "@payloadcms/next/withPayload";
 
+function supabaseHostname(): string | null {
+  const raw =
+    process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    process.env.SUPABASE_URL ||
+    "";
+  try {
+    return raw ? new URL(raw).hostname : null;
+  } catch {
+    return null;
+  }
+}
+
+const supabaseHost = supabaseHostname();
+
 const nextConfig: NextConfig = {
   eslint: { ignoreDuringBuilds: true },
   images: {
-    remotePatterns: [],
+    remotePatterns: [
+      ...(supabaseHost
+        ? [
+            {
+              protocol: "https" as const,
+              hostname: supabaseHost,
+              pathname: "/storage/v1/object/**",
+            },
+          ]
+        : []),
+      {
+        protocol: "https" as const,
+        hostname: "*.supabase.co",
+        pathname: "/storage/v1/object/**",
+      },
+    ],
   },
   webpack: (webpackConfig) => {
     webpackConfig.resolve = webpackConfig.resolve || {};
