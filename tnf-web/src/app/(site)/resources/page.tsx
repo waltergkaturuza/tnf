@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ResourcesLibrary } from "@/components/resources/ResourcesLibrary";
 import { SubpageLayout } from "@/components/layout/SubpageLayout";
+import { getPublishedDownloads } from "@/lib/downloads";
 import { getPublishedGalleryItems } from "@/lib/gallery";
 import { getPublishedResources } from "@/lib/resources";
 
@@ -14,12 +15,82 @@ export const dynamic = "force-dynamic";
 
 const GLASS_CARD = "about-card p-6 lg:p-8";
 
+function DownloadCard({
+  id,
+  title,
+  description,
+  type,
+  size,
+  downloadUrl,
+}: {
+  id: string;
+  title: string;
+  description?: string;
+  type: string;
+  size: string;
+  downloadUrl: string;
+}) {
+  return (
+    <a
+      key={id}
+      href={downloadUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="about-card flex overflow-hidden p-0 transition hover:shadow-md"
+    >
+      <div className="flex h-28 w-24 shrink-0 items-center justify-center bg-slate-100">
+        <Image src="/file.svg" alt="" width={48} height={48} className="opacity-60" />
+      </div>
+      <div className="flex min-w-0 flex-1 flex-col justify-between p-4">
+        <div>
+          <h3 className="line-clamp-2 font-semibold text-tnf-navy">{title}</h3>
+          {description && (
+            <p className="mt-1 line-clamp-2 text-sm text-slate-600">{description}</p>
+          )}
+          <p className="mt-1.5 text-xs font-medium text-tnf-navy/70">
+            {type} · {size}
+          </p>
+        </div>
+        <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-tnf-green">
+          Download
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+            />
+          </svg>
+        </span>
+      </div>
+    </a>
+  );
+}
+
 export default async function ResourcesPage() {
-  const [resources, galleryItems] = await Promise.all([
+  const [resources, galleryItems, downloads] = await Promise.all([
     getPublishedResources(),
     getPublishedGalleryItems(),
+    getPublishedDownloads(),
   ]);
-  const otherDownloads = resources.filter((r) => r.category === "other");
+
+  // Prefer dedicated Downloads collection; also include Resources marked "Other".
+  const otherFromResources = resources
+    .filter((r) => r.category === "other")
+    .map((r) => ({
+      id: `resource-${r.id}`,
+      title: r.title,
+      description: r.description,
+      type: r.type,
+      size: r.size,
+      downloadUrl: r.downloadUrl,
+    }));
+
+  const downloadIds = new Set(downloads.map((d) => d.downloadUrl));
+  const otherDownloads = [
+    ...downloads,
+    ...otherFromResources.filter((r) => !downloadIds.has(r.downloadUrl)),
+  ];
 
   return (
     <SubpageLayout
@@ -89,25 +160,16 @@ export default async function ResourcesPage() {
         </p>
         {otherDownloads.length > 0 ? (
           <div className="mx-auto mt-8 grid max-w-4xl gap-4 sm:grid-cols-2">
-            {otherDownloads.map((resource) => (
-              <a
-                key={resource.id}
-                href={resource.downloadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${GLASS_CARD} block transition hover:shadow-md`}
-              >
-                <h3 className="font-semibold text-tnf-navy">{resource.title}</h3>
-                <p className="mt-1 text-xs font-medium text-tnf-navy/70">
-                  {resource.type} · {resource.size}
-                </p>
-              </a>
+            {otherDownloads.map((item) => (
+              <DownloadCard key={item.id} {...item} />
             ))}
           </div>
         ) : (
           <div className={`${GLASS_CARD} mx-auto mt-8 max-w-xl text-center`}>
             <p className="text-sm text-slate-600">
-              Additional downloads will appear here. For specific documents, please{" "}
+              Files will appear here once published in{" "}
+              <span className="font-medium text-tnf-navy">Admin → Downloads</span>
+              . For specific documents, please{" "}
               <Link href="/contact" className="font-medium text-tnf-green hover:underline">
                 contact the Secretariat
               </Link>

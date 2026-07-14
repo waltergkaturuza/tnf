@@ -26,6 +26,7 @@ import { Events } from "./collections/Events.js";
 import { Resources } from "./collections/Resources.js";
 import { Partners } from "./collections/Partners.js";
 import { GalleryItems } from "./collections/GalleryItems.js";
+import { Downloads } from "./collections/Downloads.js";
 import { FormSubmissions } from "./collections/FormSubmissions.js";
 import { AnalyticsEvents } from "./collections/AnalyticsEvents.js";
 import { getMissingS3EnvVars, getS3Bucket, getS3StoragePlugin, isRunningOnVercel, isS3StorageEnabled } from "./lib/s3-storage.js";
@@ -157,7 +158,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Events, Resources, Partners, GalleryItems, FormSubmissions, AnalyticsEvents],
+  collections: [Users, Media, Posts, Events, Resources, Partners, GalleryItems, Downloads, FormSubmissions, AnalyticsEvents],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "CHANGE_ME_IN_PRODUCTION",
   typescript: {

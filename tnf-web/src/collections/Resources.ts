@@ -6,6 +6,8 @@ export const Resources: CollectionConfig = {
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "category", "year", "status"],
+    description:
+      "Reports and plans for the Resources library. For forms, charters, and other misc files shown under Other Downloads, use Admin → Downloads instead.",
   },
   access: {
     read: () => true,

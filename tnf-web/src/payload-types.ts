@@ -74,6 +74,7 @@ export interface Config {
     resources: Resource;
     partners: Partner;
     'gallery-items': GalleryItem;
+    downloads: Download;
     'form-submissions': FormSubmission;
     'analytics-events': AnalyticsEvent;
     'payload-kv': PayloadKv;
@@ -90,6 +91,7 @@ export interface Config {
     resources: ResourcesSelect<false> | ResourcesSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
     'gallery-items': GalleryItemsSelect<false> | GalleryItemsSelect<true>;
+    downloads: DownloadsSelect<false> | DownloadsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     'analytics-events': AnalyticsEventsSelect<false> | AnalyticsEventsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -325,6 +327,32 @@ export interface GalleryItem {
   createdAt: string;
 }
 /**
+ * Files shown under Resources → Other Downloads.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "downloads".
+ */
+export interface Download {
+  id: number;
+  title: string;
+  slug: string;
+  /**
+   * Optional short note shown under the title.
+   */
+  description?: string | null;
+  /**
+   * PDF, Word, or other downloadable file.
+   */
+  file: number | Media;
+  /**
+   * Lower numbers appear first.
+   */
+  sortOrder?: number | null;
+  status?: ('draft' | 'published') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Contact, feedback, and whistleblower submissions
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -454,6 +482,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'gallery-items';
         value: number | GalleryItem;
+      } | null)
+    | ({
+        relationTo: 'downloads';
+        value: number | Download;
       } | null)
     | ({
         relationTo: 'form-submissions';
@@ -621,6 +653,20 @@ export interface GalleryItemsSelect<T extends boolean = true> {
   image?: T;
   alt?: T;
   linkUrl?: T;
+  sortOrder?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "downloads_select".
+ */
+export interface DownloadsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  description?: T;
+  file?: T;
   sortOrder?: T;
   status?: T;
   updatedAt?: T;
