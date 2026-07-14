@@ -18,7 +18,14 @@ export type HomeEventCard = {
   date: string;
   location: string;
   month: string;
+  imageUrl?: string | null;
 };
+
+function getMediaUrl(media: unknown): string | null {
+  if (!media || typeof media !== "object") return null;
+  const m = media as { url?: string | null };
+  return m.url?.trim() || null;
+}
 
 /** Latest published posts for homepage (strictly top N). */
 export async function getLatestNewsCards(
@@ -69,7 +76,7 @@ export async function getUpcomingEventCards(
       },
       sort: "startDate",
       limit,
-      depth: 0,
+      depth: 1,
       overrideAccess: true,
     });
 
@@ -83,7 +90,7 @@ export async function getUpcomingEventCards(
               where: { status: { equals: "published" } },
               sort: "-startDate",
               limit,
-              depth: 0,
+              depth: 1,
               overrideAccess: true,
             })
           ).docs;
@@ -100,6 +107,7 @@ export async function getUpcomingEventCards(
         month: d
           ? d.toLocaleDateString("en-GB", { month: "short" }).toUpperCase()
           : "TBA",
+        imageUrl: getMediaUrl(e.featuredImage),
       };
     });
   } catch {
