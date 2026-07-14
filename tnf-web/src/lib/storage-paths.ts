@@ -16,6 +16,7 @@ export const STORAGE_FOLDERS = [
   { label: "Partners", value: "partners" },
   { label: "News / Posts", value: "news" },
   { label: "Events", value: "events" },
+  { label: "Gallery", value: "gallery" },
 ] as const;
 
 export type StorageFolder = (typeof STORAGE_FOLDERS)[number]["value"];

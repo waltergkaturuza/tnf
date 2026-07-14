@@ -1,8 +1,45 @@
 import Image from "next/image";
-import { siteConfig } from "@/lib/site-config";
+import { getPublishedGalleryItems, type GalleryPhoto } from "@/lib/gallery";
 
-export function PhotoGallery() {
-  const images = siteConfig.galleryImages ?? [];
+function GalleryFigure({ item }: { item: GalleryPhoto }) {
+  const external = item.src.startsWith("http://") || item.src.startsWith("https://");
+  const figure = (
+    <figure className="gallery-card group overflow-hidden">
+      <div className="relative aspect-[4/3] overflow-hidden sm:aspect-[16/10]">
+        <Image
+          src={item.src}
+          alt={item.alt}
+          fill
+          unoptimized={external || item.src.startsWith("/api/")}
+          className="object-cover transition-transform duration-500 group-hover:scale-105 group-active:scale-105"
+          sizes="(max-width: 640px) 100vw, 50vw"
+        />
+      </div>
+      <figcaption className="gallery-card__caption border-t border-white/40 px-5 py-3 text-base font-semibold text-tnf-navy sm:px-7 sm:py-4 sm:text-lg">
+        {item.caption}
+      </figcaption>
+    </figure>
+  );
+
+  if (item.href) {
+    return (
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-tnf-green focus-visible:ring-offset-2"
+      >
+        {figure}
+      </a>
+    );
+  }
+
+  return figure;
+}
+
+export async function PhotoGallery() {
+  const images = await getPublishedGalleryItems();
+  if (images.length === 0) return null;
 
   return (
     <section className="gallery-section py-10 sm:py-14">
@@ -18,21 +55,7 @@ export function PhotoGallery() {
 
         <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 sm:gap-8 lg:gap-10">
           {images.map((img) => (
-            <figure key={img.src} className="gallery-card group overflow-hidden">
-              <div className="relative aspect-[4/3] overflow-hidden sm:aspect-[16/10]">
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  unoptimized
-                  className="object-cover transition-transform duration-500 group-hover:scale-105 group-active:scale-105"
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                />
-              </div>
-              <figcaption className="gallery-card__caption border-t border-white/40 px-5 py-3 text-base font-semibold text-tnf-navy sm:px-7 sm:py-4 sm:text-lg">
-                {img.caption}
-              </figcaption>
-            </figure>
+            <GalleryFigure key={img.id} item={img} />
           ))}
         </div>
       </div>

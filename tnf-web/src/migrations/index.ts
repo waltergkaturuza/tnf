@@ -7,6 +7,7 @@ import * as migration_20260713_partners_slug from "./20260713_partners_slug";
 import * as migration_20260713_form_submissions_newsletter from "./20260713_form_submissions_newsletter";
 import * as migration_20260713_media_storage_folders from "./20260713_media_storage_folders";
 import * as migration_20260713_locked_documents_rels from "./20260713_locked_documents_rels";
+import * as migration_20260714_gallery_items from "./20260714_gallery_items";
 
 export const migrations = [
   {
@@ -53,5 +54,10 @@ export const migrations = [
     up: migration_20260713_locked_documents_rels.up,
     down: migration_20260713_locked_documents_rels.down,
     name: "20260713_locked_documents_rels",
+  },
+  {
+    up: migration_20260714_gallery_items.up,
+    down: migration_20260714_gallery_items.down,
+    name: "20260714_gallery_items",
   },
 ];

@@ -25,6 +25,7 @@ import { Posts } from "./collections/Posts.js";
 import { Events } from "./collections/Events.js";
 import { Resources } from "./collections/Resources.js";
 import { Partners } from "./collections/Partners.js";
+import { GalleryItems } from "./collections/GalleryItems.js";
 import { FormSubmissions } from "./collections/FormSubmissions.js";
 import { AnalyticsEvents } from "./collections/AnalyticsEvents.js";
 import { getMissingS3EnvVars, getS3Bucket, getS3StoragePlugin, isRunningOnVercel, isS3StorageEnabled } from "./lib/s3-storage.js";
@@ -115,8 +116,8 @@ export default buildConfig({
     meta: {
       title: "TNF Content Manager",
       titleSuffix: " | TNF Admin",
-      description:
-        "Tripartite Negotiating Forum content management for news, events, media, partners, and resources.",
+        description:
+          "Tripartite Negotiating Forum content management for news, events, media, partners, gallery, and resources.",
     },
     components: {
       graphics: {
@@ -156,7 +157,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Events, Resources, Partners, FormSubmissions, AnalyticsEvents],
+  collections: [Users, Media, Posts, Events, Resources, Partners, GalleryItems, FormSubmissions, AnalyticsEvents],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "CHANGE_ME_IN_PRODUCTION",
   typescript: {

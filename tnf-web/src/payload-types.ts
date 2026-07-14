@@ -73,6 +73,7 @@ export interface Config {
     events: Event;
     resources: Resource;
     partners: Partner;
+    'gallery-items': GalleryItem;
     'form-submissions': FormSubmission;
     'analytics-events': AnalyticsEvent;
     'payload-kv': PayloadKv;
@@ -88,6 +89,7 @@ export interface Config {
     events: EventsSelect<false> | EventsSelect<true>;
     resources: ResourcesSelect<false> | ResourcesSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
+    'gallery-items': GalleryItemsSelect<false> | GalleryItemsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     'analytics-events': AnalyticsEventsSelect<false> | AnalyticsEventsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -160,7 +162,7 @@ export interface Media {
   /**
    * Top-level bucket folder (resources, media, feedback, …).
    */
-  folder: 'media' | 'resources' | 'feedback' | 'whistleblower' | 'contact' | 'partners' | 'news' | 'events';
+  folder: 'media' | 'resources' | 'feedback' | 'whistleblower' | 'contact' | 'partners' | 'news' | 'events' | 'gallery';
   /**
    * Subfolder under the chosen folder (e.g. annual-report, Informalisation). Leave blank for a general folder.
    */
@@ -282,6 +284,38 @@ export interface Partner {
    * Optional link when the logo is clicked (include https://).
    */
   websiteUrl?: string | null;
+  /**
+   * Lower numbers appear first.
+   */
+  sortOrder?: number | null;
+  status?: ('draft' | 'published') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Photos shown in TNF in Action (homepage) and Resources → Gallery.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-items".
+ */
+export interface GalleryItem {
+  id: number;
+  /**
+   * Short title under the photo (e.g. Social dialogue in action).
+   */
+  caption: string;
+  /**
+   * Photo for the gallery. Prefer landscape images (roughly 4:3 or 16:10).
+   */
+  image: number | Media;
+  /**
+   * Accessibility text. Defaults to the caption if left blank.
+   */
+  alt?: string | null;
+  /**
+   * Optional link when the photo is clicked (include https://).
+   */
+  linkUrl?: string | null;
   /**
    * Lower numbers appear first.
    */
@@ -416,6 +450,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'partners';
         value: number | Partner;
+      } | null)
+    | ({
+        relationTo: 'gallery-items';
+        value: number | GalleryItem;
       } | null)
     | ({
         relationTo: 'form-submissions';
@@ -569,6 +607,20 @@ export interface PartnersSelect<T extends boolean = true> {
   logo?: T;
   lightLogo?: T;
   websiteUrl?: T;
+  sortOrder?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-items_select".
+ */
+export interface GalleryItemsSelect<T extends boolean = true> {
+  caption?: T;
+  image?: T;
+  alt?: T;
+  linkUrl?: T;
   sortOrder?: T;
   status?: T;
   updatedAt?: T;
