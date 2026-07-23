@@ -16,6 +16,7 @@ type Submission = {
   subject?: string | null;
   message?: string | null;
   category?: string | null;
+  question?: string | null;
   ageRange?: string | null;
   gender?: string | null;
   locationScope?: string | null;
@@ -156,6 +157,10 @@ function ViewModal({ row, onClose }: { row: Submission; onClose: () => void }) {
           <DetailRow label="Organisation" value={row.organisation} />
           <DetailRow label="Subject" value={row.subject} />
           <DetailRow label="Category" value={row.category} />
+          <DetailRow
+            label="Question"
+            value={row.question ? <div className="tnf-forms-detail__message">{row.question}</div> : undefined}
+          />
           <DetailRow label="Age range" value={row.ageRange} />
           <DetailRow label="Gender" value={row.gender} />
           <DetailRow label="Location" value={displayLocation(row)} />
@@ -237,7 +242,7 @@ export default function FormInbox({ formKey }: { formKey: FormInboxKey }) {
     const q = search.trim().toLowerCase();
     if (!q) return rows;
     return rows.filter((row) =>
-      [row.name, row.email, row.subject, row.message, row.category, row.summary, row.type]
+      [row.name, row.email, row.subject, row.message, row.category, row.question, row.summary, row.type]
         .filter(Boolean)
         .join(" ")
         .toLowerCase()

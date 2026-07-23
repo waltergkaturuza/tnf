@@ -75,6 +75,7 @@ export interface Config {
     partners: Partner;
     'gallery-items': GalleryItem;
     downloads: Download;
+    'consultation-questions': ConsultationQuestion;
     'form-submissions': FormSubmission;
     'analytics-events': AnalyticsEvent;
     'payload-kv': PayloadKv;
@@ -92,6 +93,7 @@ export interface Config {
     partners: PartnersSelect<false> | PartnersSelect<true>;
     'gallery-items': GalleryItemsSelect<false> | GalleryItemsSelect<true>;
     downloads: DownloadsSelect<false> | DownloadsSelect<true>;
+    'consultation-questions': ConsultationQuestionsSelect<false> | ConsultationQuestionsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     'analytics-events': AnalyticsEventsSelect<false> | AnalyticsEventsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -353,6 +355,41 @@ export interface Download {
   createdAt: string;
 }
 /**
+ * Admin-managed questions shown on the public Feedback Portal.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "consultation-questions".
+ */
+export interface ConsultationQuestion {
+  id: number;
+  /**
+   * Internal label, e.g. Labour Act review — week 1. Not shown to the public.
+   */
+  title: string;
+  /**
+   * Heading shown above the question. Optional.
+   */
+  intro?: string | null;
+  /**
+   * The question the public answers.
+   */
+  question: string;
+  /**
+   * Which feedback form shows this question.
+   */
+  form: 'all' | 'feedback-economic' | 'feedback-social' | 'feedback-labour';
+  /**
+   * The question stops appearing after this date. Optional.
+   */
+  closingDate?: string | null;
+  /**
+   * Only Active questions appear on the website.
+   */
+  status: 'draft' | 'active' | 'archived';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Contact, feedback, and whistleblower submissions
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -384,6 +421,10 @@ export interface FormSubmission {
    * Issue category (feedback forms)
    */
   category?: string | null;
+  /**
+   * Consultation question this submission answered (if any)
+   */
+  question?: string | null;
   /**
    * Reporter age range
    */
@@ -486,6 +527,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'downloads';
         value: number | Download;
+      } | null)
+    | ({
+        relationTo: 'consultation-questions';
+        value: number | ConsultationQuestion;
       } | null)
     | ({
         relationTo: 'form-submissions';
@@ -674,6 +719,20 @@ export interface DownloadsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "consultation-questions_select".
+ */
+export interface ConsultationQuestionsSelect<T extends boolean = true> {
+  title?: T;
+  intro?: T;
+  question?: T;
+  form?: T;
+  closingDate?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions_select".
  */
 export interface FormSubmissionsSelect<T extends boolean = true> {
@@ -686,6 +745,7 @@ export interface FormSubmissionsSelect<T extends boolean = true> {
   subject?: T;
   message?: T;
   category?: T;
+  question?: T;
   ageRange?: T;
   gender?: T;
   locationScope?: T;

@@ -19,6 +19,8 @@ export type FormSubmissionPayload = {
   subject?: string;
   message?: string;
   category?: string;
+  /** Consultation question the user answered (Digital Policy Dialogue). */
+  question?: string;
   phone?: string;
   organisation?: string;
   ageRange?: string;
@@ -98,6 +100,7 @@ export async function submitToPayload(
       subject: data.subject?.trim() || undefined,
       message: data.message?.trim() || undefined,
       category: data.category?.trim() || undefined,
+      question: data.question?.trim() || undefined,
       phone: data.phone?.trim() || undefined,
       organisation: data.organisation?.trim() || undefined,
       ageRange: data.ageRange || undefined,

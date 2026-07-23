@@ -46,7 +46,7 @@ export const FormSubmissions: CollectionConfig = {
   admin: {
     useAsTitle: "summary",
     defaultColumns: ["summary", "type", "email", "category", "createdAt"],
-    listSearchableFields: ["summary", "name", "email", "subject", "message", "category"],
+    listSearchableFields: ["summary", "name", "email", "subject", "message", "category", "question"],
     // Keep reachable for "Open full record", but park it under System (inboxes live in Form Submissions nav).
     group: "System",
     description:
@@ -101,7 +101,9 @@ export const FormSubmissions: CollectionConfig = {
         if (!data.email || !String(data.email).includes("@")) {
           throw new APIError("A valid email address is required.", 400);
         }
-        if (!data.category || !String(data.category).trim()) {
+        const hasCategory = Boolean(data.category && String(data.category).trim());
+        const hasQuestion = Boolean(data.question && String(data.question).trim());
+        if (!hasCategory && !hasQuestion) {
           throw new APIError("Category is required.", 400);
         }
         if (!data.message || String(data.message).trim().length < 10) {
@@ -208,6 +210,13 @@ export const FormSubmissions: CollectionConfig = {
       type: "text",
       admin: {
         description: "Issue category (feedback / contact forms)",
+      },
+    },
+    {
+      name: "question",
+      type: "textarea",
+      admin: {
+        description: "Consultation question this submission answered (if any)",
       },
     },
     {

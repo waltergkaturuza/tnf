@@ -7,6 +7,7 @@ import { AGE_RANGES, GENDER_OPTIONS, ZIM_PROVINCES } from "@/components/forms/lo
 import { formInputClass } from "@/components/forms/form-styles";
 import { SubpageLayout } from "@/components/layout/SubpageLayout";
 import { submitToPayload, uploadFormAttachment, type FormSubmissionType } from "@/lib/submit-form";
+import type { ActiveConsultationQuestions } from "@/lib/consultation-shared";
 
 const economicCategories = [
   "Informalisation",
@@ -41,12 +42,18 @@ const ISSUE_TYPES = [
   { id: "labour" as const, label: "Labour Issue" },
 ];
 
-export function FeedbackPageView() {
+export function FeedbackPageView({
+  questions,
+}: {
+  questions?: ActiveConsultationQuestions;
+}) {
   const [issueType, setIssueType] = useState<"economic" | "social" | "labour">("economic");
   const [locationScope, setLocationScope] = useState<"zimbabwe" | "international">("zimbabwe");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const activeQuestion = questions?.[issueType];
 
   const categories =
     issueType === "economic"
@@ -79,7 +86,7 @@ export function FeedbackPageView() {
       const uploaded = await uploadFormAttachment(attachment, {
         formType: `feedback-${issueType}`,
         folder: "feedback",
-        category: category || issueType,
+        category: category || (activeQuestion ? "consultation" : issueType),
       });
       if (!uploaded.ok) {
         setSubmitting(false);
@@ -100,7 +107,8 @@ export function FeedbackPageView() {
       name: fd.get("name") as string,
       email: fd.get("email") as string,
       subject: (fd.get("subject") as string) || undefined,
-      category: fd.get("category") as string,
+      category: activeQuestion ? "Consultation" : (fd.get("category") as string),
+      question: activeQuestion?.question,
       message: fd.get("details") as string,
       phone: (fd.get("phone") as string) || undefined,
       organisation: (fd.get("organisation") as string) || undefined,
@@ -163,6 +171,24 @@ export function FeedbackPageView() {
               ))}
             </div>
           </div>
+
+          {activeQuestion && (
+            <div className="border-b border-tnf-green/20 bg-emerald-50/70 px-6 py-6 sm:px-8">
+              <p className="text-xs font-bold uppercase tracking-wide text-tnf-green">
+                {activeQuestion.intro || "TNF Digital Policy Dialogue"}
+              </p>
+              <p className="mt-2 text-sm font-semibold text-tnf-navy">This Week&apos;s Question</p>
+              <p className="mt-2 text-lg font-semibold leading-snug text-tnf-navy">
+                {activeQuestion.question}
+              </p>
+              <p className="mt-3 text-sm text-slate-600">
+                Answer in the <span className="font-semibold">Your response</span> box below and submit.
+                {activeQuestion.closingDateDisplay && (
+                  <> Consultation closes: <span className="font-semibold">{activeQuestion.closingDateDisplay}</span>.</>
+                )}
+              </p>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-8 p-6 sm:p-8">
             <section>
@@ -263,27 +289,46 @@ export function FeedbackPageView() {
             </section>
 
             <section>
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-tnf-green">Your report</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-tnf-green">
+                {activeQuestion ? "Your response" : "Your report"}
+              </h2>
               <div className="mt-4 grid gap-5 sm:grid-cols-2">
-                <Field label="Category" htmlFor="category" required>
-                  <select id="category" name="category" required className={formInputClass}>
-                    {categories.map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    ))}
-                  </select>
-                </Field>
-                <Field label="Subject / short title" htmlFor="subject" hint="Brief summary of the issue">
+                {!activeQuestion && (
+                  <Field label="Category" htmlFor="category" required>
+                    <select id="category" name="category" required className={formInputClass}>
+                      {categories.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                  </Field>
+                )}
+                <Field
+                  label="Subject / short title"
+                  htmlFor="subject"
+                  hint={activeQuestion ? "Optional short title for your response" : "Brief summary of the issue"}
+                  className={activeQuestion ? "sm:col-span-2" : undefined}
+                >
                   <input id="subject" name="subject" type="text" className={formInputClass} />
                 </Field>
-                <Field label="Details" htmlFor="details" required className="sm:col-span-2">
+                <Field
+                  label={activeQuestion ? "Your response" : "Details"}
+                  htmlFor="details"
+                  required
+                  className="sm:col-span-2"
+                  hint={activeQuestion ? activeQuestion.question : undefined}
+                >
                   <textarea
                     id="details"
                     name="details"
                     rows={5}
                     required
-                    placeholder="Describe the issue, who is affected, and any outcomes you are seeking..."
+                    placeholder={
+                      activeQuestion
+                        ? "Type your answer to the consultation question here..."
+                        : "Describe the issue, who is affected, and any outcomes you are seeking..."
+                    }
                     className={formInputClass}
                   />
                 </Field>
