@@ -130,6 +130,216 @@ export function FeedbackPageView({
     else setError(result.error || "Something went wrong. Please try again.");
   };
 
+  const aboutSection = (
+    <section>
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-tnf-green">About you</h2>
+      <div className="mt-4 rounded-lg border border-slate-100 bg-slate-50/80 px-4 py-4">
+        <label className="flex cursor-pointer items-start gap-3">
+          <input
+            type="checkbox"
+            checked={anonymous}
+            onChange={(e) => setAnonymous(e.target.checked)}
+            className="mt-1 rounded border-slate-300 text-tnf-green focus:ring-tnf-green"
+          />
+          <span className="text-sm text-slate-700">
+            <span className="font-semibold text-tnf-navy">Submit anonymously</span>. We will not require your
+            name, email, or phone number.
+          </span>
+        </label>
+      </div>
+
+      <div className="mt-5 grid gap-5 sm:grid-cols-2">
+        <Field label="Full name" htmlFor="name" required={!anonymous}>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required={!anonymous}
+            disabled={anonymous}
+            autoComplete="name"
+            className={`${formInputClass} disabled:cursor-not-allowed disabled:bg-slate-100`}
+          />
+        </Field>
+        <Field label="Email address" htmlFor="email" required={!anonymous}>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required={!anonymous}
+            disabled={anonymous}
+            autoComplete="email"
+            className={`${formInputClass} disabled:cursor-not-allowed disabled:bg-slate-100`}
+          />
+        </Field>
+        <Field label="Phone number" htmlFor="phone" hint="Optional, for follow-up only">
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            disabled={anonymous}
+            autoComplete="tel"
+            className={`${formInputClass} disabled:cursor-not-allowed disabled:bg-slate-100`}
+          />
+        </Field>
+        <Field label="Sector" htmlFor="sector" hint="e.g. Banking, Research, NGO (optional)">
+          <select id="sector" name="sector" className={formInputClass} defaultValue="">
+            <option value="">Select sector</option>
+            {SECTORS.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+        </Field>
+        <Field label="Age range" htmlFor="ageRange">
+          <select id="ageRange" name="ageRange" className={formInputClass} defaultValue="">
+            <option value="">Select age range</option>
+            {AGE_RANGES.map((a) => (
+              <option key={a} value={a}>
+                {a}
+              </option>
+            ))}
+          </select>
+        </Field>
+        <Field label="Gender" htmlFor="gender">
+          <select id="gender" name="gender" className={formInputClass} defaultValue="">
+            <option value="">Select gender</option>
+            {GENDER_OPTIONS.map((g) => (
+              <option key={g} value={g}>
+                {g}
+              </option>
+            ))}
+          </select>
+        </Field>
+      </div>
+    </section>
+  );
+
+  const locationSection = (
+    <section>
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-tnf-green">Location</h2>
+      <div className="mt-4 grid gap-5 sm:grid-cols-2">
+        <Field label="Where is this issue located?" htmlFor="location-zimbabwe" className="sm:col-span-2">
+          <div className="mt-2 flex flex-wrap gap-4">
+            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 has-[:checked]:border-tnf-green has-[:checked]:bg-emerald-50">
+              <input
+                type="radio"
+                name="locationScopeUi"
+                checked={locationScope === "zimbabwe"}
+                onChange={() => setLocationScope("zimbabwe")}
+                className="text-tnf-green focus:ring-tnf-green"
+              />
+              <span className="text-sm font-medium text-tnf-navy">Zimbabwe</span>
+            </label>
+            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 has-[:checked]:border-tnf-green has-[:checked]:bg-emerald-50">
+              <input
+                type="radio"
+                name="locationScopeUi"
+                checked={locationScope === "international"}
+                onChange={() => setLocationScope("international")}
+                className="text-tnf-green focus:ring-tnf-green"
+              />
+              <span className="text-sm font-medium text-tnf-navy">International</span>
+            </label>
+          </div>
+        </Field>
+
+        {locationScope === "zimbabwe" ? (
+          <>
+            <Field label="Province" htmlFor="province">
+              <select id="province" name="province" className={formInputClass} defaultValue="">
+                <option value="">Select province</option>
+                {ZIM_PROVINCES.map((p) => (
+                  <option key={p} value={p}>
+                    {p}
+                  </option>
+                ))}
+              </select>
+            </Field>
+            <Field label="City / town / area" htmlFor="cityOrArea">
+              <input id="cityOrArea" name="cityOrArea" type="text" placeholder="e.g. Harare, Bulawayo" className={formInputClass} />
+            </Field>
+          </>
+        ) : (
+          <Field label="Country" htmlFor="country" className="sm:col-span-2">
+            <input id="country" name="country" type="text" placeholder="Country where the issue applies" className={formInputClass} />
+          </Field>
+        )}
+      </div>
+    </section>
+  );
+
+  const responseSection = (
+    <section>
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-tnf-green">
+        {activeQuestion ? "Your response" : "Your report"}
+      </h2>
+      <div className="mt-4 grid gap-5 sm:grid-cols-2">
+        {!activeQuestion && (
+          <Field label="Category" htmlFor="category" required>
+            <select id="category" name="category" required className={formInputClass}>
+              {categories.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </Field>
+        )}
+        <Field
+          label={activeQuestion ? "Your response" : "Details"}
+          htmlFor="details"
+          required
+          className="sm:col-span-2"
+          hint={activeQuestion ? activeQuestion.question : undefined}
+        >
+          <textarea
+            id="details"
+            name="details"
+            rows={5}
+            required
+            placeholder={
+              activeQuestion
+                ? "Type your answer to the consultation question here..."
+                : "Describe the issue, who is affected, and any outcomes you are seeking..."
+            }
+            className={formInputClass}
+          />
+        </Field>
+        <Field
+          label="Subject / short title"
+          htmlFor="subject"
+          hint={activeQuestion ? "Optional short title for your response" : "Brief summary of the issue"}
+          className={activeQuestion ? "sm:col-span-2" : undefined}
+        >
+          <input id="subject" name="subject" type="text" className={formInputClass} />
+        </Field>
+        {!activeQuestion && (
+          <Field label="Date of incident" htmlFor="date">
+            <input id="date" name="date" type="date" className={formInputClass} />
+          </Field>
+        )}
+        <Field label="Preferred contact method" htmlFor="preferredContact">
+          <select id="preferredContact" name="preferredContact" className={formInputClass} defaultValue="">
+            <option value="">No preference</option>
+            <option value="Email">Email</option>
+            <option value="Phone">Phone</option>
+            <option value="Either">Email or phone</option>
+          </select>
+        </Field>
+        <Field label="Supporting documents" htmlFor="attachment" hint="PDF, Word, or images up to 4.5 MB (optional)" className="sm:col-span-2">
+          <input
+            id="attachment"
+            name="attachment"
+            type="file"
+            accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+            className={`${formInputClass} file:mr-4 file:rounded-md file:border-0 file:bg-tnf-green/10 file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-tnf-green`}
+          />
+        </Field>
+      </div>
+    </section>
+  );
+
   return (
     <SubpageLayout
       title="Feedback Portal"
@@ -176,14 +386,17 @@ export function FeedbackPageView({
           {activeQuestion && (
             <div className="border-b border-tnf-green/20 bg-emerald-50/70 px-6 py-6 sm:px-8">
               <p className="text-xs font-bold uppercase tracking-wide text-tnf-green">
-                {activeQuestion.intro || "TNF Digital Policy Dialogue"}
+                TNF Digital Policy Dialogue
               </p>
-              <p className="mt-2 text-sm font-semibold text-tnf-navy">This Week&apos;s Question</p>
+              {activeQuestion.intro && (
+                <p className="mt-2 text-sm leading-relaxed text-slate-700">{activeQuestion.intro}</p>
+              )}
+              <p className="mt-3 text-sm font-semibold text-tnf-navy">This Week&apos;s Question</p>
               <p className="mt-2 text-lg font-semibold leading-snug text-tnf-navy">
                 {activeQuestion.question}
               </p>
               <p className="mt-3 text-sm text-slate-600">
-                Answer in the <span className="font-semibold">Your response</span> box below and submit.
+                Type your answer in the <span className="font-semibold">Your response</span> box just below.
                 {activeQuestion.closingDateDisplay && (
                   <> Consultation closes: <span className="font-semibold">{activeQuestion.closingDateDisplay}</span>.</>
                 )}
@@ -192,207 +405,11 @@ export function FeedbackPageView({
           )}
 
           <form onSubmit={handleSubmit} className="space-y-8 p-6 sm:p-8">
-            <section>
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-tnf-green">About you</h2>
-              <div className="mt-4 rounded-lg border border-slate-100 bg-slate-50/80 px-4 py-4">
-                <label className="flex cursor-pointer items-start gap-3">
-                  <input
-                    type="checkbox"
-                    checked={anonymous}
-                    onChange={(e) => setAnonymous(e.target.checked)}
-                    className="mt-1 rounded border-slate-300 text-tnf-green focus:ring-tnf-green"
-                  />
-                  <span className="text-sm text-slate-700">
-                    <span className="font-semibold text-tnf-navy">Submit anonymously</span>. We will not require your
-                    name, email, or phone number.
-                  </span>
-                </label>
-              </div>
+            {activeQuestion ? responseSection : aboutSection}
 
-              <div className="mt-5 grid gap-5 sm:grid-cols-2">
-                <Field label="Full name" htmlFor="name" required={!anonymous}>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required={!anonymous}
-                    disabled={anonymous}
-                    autoComplete="name"
-                    className={`${formInputClass} disabled:cursor-not-allowed disabled:bg-slate-100`}
-                  />
-                </Field>
-                <Field label="Email address" htmlFor="email" required={!anonymous}>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required={!anonymous}
-                    disabled={anonymous}
-                    autoComplete="email"
-                    className={`${formInputClass} disabled:cursor-not-allowed disabled:bg-slate-100`}
-                  />
-                </Field>
-                <Field label="Phone number" htmlFor="phone" hint="Optional, for follow-up only">
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    disabled={anonymous}
-                    autoComplete="tel"
-                    className={`${formInputClass} disabled:cursor-not-allowed disabled:bg-slate-100`}
-                  />
-                </Field>
-                <Field label="Sector" htmlFor="sector" hint="e.g. Banking, Research, NGO (optional)">
-                  <select id="sector" name="sector" className={formInputClass} defaultValue="">
-                    <option value="">Select sector</option>
-                    {SECTORS.map((s) => (
-                      <option key={s} value={s}>
-                        {s}
-                      </option>
-                    ))}
-                  </select>
-                </Field>
-                <Field label="Age range" htmlFor="ageRange">
-                  <select id="ageRange" name="ageRange" className={formInputClass} defaultValue="">
-                    <option value="">Select age range</option>
-                    {AGE_RANGES.map((a) => (
-                      <option key={a} value={a}>
-                        {a}
-                      </option>
-                    ))}
-                  </select>
-                </Field>
-                <Field label="Gender" htmlFor="gender">
-                  <select id="gender" name="gender" className={formInputClass} defaultValue="">
-                    <option value="">Select gender</option>
-                    {GENDER_OPTIONS.map((g) => (
-                      <option key={g} value={g}>
-                        {g}
-                      </option>
-                    ))}
-                  </select>
-                </Field>
-              </div>
-            </section>
+            {activeQuestion ? aboutSection : locationSection}
 
-            <section>
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-tnf-green">Location</h2>
-              <div className="mt-4 grid gap-5 sm:grid-cols-2">
-                <Field label="Where is this issue located?" htmlFor="location-zimbabwe" className="sm:col-span-2">
-                  <div className="mt-2 flex flex-wrap gap-4">
-                    <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 has-[:checked]:border-tnf-green has-[:checked]:bg-emerald-50">
-                      <input
-                        type="radio"
-                        name="locationScopeUi"
-                        checked={locationScope === "zimbabwe"}
-                        onChange={() => setLocationScope("zimbabwe")}
-                        className="text-tnf-green focus:ring-tnf-green"
-                      />
-                      <span className="text-sm font-medium text-tnf-navy">Zimbabwe</span>
-                    </label>
-                    <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 has-[:checked]:border-tnf-green has-[:checked]:bg-emerald-50">
-                      <input
-                        type="radio"
-                        name="locationScopeUi"
-                        checked={locationScope === "international"}
-                        onChange={() => setLocationScope("international")}
-                        className="text-tnf-green focus:ring-tnf-green"
-                      />
-                      <span className="text-sm font-medium text-tnf-navy">International</span>
-                    </label>
-                  </div>
-                </Field>
-
-                {locationScope === "zimbabwe" ? (
-                  <>
-                    <Field label="Province" htmlFor="province">
-                      <select id="province" name="province" className={formInputClass} defaultValue="">
-                        <option value="">Select province</option>
-                        {ZIM_PROVINCES.map((p) => (
-                          <option key={p} value={p}>
-                            {p}
-                          </option>
-                        ))}
-                      </select>
-                    </Field>
-                    <Field label="City / town / area" htmlFor="cityOrArea">
-                      <input id="cityOrArea" name="cityOrArea" type="text" placeholder="e.g. Harare, Bulawayo" className={formInputClass} />
-                    </Field>
-                  </>
-                ) : (
-                  <Field label="Country" htmlFor="country" className="sm:col-span-2">
-                    <input id="country" name="country" type="text" placeholder="Country where the issue applies" className={formInputClass} />
-                  </Field>
-                )}
-              </div>
-            </section>
-
-            <section>
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-tnf-green">
-                {activeQuestion ? "Your response" : "Your report"}
-              </h2>
-              <div className="mt-4 grid gap-5 sm:grid-cols-2">
-                {!activeQuestion && (
-                  <Field label="Category" htmlFor="category" required>
-                    <select id="category" name="category" required className={formInputClass}>
-                      {categories.map((c) => (
-                        <option key={c} value={c}>
-                          {c}
-                        </option>
-                      ))}
-                    </select>
-                  </Field>
-                )}
-                <Field
-                  label="Subject / short title"
-                  htmlFor="subject"
-                  hint={activeQuestion ? "Optional short title for your response" : "Brief summary of the issue"}
-                  className={activeQuestion ? "sm:col-span-2" : undefined}
-                >
-                  <input id="subject" name="subject" type="text" className={formInputClass} />
-                </Field>
-                <Field
-                  label={activeQuestion ? "Your response" : "Details"}
-                  htmlFor="details"
-                  required
-                  className="sm:col-span-2"
-                  hint={activeQuestion ? activeQuestion.question : undefined}
-                >
-                  <textarea
-                    id="details"
-                    name="details"
-                    rows={5}
-                    required
-                    placeholder={
-                      activeQuestion
-                        ? "Type your answer to the consultation question here..."
-                        : "Describe the issue, who is affected, and any outcomes you are seeking..."
-                    }
-                    className={formInputClass}
-                  />
-                </Field>
-                <Field label="Date of incident" htmlFor="date">
-                  <input id="date" name="date" type="date" className={formInputClass} />
-                </Field>
-                <Field label="Preferred contact method" htmlFor="preferredContact">
-                  <select id="preferredContact" name="preferredContact" className={formInputClass} defaultValue="">
-                    <option value="">No preference</option>
-                    <option value="Email">Email</option>
-                    <option value="Phone">Phone</option>
-                    <option value="Either">Email or phone</option>
-                  </select>
-                </Field>
-                <Field label="Supporting documents" htmlFor="attachment" hint="PDF, Word, or images up to 4.5 MB (optional)" className="sm:col-span-2">
-                  <input
-                    id="attachment"
-                    name="attachment"
-                    type="file"
-                    accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
-                    className={`${formInputClass} file:mr-4 file:rounded-md file:border-0 file:bg-tnf-green/10 file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-tnf-green`}
-                  />
-                </Field>
-              </div>
-            </section>
+            {activeQuestion ? locationSection : responseSection}
 
             <div className="rounded-lg border border-slate-100 bg-slate-50/80 px-4 py-4">
               <label className="flex cursor-pointer items-start gap-3">
