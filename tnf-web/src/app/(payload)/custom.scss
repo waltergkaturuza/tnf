@@ -288,6 +288,190 @@ html[data-theme="dark"] {
     box-shadow: 0 0 0 3px rgb(201 146 26 / 0.12) !important;
   }
 
+  /* ── Edit views, drawers, and popups: force readable text on navy ── */
+
+  /* Field labels, checkbox/radio labels, fieldset legends */
+  .field-type label,
+  .field-label,
+  label.field-label,
+  .checkbox-input__label,
+  .radio-input__label,
+  .field-type .checkbox-input label,
+  legend {
+    color: #e2e8f0 !important;
+  }
+
+  .field-label .required,
+  .field-type label .required {
+    color: var(--tnf-admin-gold-light) !important;
+  }
+
+  /* Helper text under fields */
+  .field-description {
+    color: #94a3b8 !important;
+  }
+
+  /* Text typed into inputs / textareas / selects */
+  .field-type input:not([type="checkbox"]):not([type="radio"]),
+  .field-type textarea,
+  .field-type select {
+    color: #f8fafc !important;
+  }
+
+  .field-type input::placeholder,
+  .field-type textarea::placeholder {
+    color: #64748b !important;
+  }
+
+  /* React-select (dropdowns): selected value, placeholder, menu */
+  .rs__value-container,
+  .rs__single-value,
+  .rs__input-container,
+  .rs__input {
+    color: #f8fafc !important;
+  }
+
+  .rs__placeholder {
+    color: #94a3b8 !important;
+  }
+
+  .rs__multi-value {
+    background: rgb(201 146 26 / 0.18) !important;
+    border: 1px solid rgb(201 146 26 / 0.3) !important;
+    border-radius: 0.4rem !important;
+  }
+
+  .rs__multi-value__label {
+    color: var(--tnf-admin-gold-light) !important;
+  }
+
+  .rs__indicator,
+  .rs__dropdown-indicator,
+  .rs__clear-indicator {
+    color: #94a3b8 !important;
+  }
+
+  .rs__menu {
+    background: var(--tnf-admin-navy-light) !important;
+    border: 1px solid var(--tnf-admin-border) !important;
+    box-shadow: 0 12px 32px rgb(0 0 0 / 0.45) !important;
+  }
+
+  .rs__option {
+    color: #e2e8f0 !important;
+    background: transparent !important;
+  }
+
+  .rs__option--is-focused {
+    background: rgb(255 255 255 / 0.07) !important;
+    color: #fff !important;
+  }
+
+  .rs__option--is-selected {
+    background: rgb(201 146 26 / 0.2) !important;
+    color: var(--tnf-admin-gold-light) !important;
+  }
+
+  /* Drawers: bulk "Edit many", document drawers, list drawers */
+  .drawer__content,
+  .drawer__content-children,
+  .doc-drawer__content,
+  .list-drawer__content,
+  .edit-many {
+    background: var(--tnf-admin-navy) !important;
+    color: #e2e8f0 !important;
+  }
+
+  .drawer__header,
+  .edit-many__header {
+    border-bottom: 1px solid var(--tnf-admin-border);
+  }
+
+  .drawer__content h1,
+  .drawer__content h2,
+  .drawer__content h3,
+  .drawer__header__title,
+  .edit-many h1,
+  .edit-many h2,
+  .edit-many h3,
+  .edit-many__header__title {
+    color: #fff !important;
+  }
+
+  /* Document edit view titles & breadcrumbs */
+  .doc-header__title,
+  .render-title,
+  .collection-edit h1,
+  .step-nav a,
+  .step-nav__last {
+    color: #fff !important;
+  }
+
+  .step-nav a:hover {
+    color: var(--tnf-admin-gold-light) !important;
+  }
+
+  /* Popup menus (three-dot actions, column selectors, sort menus) */
+  .popup__content {
+    background: var(--tnf-admin-navy-light) !important;
+    border: 1px solid var(--tnf-admin-border) !important;
+    box-shadow: 0 12px 32px rgb(0 0 0 / 0.45) !important;
+  }
+
+  .popup__content *,
+  .popup-button-list__button {
+    color: #e2e8f0 !important;
+  }
+
+  .popup-button-list__button:hover {
+    background: rgb(255 255 255 / 0.06) !important;
+    color: #fff !important;
+  }
+
+  /* Date picker */
+  .date-time-picker input {
+    color: #f8fafc !important;
+  }
+
+  .react-datepicker {
+    background: var(--tnf-admin-navy-light) !important;
+    border: 1px solid var(--tnf-admin-border) !important;
+    color: #e2e8f0 !important;
+  }
+
+  .react-datepicker__header {
+    background: rgb(0 0 0 / 0.15) !important;
+    border-bottom: 1px solid var(--tnf-admin-border) !important;
+  }
+
+  .react-datepicker__current-month,
+  .react-datepicker__day-name,
+  .react-datepicker__day,
+  .react-datepicker-time__header,
+  .react-datepicker__time-list-item {
+    color: #e2e8f0 !important;
+  }
+
+  .react-datepicker__day:hover {
+    background: rgb(255 255 255 / 0.1) !important;
+  }
+
+  .react-datepicker__day--selected {
+    background: var(--tnf-admin-gold) !important;
+    color: var(--tnf-admin-ink) !important;
+  }
+
+  /* Collapsible groups, tabs, and array rows in edit views */
+  .collapsible__toggle,
+  .tabs-field__tab-button,
+  .array-field__row-header {
+    color: #e2e8f0 !important;
+  }
+
+  .tabs-field__tab-button--active {
+    color: var(--tnf-admin-gold-light) !important;
+  }
+
   /* Scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
