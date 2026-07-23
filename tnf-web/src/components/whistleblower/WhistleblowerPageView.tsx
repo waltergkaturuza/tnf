@@ -65,7 +65,7 @@ export function WhistleblowerPageView() {
       type: "whistleblower",
       name: reportAnonymous ? undefined : (fd.get("name") as string) || undefined,
       email: reportAnonymous ? undefined : (fd.get("email") as string) || undefined,
-      phone: (fd.get("phone") as string) || undefined,
+      phone: reportAnonymous ? undefined : (fd.get("phone") as string) || undefined,
       subject: (fd.get("subject") as string) || undefined,
       category: fd.get("incidentType") as string,
       message: fd.get("description") as string,
@@ -76,7 +76,7 @@ export function WhistleblowerPageView() {
       cityOrArea: (fd.get("cityOrArea") as string) || undefined,
       country: locationScope === "international" ? (fd.get("country") as string) || undefined : undefined,
       dateOfIncident: (fd.get("date") as string) || undefined,
-      preferredContact: (fd.get("preferredContact") as string) || undefined,
+      preferredContact: reportAnonymous ? undefined : (fd.get("preferredContact") as string) || undefined,
       anonymous: reportAnonymous,
       organisation: (fd.get("organisation") as string) || undefined,
       metadata: {
@@ -135,9 +135,8 @@ export function WhistleblowerPageView() {
                     className="mt-1 rounded border-slate-300 text-tnf-green focus:ring-tnf-green"
                   />
                   <span className="text-sm text-slate-700">
-                    <span className="font-semibold text-tnf-navy">Submit anonymously</span>. We will not require your
-                    name or email. You may still add contact details below if you are willing to be contacted
-                    confidentially.
+                    <span className="font-semibold text-tnf-navy">Submit anonymously</span>. We will not require or
+                    collect your name, email, or phone number.
                   </span>
                 </label>
               </div>
@@ -166,16 +165,25 @@ export function WhistleblowerPageView() {
                   />
                 </Field>
                 <Field label="Phone number" htmlFor="phone" hint="Optional, confidential follow-up only">
-                  <input id="phone" name="phone" type="tel" autoComplete="tel" className={formInputClass} />
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    disabled={reportAnonymous}
+                    autoComplete="tel"
+                    className={`${formInputClass} disabled:cursor-not-allowed disabled:bg-slate-100`}
+                  />
                 </Field>
-                <Field label="Preferred contact method" htmlFor="preferredContact">
-                  <select id="preferredContact" name="preferredContact" className={formInputClass} defaultValue="">
-                    <option value="">No preference</option>
-                    <option value="Email">Email</option>
-                    <option value="Phone">Phone</option>
-                    <option value="Do not contact me">Do not contact me</option>
-                  </select>
-                </Field>
+                {!reportAnonymous && (
+                  <Field label="Preferred contact method" htmlFor="preferredContact">
+                    <select id="preferredContact" name="preferredContact" className={formInputClass} defaultValue="">
+                      <option value="">No preference</option>
+                      <option value="Email">Email</option>
+                      <option value="Phone">Phone</option>
+                      <option value="Do not contact me">Do not contact me</option>
+                    </select>
+                  </Field>
+                )}
                 <Field label="Age range" htmlFor="ageRange">
                   <select id="ageRange" name="ageRange" className={formInputClass} defaultValue="">
                     <option value="">Select age range</option>
