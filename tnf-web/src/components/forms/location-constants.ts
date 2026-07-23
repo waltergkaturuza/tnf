@@ -36,6 +36,31 @@ export const INCIDENT_TYPES = [
 
 export const URGENCY_LEVELS = ["Low", "Medium", "High", "Immediate safety concern"];
 
+export const SECTORS = [
+  "Agriculture",
+  "Banking & Finance",
+  "Construction",
+  "Education",
+  "Energy",
+  "Government / Public Sector",
+  "Health",
+  "ICT / Digital",
+  "Informal Sector",
+  "Legal Services",
+  "Manufacturing",
+  "Media",
+  "Mining",
+  "NGO / Civil Society",
+  "Research / Academia",
+  "Retail & Wholesale Trade",
+  "Tourism & Hospitality",
+  "Trade Union",
+  "Transport & Logistics",
+  "Student",
+  "Unemployed",
+  "Other",
+];
+
 export const CONTACT_ENQUIRY_TYPES = [
   "General enquiry",
   "TNF programmes & social dialogue",

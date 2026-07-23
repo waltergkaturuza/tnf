@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Field } from "@/components/forms/Field";
-import { AGE_RANGES, GENDER_OPTIONS, ZIM_PROVINCES } from "@/components/forms/location-constants";
+import { AGE_RANGES, GENDER_OPTIONS, SECTORS, ZIM_PROVINCES } from "@/components/forms/location-constants";
 import { formInputClass } from "@/components/forms/form-styles";
 import { SubpageLayout } from "@/components/layout/SubpageLayout";
 import { submitToPayload, uploadFormAttachment, type FormSubmissionType } from "@/lib/submit-form";
@@ -49,6 +49,7 @@ export function FeedbackPageView({
 }) {
   const [issueType, setIssueType] = useState<"economic" | "social" | "labour">("economic");
   const [locationScope, setLocationScope] = useState<"zimbabwe" | "international">("zimbabwe");
+  const [anonymous, setAnonymous] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -104,14 +105,14 @@ export function FeedbackPageView({
 
     const result = await submitToPayload({
       type: `feedback-${issueType}` as FormSubmissionType,
-      name: fd.get("name") as string,
-      email: fd.get("email") as string,
+      name: anonymous ? undefined : (fd.get("name") as string) || undefined,
+      email: anonymous ? undefined : (fd.get("email") as string) || undefined,
       subject: (fd.get("subject") as string) || undefined,
       category: activeQuestion ? "Consultation" : (fd.get("category") as string),
       question: activeQuestion?.question,
       message: fd.get("details") as string,
-      phone: (fd.get("phone") as string) || undefined,
-      organisation: (fd.get("organisation") as string) || undefined,
+      phone: anonymous ? undefined : (fd.get("phone") as string) || undefined,
+      organisation: (fd.get("sector") as string) || undefined,
       ageRange: (fd.get("ageRange") as string) || undefined,
       gender: (fd.get("gender") as string) || undefined,
       locationScope,
@@ -120,7 +121,7 @@ export function FeedbackPageView({
       country: locationScope === "international" ? (fd.get("country") as string) || undefined : undefined,
       dateOfIncident: (fd.get("date") as string) || undefined,
       preferredContact: (fd.get("preferredContact") as string) || undefined,
-      anonymous: fd.get("anonymous") === "on",
+      anonymous,
       metadata: attachmentMeta ? { attachment: attachmentMeta } : undefined,
     });
 
@@ -193,25 +194,63 @@ export function FeedbackPageView({
           <form onSubmit={handleSubmit} className="space-y-8 p-6 sm:p-8">
             <section>
               <h2 className="text-sm font-semibold uppercase tracking-wide text-tnf-green">About you</h2>
-              <div className="mt-4 grid gap-5 sm:grid-cols-2">
-                <Field label="Full name" htmlFor="name" required>
-                  <input id="name" name="name" type="text" required autoComplete="name" className={formInputClass} />
+              <div className="mt-4 rounded-lg border border-slate-100 bg-slate-50/80 px-4 py-4">
+                <label className="flex cursor-pointer items-start gap-3">
+                  <input
+                    type="checkbox"
+                    checked={anonymous}
+                    onChange={(e) => setAnonymous(e.target.checked)}
+                    className="mt-1 rounded border-slate-300 text-tnf-green focus:ring-tnf-green"
+                  />
+                  <span className="text-sm text-slate-700">
+                    <span className="font-semibold text-tnf-navy">Submit anonymously</span>. We will not require your
+                    name, email, or phone number.
+                  </span>
+                </label>
+              </div>
+
+              <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                <Field label="Full name" htmlFor="name" required={!anonymous}>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    required={!anonymous}
+                    disabled={anonymous}
+                    autoComplete="name"
+                    className={`${formInputClass} disabled:cursor-not-allowed disabled:bg-slate-100`}
+                  />
                 </Field>
-                <Field label="Email address" htmlFor="email" required>
+                <Field label="Email address" htmlFor="email" required={!anonymous}>
                   <input
                     id="email"
                     name="email"
                     type="email"
-                    required
+                    required={!anonymous}
+                    disabled={anonymous}
                     autoComplete="email"
-                    className={formInputClass}
+                    className={`${formInputClass} disabled:cursor-not-allowed disabled:bg-slate-100`}
                   />
                 </Field>
                 <Field label="Phone number" htmlFor="phone" hint="Optional, for follow-up only">
-                  <input id="phone" name="phone" type="tel" autoComplete="tel" className={formInputClass} />
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    disabled={anonymous}
+                    autoComplete="tel"
+                    className={`${formInputClass} disabled:cursor-not-allowed disabled:bg-slate-100`}
+                  />
                 </Field>
-                <Field label="Organisation / affiliation" htmlFor="organisation" hint="Employer, union, NGO, etc. (optional)">
-                  <input id="organisation" name="organisation" type="text" className={formInputClass} />
+                <Field label="Sector" htmlFor="sector" hint="e.g. Banking, Research, NGO (optional)">
+                  <select id="sector" name="sector" className={formInputClass} defaultValue="">
+                    <option value="">Select sector</option>
+                    {SECTORS.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </select>
                 </Field>
                 <Field label="Age range" htmlFor="ageRange">
                   <select id="ageRange" name="ageRange" className={formInputClass} defaultValue="">
@@ -366,17 +405,6 @@ export function FeedbackPageView({
                 <span className="text-sm text-slate-600">
                   I confirm that the information provided is accurate to the best of my knowledge and I consent to
                   TNF processing this submission in line with its mandate and privacy practices.
-                </span>
-              </label>
-              <label className="mt-3 flex cursor-pointer items-start gap-3">
-                <input
-                  type="checkbox"
-                  name="anonymous"
-                  className="mt-1 rounded border-slate-300 text-tnf-green focus:ring-tnf-green"
-                />
-                <span className="text-sm text-slate-600">
-                  I prefer to remain anonymous where possible (we will still collect contact details for verification
-                  if required).
                 </span>
               </label>
             </div>

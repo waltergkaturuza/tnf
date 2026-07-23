@@ -95,11 +95,14 @@ export const FormSubmissions: CollectionConfig = {
       ({ data }) => {
         if (!data || !isFeedbackType(data.type)) return data;
 
-        if (!data.name || String(data.name).trim().length < 2) {
-          throw new APIError("Full name is required.", 400);
-        }
-        if (!data.email || !String(data.email).includes("@")) {
-          throw new APIError("A valid email address is required.", 400);
+        const anonymous = Boolean(data.anonymous);
+        if (!anonymous) {
+          if (!data.name || String(data.name).trim().length < 2) {
+            throw new APIError("Full name is required unless submitting anonymously.", 400);
+          }
+          if (!data.email || !String(data.email).includes("@")) {
+            throw new APIError("A valid email address is required unless submitting anonymously.", 400);
+          }
         }
         const hasCategory = Boolean(data.category && String(data.category).trim());
         const hasQuestion = Boolean(data.question && String(data.question).trim());
@@ -193,6 +196,10 @@ export const FormSubmissions: CollectionConfig = {
     {
       name: "organisation",
       type: "text",
+      label: "Sector / organisation",
+      admin: {
+        description: "Sector (feedback forms) or organisation / affiliation (other forms).",
+      },
     },
     {
       name: "subject",

@@ -154,7 +154,7 @@ function ViewModal({ row, onClose }: { row: Submission; onClose: () => void }) {
         <dl className="tnf-forms-detail">
           <DetailRow label="Email" value={row.email} />
           <DetailRow label="Phone" value={row.phone} />
-          <DetailRow label="Organisation" value={row.organisation} />
+          <DetailRow label="Sector / organisation" value={row.organisation} />
           <DetailRow label="Subject" value={row.subject} />
           <DetailRow label="Category" value={row.category} />
           <DetailRow
