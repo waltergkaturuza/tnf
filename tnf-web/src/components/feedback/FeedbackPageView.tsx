@@ -119,8 +119,9 @@ export function FeedbackPageView({
       province: locationScope === "zimbabwe" ? (fd.get("province") as string) || undefined : undefined,
       cityOrArea: (fd.get("cityOrArea") as string) || undefined,
       country: locationScope === "international" ? (fd.get("country") as string) || undefined : undefined,
-      dateOfIncident: (fd.get("date") as string) || undefined,
-      preferredContact: (fd.get("preferredContact") as string) || undefined,
+      // Recorded automatically at submission time; the form no longer asks for it.
+      dateOfIncident: new Date().toISOString(),
+      preferredContact: anonymous ? undefined : (fd.get("preferredContact") as string) || undefined,
       anonymous,
       metadata: attachmentMeta ? { attachment: attachmentMeta } : undefined,
     });
@@ -314,19 +315,16 @@ export function FeedbackPageView({
         >
           <input id="subject" name="subject" type="text" className={formInputClass} />
         </Field>
-        {!activeQuestion && (
-          <Field label="Date of incident" htmlFor="date">
-            <input id="date" name="date" type="date" className={formInputClass} />
+        {!anonymous && (
+          <Field label="Preferred contact method" htmlFor="preferredContact">
+            <select id="preferredContact" name="preferredContact" className={formInputClass} defaultValue="">
+              <option value="">No preference</option>
+              <option value="Email">Email</option>
+              <option value="Phone">Phone</option>
+              <option value="Either">Email or phone</option>
+            </select>
           </Field>
         )}
-        <Field label="Preferred contact method" htmlFor="preferredContact">
-          <select id="preferredContact" name="preferredContact" className={formInputClass} defaultValue="">
-            <option value="">No preference</option>
-            <option value="Email">Email</option>
-            <option value="Phone">Phone</option>
-            <option value="Either">Email or phone</option>
-          </select>
-        </Field>
         <Field label="Supporting documents" htmlFor="attachment" hint="PDF, Word, or images up to 4.5 MB (optional)" className="sm:col-span-2">
           <input
             id="attachment"
