@@ -11,7 +11,7 @@ type NavItem = { href: string; label: string };
 type NavEntry = NavItem & { children?: NavItem[] };
 
 const linkClass =
-  "rounded-md px-1.5 py-1.5 text-[0.8125rem] font-bold text-slate-700 transition-colors hover:bg-tnf-navy/5 hover:text-tnf-navy lg:px-2 lg:text-sm xl:px-2.5 xl:text-[0.9375rem]";
+  "rounded-md px-1.5 py-1.5 text-[0.8125rem] font-medium text-slate-700 transition-colors hover:bg-tnf-navy/5 hover:text-tnf-navy lg:px-2 lg:text-sm xl:px-2.5 xl:text-[0.9375rem]";
 const dropdownClass =
   "block w-full rounded-md px-3 py-2 text-left text-sm text-slate-700 hover:bg-tnf-navy/5 hover:text-tnf-navy";
 

@@ -31,7 +31,26 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     url: siteConfig.url,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: "/tnf-logo.png",
+        width: 2126,
+        height: 842,
+        alt: `${siteConfig.name} logo`,
+      },
+    ],
   },
+};
+
+/** Helps Google show the TNF logo next to search results. */
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteConfig.name,
+  alternateName: siteConfig.shortName,
+  url: siteConfig.url,
+  logo: `${siteConfig.url}/icon.png`,
 };
 
 export default function SiteLayout({
@@ -42,6 +61,10 @@ export default function SiteLayout({
   return (
     <html lang="en" className={`${sourceSerif.variable} ${sourceSans.variable}`}>
       <body className="min-h-screen bg-white font-sans antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <a
           href="#main-content"
           className="btn-tnf-primary sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-4 focus-visible:top-4 focus-visible:z-[100] focus-visible:rounded-md focus-visible:px-4 focus-visible:py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-tnf-green"
