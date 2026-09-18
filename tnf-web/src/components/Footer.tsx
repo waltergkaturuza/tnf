@@ -25,8 +25,8 @@ export function Footer() {
   return (
     <footer className="border-t border-slate-200/30 bg-[#273E5D]">
       <div className="container-wide py-12">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          <div>
+        <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
+          <div className="col-span-2 lg:col-span-1">
             <div className="inline-flex items-center rounded-xl bg-white px-3.5 py-2.5 shadow-sm">
               <Image
                 src="/tnf-logo.png"
@@ -39,6 +39,8 @@ export function Footer() {
             <p className="mt-3 text-sm text-slate-200">{siteConfig.tagline}</p>
           </div>
 
+          {/* One mobile column for Quick Links + Engage; separate grid columns on lg */}
+          <div className="flex flex-col gap-8 lg:contents">
           <div>
             <h4 className="font-semibold text-white">Quick Links</h4>
             <ul className="mt-3 space-y-2">
@@ -67,6 +69,7 @@ export function Footer() {
               </li>
             </ul>
             <NewsletterForm variant="footer" />
+          </div>
           </div>
 
           <div>
