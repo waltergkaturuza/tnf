@@ -43,7 +43,7 @@ export function Footer() {
           <div className="flex flex-col gap-8 lg:contents">
           <div>
             <h4 className="font-semibold text-white">Quick Links</h4>
-            <ul className="mt-3 space-y-2">
+            <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2">
               {siteConfig.footerQuickLinks.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-sm text-slate-200 hover:text-white">
