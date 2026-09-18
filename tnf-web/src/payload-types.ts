@@ -158,6 +158,8 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Files are stored in the bucket as folder/category/YYYY-MM-DD_filename. Pick Folder (and Category for Resources / forms) before uploading.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
@@ -171,6 +173,9 @@ export interface Media {
    * Subfolder under the chosen folder (e.g. annual-report, Informalisation). Leave blank for a general folder.
    */
   storageCategory?: string | null;
+  /**
+   * Auto-filled from the file name; edit anytime to customize.
+   */
   alt: string;
   caption?: string | null;
   prefix?: string | null;
@@ -194,7 +199,7 @@ export interface Post {
   id: number;
   title: string;
   /**
-   * URL-friendly identifier (e.g. my-post-title)
+   * Auto-filled from title; edit anytime to customize.
    */
   slug: string;
   /**
@@ -229,6 +234,9 @@ export interface Post {
 export interface Event {
   id: number;
   title: string;
+  /**
+   * Auto-filled from title; edit anytime to customize.
+   */
   slug: string;
   description?: string | null;
   startDate: string;
@@ -244,21 +252,33 @@ export interface Event {
   createdAt: string;
 }
 /**
+ * Reports and plans for the Resources library. For forms, charters, and other misc files shown under Other Downloads, use Admin → Downloads instead.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "resources".
  */
 export interface Resource {
   id: number;
   title: string;
+  /**
+   * Auto-filled from title; edit anytime to customize.
+   */
   slug: string;
   description?: string | null;
-  category: 'annual-report' | 'strategic-plan' | 'annual-performance-plan' | 'tnf-reports-plans' | 'policy-paper' | 'press-release' | 'other';
+  category:
+    | 'annual-report'
+    | 'strategic-plan'
+    | 'annual-performance-plan'
+    | 'tnf-reports-plans'
+    | 'policy-paper'
+    | 'press-release'
+    | 'other';
   /**
    * Publication year (e.g. 2024)
    */
   year?: string | null;
   /**
-   * PDF or document file
+   * PDF or document. In Media, set Folder to Resources and Category to match this resource (e.g. annual-report). Files land in resources/{category}/YYYY-MM-DD_filename.
    */
   document: number | Media;
   status?: ('draft' | 'published') | null;
@@ -275,6 +295,9 @@ export interface Resource {
 export interface Partner {
   id: number;
   name: string;
+  /**
+   * Auto-filled from name; edit anytime to customize.
+   */
   slug?: string | null;
   /**
    * Upload a PNG, JPG, or SVG logo. Recommended transparent background.
@@ -297,7 +320,7 @@ export interface Partner {
   createdAt: string;
 }
 /**
- * Photos shown in TNF in Action (homepage) and Resources → Gallery.
+ * Photos shown in TNF in Action (homepage) and Resources → Gallery. Upload an image, set a caption, publish.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "gallery-items".
@@ -329,7 +352,7 @@ export interface GalleryItem {
   createdAt: string;
 }
 /**
- * Files shown under Resources → Other Downloads.
+ * Files shown under Resources → Other Downloads (forms, charters, reference materials). Upload a document, publish it, and it appears on the site.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "downloads".
@@ -337,13 +360,16 @@ export interface GalleryItem {
 export interface Download {
   id: number;
   title: string;
+  /**
+   * Auto-filled from title; edit anytime to customize.
+   */
   slug: string;
   /**
    * Optional short note shown under the title.
    */
   description?: string | null;
   /**
-   * PDF, Word, or other downloadable file.
+   * PDF, Word, or other downloadable file. In Media, set Folder to Resources (or Contact) as appropriate.
    */
   file: number | Media;
   /**
@@ -355,7 +381,7 @@ export interface Download {
   createdAt: string;
 }
 /**
- * Admin-managed questions shown on the public Feedback Portal.
+ * Questions shown on the public Feedback Portal (e.g. for Digital Policy Dialogues posted on Facebook). Set status to Active and pick which feedback form shows the question. The newest Active question per form is displayed; responses are saved in Form Submissions with the question attached.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "consultation-questions".
@@ -367,11 +393,11 @@ export interface ConsultationQuestion {
    */
   title: string;
   /**
-   * Heading shown above the question. Optional.
+   * Heading shown above the question, e.g. TNF Digital Policy Dialogue — Public Consultation on the Labour Act. Optional.
    */
   intro?: string | null;
   /**
-   * The question the public answers.
+   * The question the public answers, e.g. If you could recommend one amendment to Zimbabwe's Labour Act, what would it be and why?
    */
   question: string;
   /**
@@ -379,7 +405,7 @@ export interface ConsultationQuestion {
    */
   form: 'all' | 'feedback-economic' | 'feedback-social' | 'feedback-labour';
   /**
-   * The question stops appearing after this date. Optional.
+   * Shown as “Consultation closes: …”. The question stops appearing after this date. Optional.
    */
   closingDate?: string | null;
   /**
@@ -390,7 +416,7 @@ export interface ConsultationQuestion {
   createdAt: string;
 }
 /**
- * Contact, feedback, and whistleblower submissions
+ * All website form entries (Contact, Feedback, Whistleblower, Newsletter). Prefer the Form Submissions inboxes in the sidebar for day-to-day use.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions".
@@ -411,6 +437,9 @@ export interface FormSubmission {
    * Optional contact number
    */
   phone?: string | null;
+  /**
+   * Sector (feedback forms) or organisation / affiliation (other forms).
+   */
   organisation?: string | null;
   subject?: string | null;
   /**
@@ -418,7 +447,7 @@ export interface FormSubmission {
    */
   message?: string | null;
   /**
-   * Issue category (feedback forms)
+   * Issue category (feedback / contact forms)
    */
   category?: string | null;
   /**
