@@ -27,14 +27,16 @@ export function Footer() {
       <div className="container-wide py-12">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <Image
-              src="/tnf-logo.png"
-              alt="TNF Tripartite Negotiating Forum"
-              width={120}
-              height={40}
-              className="h-10 w-auto object-contain"
-            />
-            <p className="mt-2 text-sm text-slate-200">{siteConfig.tagline}</p>
+            <div className="inline-flex items-center rounded-xl bg-white px-3.5 py-2.5 shadow-sm">
+              <Image
+                src="/tnf-logo.png"
+                alt="TNF Tripartite Negotiating Forum"
+                width={151}
+                height={60}
+                className="h-12 w-auto object-contain"
+              />
+            </div>
+            <p className="mt-3 text-sm text-slate-200">{siteConfig.tagline}</p>
           </div>
 
           <div>
