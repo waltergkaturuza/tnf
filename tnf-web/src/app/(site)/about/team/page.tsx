@@ -7,20 +7,27 @@ export const metadata = {
   description: "Meet the TNF Secretariat and leadership team.",
 };
 
-const teamMembers = [
+type TeamMember = {
+  name: string;
+  role: string;
+  image: string;
+  imagePosition?: "center" | "top";
+};
+
+const teamMembers: TeamMember[] = [
   { name: "Honourable Edgar Moyo", role: "Minister of Public Service, Labour and Social Welfare, TNF Chairman", image: "/team/Minister-Edgar-Moyo.png" },
   { name: "Mr Albert Nyakadzumbu", role: "TNF Executive Director", image: "/team/Albert-Nyakadzumbu-TNF-Executive-Director.jpg" },
-  { name: "Mr Emmanuel Mazhawidza", role: "Economic and Labour Cluster Coordinator", image: "/team/Mazhawidza.jpg" },
+  { name: "Mr Emmanuel Mazhawidza", role: "Economic and Labour Cluster Coordinator", image: "/team/Emmanuel-Mazhawidza.jpg", imagePosition: "top" },
   { name: "Ms Beaula Ruparanganda", role: "Cluster Coordinator (Social)", image: "/team/Beaula-Ruparanganda.jpg" },
-  { name: "Ms Tsitsi Mutongi", role: "Social Cluster Coordinator", image: "/team/Tsitsi-Mutongi.jpg" },
-  { name: "Miss Judith Mate", role: "Human Resources Officer", image: "/team/Judy-Mate.jpg" },
-  { name: "Mr Noel Saweto", role: "TNF Secretariat", image: "/team/Noel-Saweto.jpg" },
+  { name: "Ms Tsitsi Mutongi", role: "Social Cluster Coordinator", image: "/team/Tsitsi-Mutongi-2026.jpg", imagePosition: "top" },
+  { name: "Miss Judith Mate", role: "Human Resources Officer", image: "/team/Judith-Mate.jpg", imagePosition: "top" },
+  { name: "Mr Noel Saweto", role: "TNF Secretariat", image: "/team/Noel-Saweto-2026.jpg", imagePosition: "top" },
   { name: "Ms Misela Mpofu", role: "Labour Cluster Officer", image: "/team/MISELA-MPOFU.jpg" },
   { name: "Ms Melody Muchini", role: "Senior Administrative Assistant", image: "/team/melody-Muchini.png" },
   { name: "Mr Lloyd T.I Rwodzi", role: "Audit and Compliance Officer", image: "/team/LLOYD-RWODZI.jpg" },
   { name: "Miss Rachael Mukonda", role: "Communications and Advocacy Officer", image: "/team/Rachael-Mukonda.jpg" },
-  { name: "Ms Pauline Chikanda", role: "Office Orderly", image: "/team/Pauline-Chikanda.jpg" },
-  { name: "Mr Nigel Kaseke", role: "Driver/Messenger", image: "/team/Nigel-Kaseke.jpg" },
+  { name: "Ms Pauline Chikanda", role: "Office Orderly", image: "/team/Pauline-Chikanda-2026.jpg", imagePosition: "top" },
+  { name: "Mr Nigel Kaseke", role: "Driver/Messenger", image: "/team/Nigel-Kaseke-2026.jpg", imagePosition: "top" },
 ];
 
 export default function TeamPage() {
@@ -37,7 +44,8 @@ export default function TeamPage() {
                 src={member.image}
                 alt={member.name}
                 fill
-                className="object-cover"
+                quality={90}
+                className={`object-cover ${member.imagePosition === "top" ? "object-top" : "object-center"}`}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
             </div>
