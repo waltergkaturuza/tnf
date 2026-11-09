@@ -76,6 +76,7 @@ export interface Config {
     'gallery-items': GalleryItem;
     downloads: Download;
     'consultation-questions': ConsultationQuestion;
+    vacancies: Vacancy;
     'form-submissions': FormSubmission;
     'analytics-events': AnalyticsEvent;
     'payload-kv': PayloadKv;
@@ -94,6 +95,7 @@ export interface Config {
     'gallery-items': GalleryItemsSelect<false> | GalleryItemsSelect<true>;
     downloads: DownloadsSelect<false> | DownloadsSelect<true>;
     'consultation-questions': ConsultationQuestionsSelect<false> | ConsultationQuestionsSelect<true>;
+    vacancies: VacanciesSelect<false> | VacanciesSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     'analytics-events': AnalyticsEventsSelect<false> | AnalyticsEventsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -416,6 +418,61 @@ export interface ConsultationQuestion {
   createdAt: string;
 }
 /**
+ * Job adverts shown on Careers → Vacancies. Published vacancies are hidden automatically after the closing date.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "vacancies".
+ */
+export interface Vacancy {
+  id: number;
+  /**
+   * Position title, e.g. Labour Cluster Officer.
+   */
+  title: string;
+  /**
+   * Auto-filled from title; edit anytime to customize.
+   */
+  slug: string;
+  /**
+   * e.g. Labour and Economic Cluster Coordinator.
+   */
+  reportingTo?: string | null;
+  /**
+   * Opening paragraph inviting applications.
+   */
+  intro?: string | null;
+  /**
+   * One item per line — each line becomes a bullet point.
+   */
+  responsibilities?: string | null;
+  /**
+   * One item per line — each line becomes a bullet point.
+   */
+  qualifications?: string | null;
+  /**
+   * One item per line — each line becomes a bullet point.
+   */
+  skills?: string | null;
+  /**
+   * Documents and details applicants must submit.
+   */
+  applicationProcedure?: string | null;
+  /**
+   * Leave blank if applications are email-only.
+   */
+  deliveryAddress?: string | null;
+  applicationEmail?: string | null;
+  notice?: string | null;
+  /**
+   * Optional copy of the full advert for download. In Media, set Folder to Resources.
+   */
+  advertFile?: (number | null) | Media;
+  closingDate: string;
+  status?: ('draft' | 'published') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * All website form entries (Contact, Feedback, Whistleblower, Newsletter). Prefer the Form Submissions inboxes in the sidebar for day-to-day use.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -560,6 +617,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'consultation-questions';
         value: number | ConsultationQuestion;
+      } | null)
+    | ({
+        relationTo: 'vacancies';
+        value: number | Vacancy;
       } | null)
     | ({
         relationTo: 'form-submissions';
@@ -755,6 +816,28 @@ export interface ConsultationQuestionsSelect<T extends boolean = true> {
   intro?: T;
   question?: T;
   form?: T;
+  closingDate?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "vacancies_select".
+ */
+export interface VacanciesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  reportingTo?: T;
+  intro?: T;
+  responsibilities?: T;
+  qualifications?: T;
+  skills?: T;
+  applicationProcedure?: T;
+  deliveryAddress?: T;
+  applicationEmail?: T;
+  notice?: T;
+  advertFile?: T;
   closingDate?: T;
   status?: T;
   updatedAt?: T;

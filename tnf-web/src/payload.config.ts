@@ -28,6 +28,7 @@ import { Partners } from "./collections/Partners.js";
 import { GalleryItems } from "./collections/GalleryItems.js";
 import { Downloads } from "./collections/Downloads.js";
 import { ConsultationQuestions } from "./collections/ConsultationQuestions.js";
+import { Vacancies } from "./collections/Vacancies.js";
 import { FormSubmissions } from "./collections/FormSubmissions.js";
 import { AnalyticsEvents } from "./collections/AnalyticsEvents.js";
 import { getMissingS3EnvVars, getS3Bucket, getS3StoragePlugin, isRunningOnVercel, isS3StorageEnabled } from "./lib/s3-storage.js";
@@ -159,7 +160,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Events, Resources, Partners, GalleryItems, Downloads, ConsultationQuestions, FormSubmissions, AnalyticsEvents],
+  collections: [Users, Media, Posts, Events, Resources, Partners, GalleryItems, Downloads, ConsultationQuestions, Vacancies, FormSubmissions, AnalyticsEvents],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "CHANGE_ME_IN_PRODUCTION",
   typescript: {

@@ -10,6 +10,7 @@ import * as migration_20260713_locked_documents_rels from "./20260713_locked_doc
 import * as migration_20260714_gallery_items from "./20260714_gallery_items";
 import * as migration_20260714_downloads from "./20260714_downloads";
 import * as migration_20260723_consultation_questions from "./20260723_consultation_questions";
+import * as migration_20261109_vacancies from "./20261109_vacancies";
 
 export const migrations = [
   {
@@ -71,5 +72,10 @@ export const migrations = [
     up: migration_20260723_consultation_questions.up,
     down: migration_20260723_consultation_questions.down,
     name: "20260723_consultation_questions",
+  },
+  {
+    up: migration_20261109_vacancies.up,
+    down: migration_20261109_vacancies.down,
+    name: "20261109_vacancies",
   },
 ];

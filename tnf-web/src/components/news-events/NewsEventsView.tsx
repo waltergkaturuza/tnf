@@ -131,18 +131,18 @@ export function NewsEventsView({ items }: Props) {
   return (
     <div className="page-updates">
       {/* Header + filters */}
-      <div className="page-shell-hero border-b border-emerald-800/30 py-6 sm:py-8">
+      <div className="page-shell-hero border-b border-emerald-800/30 py-3 sm:py-4">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-12">
           <h1 className="text-center text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
             News and Events
           </h1>
-          <div className="mt-6 flex flex-wrap justify-center gap-2 sm:mt-8">
+          <div className="mt-3 flex flex-wrap justify-center gap-2 sm:mt-4">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
-                className={`rounded-full px-3 py-2 text-xs font-semibold transition-all sm:px-5 sm:text-sm ${
+                className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-all sm:px-5 sm:text-sm ${
                   activeTab === tab.id
                     ? "bg-white text-tnf-green shadow-md"
                     : "border border-white/40 bg-white/10 text-white hover:bg-white/20"
