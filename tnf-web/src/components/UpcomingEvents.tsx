@@ -6,7 +6,7 @@ export async function UpcomingEvents() {
   const events = await getUpcomingEventCards(3);
 
   return (
-    <section className="bg-slate-50 py-8 sm:py-10">
+    <section className="bg-slate-50 py-6 sm:py-8">
       <div className="page-shell-inner">
         <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:items-center sm:text-left">
           <div className="sm:flex-1">
@@ -26,12 +26,12 @@ export async function UpcomingEvents() {
         </div>
 
         {events.length === 0 ? (
-          <p className="mt-6 text-center text-sm text-slate-600">
+          <p className="mt-4 text-center text-sm text-slate-600">
             No published events yet. Add events in Admin → Events and set status to Published.
           </p>
         ) : (
           <div
-            className={`mt-6 grid gap-4 ${
+            className={`mt-4 grid gap-4 ${
               events.length === 1
                 ? "max-w-xl sm:grid-cols-1"
                 : events.length === 2

@@ -5,27 +5,27 @@ export async function LatestNews() {
   const items = await getLatestNewsCards(3);
 
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section className="bg-white py-6 sm:py-8">
       <div className="page-shell-inner">
-        <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:items-center sm:text-left">
+        <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:items-center sm:text-left">
           <div className="sm:flex-1">
-            <h2 className="text-3xl font-bold tracking-tight text-tnf-navy sm:text-4xl">Latest News</h2>
-            <p className="mt-4 text-lg text-slate-600">Insights and updates from the TNF.</p>
+            <h2 className="text-2xl font-bold tracking-tight text-tnf-navy sm:text-3xl">Latest News</h2>
+            <p className="mt-2 text-base text-slate-600 sm:text-lg">Insights and updates from the TNF.</p>
           </div>
           <Link
             href="/news-events#news"
-            className="shrink-0 rounded-full border-2 border-tnf-navy px-6 py-3 text-sm font-semibold text-tnf-navy transition-colors hover:bg-tnf-navy hover:text-white"
+            className="shrink-0 rounded-full border-2 border-tnf-navy px-5 py-2.5 text-sm font-semibold text-tnf-navy transition-colors hover:bg-tnf-navy hover:text-white"
           >
             View All
           </Link>
         </div>
 
         {items.length === 0 ? (
-          <p className="mt-12 text-center text-sm text-slate-600">
+          <p className="mt-4 text-center text-sm text-slate-600">
             No published news yet. Add posts in Admin → Posts and set status to Published.
           </p>
         ) : (
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((item) => (
               <article key={item.slug}>
                 <Link href={`/news-events#${item.slug}`} className="group block">
