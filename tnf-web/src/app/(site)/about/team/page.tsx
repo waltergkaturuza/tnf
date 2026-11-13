@@ -15,7 +15,7 @@ type TeamMember = {
 
 const teamMembers: TeamMember[] = [
   { name: "Honourable Edgar Moyo", role: "Minister of Public Service, Labour and Social Welfare, TNF Chairman", image: "/team/2026/edgar-moyo.jpg" },
-  { name: "Mr Albert Nyakadzumbu", role: "TNF Executive Director", image: "/team/2026/albert-nyakadzumbu.jpg" },
+  { name: "Mr Albert Nyakadzumbu", role: "TNF Executive Director", image: "/team/2026/albert-nyakadzumbu-2.jpg" },
   { name: "Mr Emmanuel Mazhawidza", role: "Economic and Labour Cluster Coordinator", image: "/team/2026/emmanuel-mazhawidza.jpg" },
   { name: "Mr Jimmy Dzinavatonga", role: "Economic Cluster Officer", image: "/team/2026/jimmy-dzinavatonga.jpg" },
   { name: "Mr Lloyd Rwodzi", role: "Audit and Compliance Officer", image: "/team/2026/lloyd-rwodzi.jpg" },
