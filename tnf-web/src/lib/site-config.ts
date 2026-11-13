@@ -133,7 +133,7 @@ export const siteConfig = {
       caption: "Social dialogue in action",
     },
     {
-      src: "/TNF in Action/Tripartite consultation.jpg",
+      src: "/TNF in Action/Tripartite consultation 2026.jpg",
       alt: "Tripartite consultation",
       caption: "Tripartite consultation",
     },
